@@ -1,0 +1,83 @@
+# Newsletter plugin sender email configuration
+Lelesys:
+  Plugin:
+    Newsletter:
+      email:
+        subject: 'Confirm Subscription'
+        replyTo: 'gauri.shirodkar@lelesys.com'
+        senderEmail: 'info@lelesys.com'
+        senderName: 'Lelesys'
+      flashMessage:
+        packageKey: 'Lelesys.Plugin.Newsletter'
+
+# Backend modules configuration
+TYPO3:
+  Neos:
+    modules:
+      newslettermanagement:
+        label: 'Newsletter Management'
+        controller: '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagementController'
+        description: 'You can configure newsletter here'
+        icon: 'icon-briefcase'
+        resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement'
+        submodules:
+          newsletter:
+            label: Newsletter
+            controller: 'Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Newsletter\NewsletterController'
+            description: 'You can configure newsletter here.'
+            icon: 'icon-archive'
+            resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Newsletter'
+            actions:
+              index:
+                label: 'Newsletter list'
+                title: 'Newsletter list'
+          category:
+            label: Newsletter Category
+            controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Category\CategoryController'
+            description: 'You can configure newsletter categories here.'
+            icon: 'icon-archive'
+            resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Category'
+            actions:
+              index:
+                label: 'Newsletter category list'
+                title: 'See of category newsletter categories'
+          person:
+            label: recipients
+            controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Person\PersonController'
+            description: 'You can configure recipients here.'
+            icon: 'icon-archive'
+            resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Person'
+            actions:
+              index:
+                label: 'Recipient List'
+                title: 'See list of recipients'
+          party:
+            label: group
+            controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Party\PartyController'
+            description: 'Group Party'
+            icon: 'icon-archive'
+            resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Party'
+            actions:
+              index:
+                label: 'Group List'
+                title: 'See list of group'
+          email:
+            label: Queue
+            controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\EmailLog\EmailLogController'
+            description: 'Email Queue'
+            icon: 'icon-archive'
+            resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Email'
+            actions:
+              new:
+                label: 'Email Queue'
+                title: 'Email Queue'
+          staticlist:
+            label: Static
+            controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\StaticList\StaticListController'
+            description: 'Create recipients statically'
+            icon: 'icon-archive'
+            resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_StaticList'
+            actions:
+              index:
+                label: 'Static List'
+                title: 'Static List'

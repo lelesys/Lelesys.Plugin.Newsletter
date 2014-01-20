@@ -1,0 +1,5 @@
+<f:for each="{contentNode}" as="node">
+	<f:for each="{node.properties}" as="property">
+		<f:format.stripTags>{property}</f:format.stripTags>
+	</f:for>
+</f:for>

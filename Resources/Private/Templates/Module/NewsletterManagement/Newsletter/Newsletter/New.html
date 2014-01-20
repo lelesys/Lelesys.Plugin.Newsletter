@@ -1,0 +1,126 @@
+<f:layout name="DefaultBackend" />
+
+<f:section name="Content">
+	<f:form action="create" objectName="newNewsletter" object="{newNewsletter}" id="newNewsletter" enctype="multipart/form-data">
+		<div class="row neos-module-container indented">
+			<legend><f:translate id="lelesys.plugin.newsletter.newsletterMgmt"></f:translate></legend>
+			<br />
+			<fieldset class="span6">
+				<div class="control-group">
+					<label class="control-label" for="fromName"><f:translate id="lelesys.plugin.newsletter.senderName"></f:translate></label>
+					<div class="controls">
+						<f:form.textfield property="fromName" id="fromName" class="required" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="fromEmail"><f:translate id="lelesys.plugin.newsletter.senderEmail"></f:translate></label>
+					<div class="controls">
+						<f:form.textfield property="fromEmail" id="fromEmail" class="required" />
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="replyToName"><f:translate id="lelesys.plugin.newsletter.replyName"></f:translate></label>
+					<div class="controls">
+						<f:form.textfield property="replyToName" id="replyToName" class="required"/>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="replyToEmail"><f:translate id="lelesys.plugin.newsletter.replyEmail"></f:translate></label>
+					<div class="controls">
+						<f:form.textfield property="replyToEmail" id="replyToEmail" class="required"/>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="organisation"><f:translate id="lelesys.plugin.newsletter.organisationName"></f:translate></label>
+					<div class="controls">
+						<f:form.textfield property="organisation" id="organisation"/>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="subject"><f:translate id="lelesys.plugin.newsletter.subject"></f:translate></label>
+					<div class="controls">
+						<f:form.textfield property="subject" id="subject" class="required"/>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="priority"><f:translate id="lelesys.plugin.newsletter.priority"></f:translate></label>
+					<div class="controls">
+						<f:form.select options="{4:'low', 3:'normal', 2:'high'}" property="priority"></f:form.select>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="encoding"><f:translate id="lelesys.plugin.newsletter.encode"></f:translate></label>
+					<div class="controls">
+						<f:form.select options="{utf8: 'utf8'}" property="encoding"></f:form.select>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="characterSet"><f:translate id="lelesys.plugin.newsletter.characterSet"></f:translate></label>
+					<div class="controls">
+						<f:form.select options="{utf8: 'utf8'}" property="characterSet"></f:form.select>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="attachments"><f:translate id="lelesys.plugin.newsletter.attachment"></f:translate></label>
+					<div class="controls">
+						<f:form.upload property="attachments" id="attachments" />
+					</div>
+				</div>
+				<f:if condition="{categories}">
+					<div class="control-group">
+						<label class="control-label" for="categories"><f:translate id="lelesys.plugin.newsletter.category"></f:translate></label>
+						<div class="controls">
+							<f:form.select options="{categories}" optionLabelField="title" property="categories" id="categories" multiple="true"></f:form.select>
+						</div>
+					</div>
+				</f:if>
+				<f:if condition="{recipientGroups}">
+					<div class="control-group">
+						<label class="control-label" for="recipientGroups"><f:translate id="lelesys.plugin.newsletter.recipientGroup"></f:translate></label>
+						<div class="controls">
+							<f:form.select options="{recipientGroups}" optionLabelField="title" property="recipientGroups" id="recipientGroups" class="required" multiple="true"></f:form.select>
+						</div>
+					</div>
+				</f:if>
+				<f:if condition="{recipients}">
+					<div class="control-group">
+						<label class="control-label" for="recipients"><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></label>
+						<div class="controls">
+							<f:form.select options="{recipients}" optionLabelField="name" property="recipients" id="recipients" multiple="true"></f:form.select>
+						</div>
+					</div>
+				</f:if>
+				<f:if condition="{contentNode}">
+					<f:then>
+						<div class="control-group">
+							<label class="control-label" for="contentNode"><f:translate id="lelesys.plugin.newsletter.newsletterPage"></f:translate></label>
+							<div class="controls">
+								<f:form.select property="contentNode" options="{contentNode}" optionLabelField="name" prependOptionLabel="Select page"/>
+							</div>
+						</div>
+					</f:then>
+				</f:if>
+			</fieldset>
+		</div>
+		<div class="neos-form-actions neos-form-footer">
+			<div class="control-group">
+				<div class="controls">
+					<f:form.submit class="pull-right btn-small neos-btn neos-btn-primary neos-button" value="<f:translate id='lelesys.plugin.newsletter.newsletterPage'></f:translate>" />
+					<f:link.action action="index" class="neos-btn neos-button" title="Back">
+						<f:translate id="lelesys.plugin.newsletter.back"></f:translate>
+					</f:link.action>
+				</div>
+			</div>
+		</div>
+	</f:form>
+	<f:render partial="Module/JavaScripts"/>
+	<f:render partial="Module/StyleSheets"/>
+</f:section>

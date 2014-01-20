@@ -1,0 +1,22 @@
+<f:layout name="Default" />
+<f:render partial="FlashMessage" arguments="{severityName: flashmessage}" />
+<f:section name="Content">
+	<div class="neos-module-container indented">
+		<f:form action="unSubscribe" package="Lelesys.Plugin.Newsletter" controller="Person" class="form-horizontal">
+			<div class="control-group">
+				<div class="controls">
+					<f:if condition="{recipient}">
+						<f:then>
+							<label>Hello {recipient.primaryElectronicAddress.identifier},<br />
+								<f:translate id="lelesys.plugin.newsletter.unSubscribe"></f:translate></label><br />
+							<f:form.hidden name="recipient" value="{recipient.uuid}" />
+							<f:form.hidden name="code" value="{code}" />
+							<f:form.submit class="btn btn-primary neos-button" value="Unsubscribe" />
+						</f:then>
+						<f:else><f:translate id="lelesys.plugin.newsletter.unSubscribedUser"></f:translate></f:else>
+					</f:if>
+				</div>
+			</div>
+		</f:form>
+	</div>
+</f:section>

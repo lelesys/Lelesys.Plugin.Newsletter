@@ -1,0 +1,24 @@
+<f:layout name="DefaultBackend" />
+
+<f:section name="Content">
+	<div class="row neos-module-container indented">
+		<legend>{staticList.title}</legend>
+		<table class="neos-table neos-table-bordered neos-table-condensed">
+			<tbody>
+				<tr>
+					<th><f:translate id="lelesys.plugin.newsletter.title"></f:translate></th>
+			<th><f:translate id="lelesys.plugin.newsletter.recipientList"></f:translate></th>
+			</tr>
+			<tr>
+				<td>{staticList.title}</td>
+				<td>{staticList.recipientList}</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="neos-form-actions neos-form-footer">
+		<f:link.action action="index" class="neos-btn neos-button" title="Back">
+			<f:translate id="lelesys.plugin.newsletter.back"></f:translate>
+		</f:link.action>
+	</div>
+</f:section>

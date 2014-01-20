@@ -1,0 +1,20 @@
+<f:layout name="Default" />
+
+<f:section name="Title">New abstract group</f:section>
+
+<f:section name="Content">
+	<p>Just fill out the following form to create a new abstract group:</p>
+
+	<f:form action="create" objectName="newAbstractGroup">
+		<ol>
+			<li>
+				<label for="title">Abstract group</label>
+			<f:form.textfield property="title" id="title" />
+			</li>
+
+			<li>
+			<f:form.submit value="Create" />
+			</li>
+		</ol>
+	</f:form>
+</f:section>

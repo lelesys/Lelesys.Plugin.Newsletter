@@ -1,0 +1,33 @@
+'Lelesys.Plugin.Newsletter:Subscribtion':
+  superTypes:
+    - 'TYPO3.Neos:Plugin'
+  ui:
+    label: 'Newsletter Subscription Form'
+    group: 'plugins'
+
+'Lelesys.Plugin.Newsletter:Newsletter':
+  superTypes:
+    - 'TYPO3.Neos:Document'
+  ui:
+    label: 'Lelesys Newsletter Node'
+    group: 'plugins'
+    icon:
+      light: Images/Icons/White/doc_empty_icon-16.png
+      dark: Images/Icons/Black/doc_empty_icon-16.png
+  childNodes:
+    main:
+      type: 'TYPO3.Neos:ContentCollection'
+
+'Lelesys.Plugin.Newsletter:NewsletterPlugin':
+  superTypes:
+    - 'TYPO3.Neos:Plugin'
+  ui:
+    label: 'Newsletter Container'
+    group: 'plugins'
+
+'Lelesys.Plugin.Newsletter:SubscribtionConfirmation':
+  superTypes:
+    - 'TYPO3.Neos:Plugin'
+  ui:
+    label: 'Newsletter Subscribtion Confirmation'
+    group: 'plugins'

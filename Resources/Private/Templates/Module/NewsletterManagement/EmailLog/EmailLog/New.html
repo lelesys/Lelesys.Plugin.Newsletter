@@ -1,0 +1,50 @@
+<f:layout name="Default" />
+
+<f:section name="Title">New email log</f:section>
+
+<f:section name="Content">
+	<p>Just fill out the following form to create a new email log:</p>
+
+	<f:form action="create" objectName="newEmailLog">
+		<ol>
+			<li>
+				<label for="timeCreated">Email log</label>
+			<f:form.textfield type="datetime" value="{f:format.date(date: 'now', format: 'Y-m-d\TH:i:sP')}" property="timeCreated" id="timeCreated" />
+			</li>
+
+			<li>
+				<label for="timeSent">Email log</label>
+			<f:form.textfield type="datetime" value="{f:format.date(date: 'now', format: 'Y-m-d\TH:i:sP')}" property="timeSent" id="timeSent" />
+			</li>
+
+			<li>
+				<label for="newsletter">Email log</label>
+			<f:form.textfield property="newsletter" id="newsletter" />
+			</li>
+
+			<li>
+				<label for="recipientType">Email log</label>
+			<f:form.textfield property="recipientType" id="recipientType" />
+			</li>
+
+			<li>
+				<label for="recipient">Email log</label>
+			<f:form.textfield property="recipient" id="recipient" />
+			</li>
+
+			<li>
+				<label for="isSent">Email log</label>
+			<f:form.textfield property="isSent" id="isSent" />
+			</li>
+
+			<li>
+				<label for="isFailed">Email log</label>
+			<f:form.textfield property="isFailed" id="isFailed" />
+			</li>
+
+			<li>
+			<f:form.submit value="Create" />
+			</li>
+		</ol>
+	</f:form>
+</f:section>

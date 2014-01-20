@@ -1,0 +1,33 @@
+roles:
+  'NewsletterAdmin': []
+resources:
+  methods:
+    'Lelesys.Plugin.Newsletter:NewsletterController': 'method(Lelesys\Plugin\Newsletter\Controller\NewsletterController->createNewsletterAction())'
+    'Lelesys_Plugin_Newsletter_Module_NewsletterManagement': 'method(Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagementController->.*Action())'
+    'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Newsletter': 'method(Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Newsletter\NewsletterController->.*Action())'
+    'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Category': 'method(Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Category\CategoryController->.*Action())'
+    'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Person': 'method(Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Person\PersonController->.*Action())'
+    'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Party': 'method(Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Party\PartyController->.*Action())'
+    'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Email': 'method(Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\EmailLog\EmailLogController->.*Action())'
+    'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_StaticList': 'method(Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\StaticList\StaticListController->.*Action())'
+    'Lelesys_Plugin_Newsletter_Frontend': 'method(Lelesys\Plugin\Newsletter\Controller\NewsletterController->.*Action())'
+    'Lelesys_Plugin_Newsletter_Person_Frontend': 'method(Lelesys\Plugin\Newsletter\Controller\PersonController->.*Action())'
+    'Lelesys_Plugin_Newsletter_AbstractGroup_Frontend': 'method(Lelesys\Plugin\Newsletter\Controller\AbstractGroupController->.*Action())'
+
+acls:
+  'NewsletterAdmin':
+    methods:
+      'Lelesys.Plugin.Newsletter:NewsletterController': GRANT
+      'Lelesys_Plugin_Newsletter_Module_NewsletterManagement': GRANT
+      'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Newsletter': GRANT
+      'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Category': GRANT
+      'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Person': GRANT
+      'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Party': GRANT
+      'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Email': GRANT
+      'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_StaticList': GRANT
+      'Lelesys_Plugin_Newsletter_Frontend' : GRANT
+      'Lelesys_Plugin_Newsletter_Person_Frontend' : GRANT
+      'Lelesys_Plugin_Newsletter_AbstractGroup_Frontend' : GRANT
+  'Everybody':
+    methods:
+      'Lelesys_Plugin_Newsletter_Person_Frontend': GRANT

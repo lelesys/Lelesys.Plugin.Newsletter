@@ -1,0 +1,7 @@
+<f:layout name="Default" />
+<f:section name="Title"></f:section>
+<f:section name="Content">
+	<f:security.ifAuthenticated>
+		<f:form controller="Newsletter" action="createNewsletter" style="float:right"><f:form.submit class="button" value="+"/></f:form>
+	</f:security.ifAuthenticated>
+</f:section>

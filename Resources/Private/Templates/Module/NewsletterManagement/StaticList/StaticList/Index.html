@@ -1,0 +1,44 @@
+<f:layout name="DefaultBackend" />
+
+<f:section name="Content">
+	<div class="neos-module-container indented">
+		<f:render partial="Module\FlashMessage" arguments="{severityName: flashmessage}" />
+		<legend><f:translate id="lelesys.plugin.newsletter.groupList"></f:translate></legend>
+		<br />
+		<f:if condition="{staticLists}">
+			<f:then>
+				<table class="neos-table">
+					<thead>
+						<tr>
+							<th><f:translate id="lelesys.plugin.newsletter.title"></f:translate></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+					<f:for each="{staticLists}" as="staticList">
+						<tr><td><f:link.action action="show" arguments="{staticList: staticList}">{staticList.title}</f:link.action></td>
+						<td>
+						<f:link.action action="edit" class="neos-btn neos-button pull-right" arguments="{staticList: staticList}"><f:translate id="lelesys.plugin.newsletter.edit"></f:translate></f:link.action>
+						<f:form action="delete"  class="pull-right" arguments="{staticList: staticList}">
+							<f:form.submit class="neos-btn neos-btn-danger neos-button" value="Delete" />
+						</f:form>
+						</td>
+						</tr>
+					</f:for>
+					</tbody>
+				</table>
+			</f:then>
+			<f:else>
+				<p><f:translate id="lelesys.plugin.newsletter.noGroup"></f:translate></p>
+			</f:else>
+		</f:if>
+	</div>
+	<div class="neos-form-actions neos-form-footer">
+		<div class="pull-right">
+			<f:link.action action="new" class="neos-btn neos-button neos-btn-primary" title="Create static list">
+				<i class="icon-user icon-white"></i>
+				<f:translate id="lelesys.plugin.newsletter.createGroup"></f:translate>
+			</f:link.action>
+		</div>
+	</div>
+</f:section>

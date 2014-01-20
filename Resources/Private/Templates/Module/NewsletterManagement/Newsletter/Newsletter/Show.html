@@ -1,0 +1,129 @@
+<f:layout name="DefaultBackend" />
+
+<f:section name="Content">
+	<div class="row neos-module-container indented">
+		<legend>{newsletter.subject}</legend>
+		<table class="neos-table neos-table-bordered neos-table-condensed">
+			<tbody>
+				<tr>
+					<th><f:translate id="lelesys.plugin.newsletter.senderName"></f:translate></th>
+					<td>{newsletter.fromName}</td>
+				</tr>
+
+				<tr>
+					<th><f:translate id="lelesys.plugin.newsletter.senderEmail"></f:translate></th>
+					<td>{newsletter.fromEmail}</td>
+				</tr>
+
+				<tr>
+					<th><f:translate id="lelesys.plugin.newsletter.replyName"></f:translate></th>
+					<td>{newsletter.replyToName}</td>
+				</tr>
+
+				<tr>
+					<th><f:translate id="lelesys.plugin.newsletter.replyEmail"></f:translate></th>
+					<td>{newsletter.replyToEmail}</td>
+				</tr>
+
+				<tr>
+					<th><f:translate id="lelesys.plugin.newsletter.organisationName"></f:translate></th>
+					<td>{newsletter.organisation}</td>
+				</tr>
+
+				<tr>
+					<th><f:translate id="lelesys.plugin.newsletter.subject"></f:translate></th>
+					<td>{newsletter.subject}</td>
+				</tr>
+
+				<tr>
+					<th><f:translate id="lelesys.plugin.newsletter.encode"></f:translate></th>
+					<td>{newsletter.encoding}</td>
+				</tr>
+
+				<tr>
+					<th><f:translate id="lelesys.plugin.newsletter.characterSet"></f:translate></th>
+					<td>{newsletter.characterSet}</td>
+				</tr>
+
+				<tr>
+					<th><f:translate id="lelesys.plugin.newsletter.priority"></f:translate></th>
+					<td>{newsletter.priority}</td>
+				</tr>
+
+				<tr>
+					<th><f:translate id="lelesys.plugin.newsletter.attachment"></f:translate></th>
+					<td>{newsletter.attachments.fileName}</td>
+				</tr>
+
+				<tr>
+					<th><f:translate id="lelesys.plugin.newsletter.newsletterPage"></f:translate></th>
+					<td>{contentNode.name}</td>
+				</tr>
+			<f:if condition="{newsletter.categories}">
+				<tr>
+					<th><f:translate id="lelesys.plugin.newsletter.category"></f:translate></th>
+				<f:for each="{newsletter.categories}" as="category">
+					<td>{category.title}</td>
+				</f:for>
+				</tr>
+			</f:if>
+			</tbody>
+		</table>
+		<f:if condition="{recipientsByGroups}">
+			<legend><f:translate id="lelesys.plugin.newsletter.newsletterGroups"></f:translate></legend>
+			<table class="neos-table neos-table-bordered neos-table-condensed">
+				<tbody>
+					<tr>
+						<th><f:translate id="lelesys.plugin.newsletter.groupTitle"></f:translate></th>
+						<th><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></th>
+					</tr>
+				<f:for each="{GroupParty}" as="group">
+					<tr>
+						<td>{group.0}</td>
+						<td>
+							<ul>
+								<f:for each="{group.1}" as="recipient">
+									<li>{recipient.primaryElectronicAddress.identifier}</li>
+								</f:for>
+							</ul>
+						</td>
+					</tr>
+
+				</f:for>
+				<f:for each="{GroupStatic}" as="group">
+					<tr>
+						<td>{group.0}</td>
+						<td>
+							<ul>
+								<f:for each="{group.1}" as="recipient">
+									<li>{recipient}</li>
+								</f:for>
+							</ul>
+						</td>
+					</tr>
+				</f:for>
+				</tbody>
+			</table>
+		</f:if>
+		<f:if condition="{newsletter.recipients}">
+			<legend><f:translate id="lelesys.plugin.newsletter.newsletterRecipients"></f:translate></legend>
+			<table class="neos-table neos-table-bordered neos-table-condensed">
+				<tbody>
+					<tr>
+						<th><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></th>
+					</tr>
+				<f:for each="{newsletter.recipients}" as="recipient">
+					<tr><td>{recipient.primaryElectronicAddress.identifier}</td></tr>
+				</f:for>
+				</tbody>
+			</table>
+		</f:if>
+	</div>
+	<div class="neos-form-actions neos-form-footer">
+		<f:link.action action="index" class="neos-btn neos-button" title="Back">
+			<f:translate id="lelesys.plugin.newsletter.back"></f:translate>
+		</f:link.action>
+	</div>
+	<f:render partial="Module/JavaScripts"/>
+	<f:render partial="Module/StyleSheets"/>
+</f:section>

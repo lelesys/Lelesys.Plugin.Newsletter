@@ -1,0 +1,74 @@
+<f:layout name="DefaultBackend" />
+
+<f:section name="Content">
+	<div class="row neos-module-container indented">
+		<f:render partial="Module\FlashMessage" arguments="{severityName: flashmessage}" />
+		<legend>Newsletter</legend>
+		<br />
+		<div class="tabbable tab tab-size">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#tab1" data-toggle="tab"><f:translate id="lelesys.plugin.newsletter.newsletterList" package="Lelesys.Plugin.Newsletter"></f:translate></a></li>
+				<li><a href="#tab2" data-toggle="tab"><f:translate id="lelesys.plugin.newsletter.sendEmail"></f:translate></a></li>
+			</ul>
+			<div class="tab-content">
+				<br />
+				<div class="tab-pane active" id="tab1">
+					<f:if condition="{newsletters}">
+						<f:then>
+							<table class="neos-table">
+								<thead>
+									<tr>
+										<th><f:translate id="lelesys.plugin.newsletter.name"></f:translate></th>
+								<th></th>
+								</tr>
+								</thead>
+								<tbody>
+								<f:for each="{newsletters}" as="newsletter">
+									<tr><td><f:link.action action="show" arguments="{newsletter: newsletter}">{newsletter.subject}</f:link.action></td>
+									<td>
+									<f:link.action action="edit" class="neos-btn neos-button pull-right" arguments="{newsletter: newsletter}"><f:translate id="lelesys.plugin.newsletter.edit"></f:translate></f:link.action>
+									<f:form action="delete" arguments="{newsletter: newsletter}">
+										<f:form.submit class="neos-btn neos-btn-danger neos-button pull-right" value="Delete" />
+									</f:form>
+									</td>
+									</tr>
+								</f:for>
+								</tbody>
+							</table>
+						</f:then>
+						<f:else>
+							<p><f:translate id="lelesys.plugin.newsletter.noNewsletter"></f:translate></p>
+						</f:else>
+					</f:if>
+					<div class="control-group">
+						<div class="controls">
+							<f:link.action action="new" class="neos-btn neos-button neos-btn-primary" title="Create Newsletter">
+								<i class="icon-user icon-white"></i>
+								<f:translate id="lelesys.plugin.newsletter.createNewsletter"></f:translate>
+							</f:link.action>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="tab2">
+					<f:form action="sendEmail" enctype="multipart/form-data">
+						<div class="control-group">
+							<label class="control-label" for="newsletter"><f:translate id="lelesys.plugin.newsletter.selectNewsletter"></f:translate></label>
+							<div class="controls">
+								<f:form.select options="{newsletters}" optionLabelField="subject" name="newsletter" id="newsletter" prependOptionLabel="Select Newsletter"></f:form.select>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<f:form.submit class="btn-small neos-btn neos-btn-primary neos-button" value="Send" />
+							</div>
+						</div>
+					</f:form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="neos-form-actions neos-form-footer">
+	</div>
+	<f:render partial="Module/JavaScripts"/>
+	<f:render partial="Module/StyleSheets"/>
+</f:section>

@@ -1,0 +1,27 @@
+<f:layout name="DefaultBackend" />
+
+<f:section name="Content">
+	<f:render partial="Module\FlashMessage" arguments="{severityName: flashmessage}"/>
+	<f:form action="update" object="{staticList}" objectName="staticList" id="staticList">
+		<div class="row neos-module-container indented">
+			<legend>{staticList.title}</legend>
+			<br />
+			<div class="control-group">
+				<label for="title"><f:translate id="lelesys.plugin.newsletter.title"></f:translate></label>
+				<f:form.textfield property="title" id="title" class="required"/>
+			</div>
+			<div class="control-group">
+				<label for="recipientList"><f:translate id="lelesys.plugin.newsletter.recipientList"></f:translate></label>
+				<f:form.textarea property="recipientList" id="recipientList" class="required" rows="5" cols="50"/>
+			</div>
+		</div>
+		<div class="neos-form-actions neos-form-footer">
+			<f:link.action action="index" class="neos-btn neos-button"><f:translate id="lelesys.plugin.newsletter.cancel"></f:translate></f:link.action>
+			<div class="pull-right">
+				<f:form.submit class="neos-btn neos-btn-primary neos-button" value="Update" />
+			</div>
+		</div>
+	</f:form>
+	<f:render partial="Module/JavaScripts"/>
+	<f:render partial="Module/StyleSheets"/>
+</f:section>
