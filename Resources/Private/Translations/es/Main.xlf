@@ -359,6 +359,14 @@
 				<source>Newsletter Category</source>
 				<target>Newsletter Category</target>
 			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.validEmail" approved="no">
+				<source>Please specify a valid email address</source>
+				<target>Please specify a valid email address.</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.whitespaceCheck" approved="no">
+				<source>Please check for space only comma(,) seperator for email addresses</source>
+				<target>Please check for space only comma(,) seperator for email addresses</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

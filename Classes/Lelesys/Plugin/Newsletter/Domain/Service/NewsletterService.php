@@ -161,6 +161,7 @@ class NewsletterService {
 							$message = $this->emailNotificationService->buildEmailMessage('Newsletter.html', array('contentNode' => $childNodes, 'recipientId' => $recipient->getUuid(), 'code' => $code));
 							$recipientAddress['html'][] = array($recipient->getPrimaryElectronicAddress()->getIdentifier(), $message, $recipient->getName()->getFirstName(),);
 						} else {
+							$code = sha1($recipient->getPrimaryElectronicAddress()->getIdentifier() . $recipient->getUuid());
 							$contentType['text'] = 'text/plain';
 							$message = $this->emailNotificationService->buildEmailMessage('Newsletter.txt', array('contentNode' => $childNodes, 'recipientId' => $recipient->getUuid(), 'code' => $code));
 							$recipientAddress['text'][] = array($recipient->getPrimaryElectronicAddress()->getIdentifier(), $message, $recipient->getName()->getFirstName());

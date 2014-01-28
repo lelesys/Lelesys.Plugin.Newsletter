@@ -9,8 +9,11 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<f:for each="{contentNode}" as="node">
-				<f:for each="{node.properties}" as="property">
-					<p>{property  -> f:format.raw()}</p>
+				<f:for each="{node.properties}" key="nodeType" as="property">
+					<f:switch expression="{nodeType}">
+						<f:case value="text"><p>{property-> f:format.raw()}</p></f:case>
+						<f:case value="image"><p><img src="{f:uri.resource(resource: property.resource)}" caption="" width="110" /></p></f:case>
+					</f:switch>
 				</f:for>
 			</f:for>
 			<f:link.action action="unSubscribeConfirmation" controller="Person" package="Lelesys.Plugin.Newsletter" arguments="{recipientId: recipientId,code: code}">UnSubcribe</f:link.action>

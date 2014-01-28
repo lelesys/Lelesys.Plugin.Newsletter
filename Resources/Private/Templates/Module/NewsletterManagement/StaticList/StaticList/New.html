@@ -10,16 +10,21 @@
 			<div class="control-group">
 				<p><f:translate id="lelesys.plugin.newsletter.commaSeperated"></f:translate></p>
 				<label for="recipientList"><f:translate id="lelesys.plugin.newsletter.email"></f:translate></label>
-				<f:form.textarea property="recipientList" id="recipientList" class="required" rows="5" cols="40"/>
+				<f:form.textarea property="recipientList" id="recipientList" class="required" rows="10"/>
 			</div>
+			<div class="neos-alert neos-alert-error form-error error checkvalid" style="display: none;"></div>
 		</div>
 		<div class="neos-form-actions neos-form-footer">
 			<f:link.action action="index" class="neos-btn neos-button"><f:translate id="lelesys.plugin.newsletter.cancel"></f:translate></f:link.action>
 			<div class="pull-right">
-				<f:form.submit class="neos-btn neos-btn-primary neos-button" value="Create" />
+				<f:form.submit class="neos-btn neos-btn-primary neos-button createGroupStatic" value="Create" />
 			</div>
 		</div>
 	</f:form>
 	<f:render partial="Module/JavaScripts"/>
 	<f:render partial="Module/StyleSheets"/>
+	<script>
+		var validEmail = '<f:translate id="lelesys.plugin.newsletter.validEmail"></f:translate>'
+		var whitespaceCheck = '<f:translate id="lelesys.plugin.newsletter.whitespaceCheck"></f:translate>';
+	</script>
 </f:section>

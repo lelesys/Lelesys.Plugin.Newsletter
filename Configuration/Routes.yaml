@@ -1,7 +1,7 @@
 # Subscribe Newsletter
 -
   name: 'Subscribe Newsletter'
-  uriPattern: '{node}/subscribe/{--lelesys_plugin_newsletter-subscribtion.newPerson}.{@format}'
+  uriPattern: '{node}/subscribe/{--lelesys_plugin_newsletter-subscribtion.person}'
   defaults:
     '@package': 'TYPO3.Neos'
     '@controller': 'Frontend\Node'
@@ -15,7 +15,7 @@
   routeParts:
     node:
       handler: TYPO3\Neos\Routing\FrontendNodeRoutePartHandler
-    '--lelesys_plugin_newsletter-subscribtion.newPerson':
-      objectType: '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person'
+    '--lelesys_plugin_newsletter-subscribtion.person':
+      objectType: 'Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person'
       uriPattern: '{uuid}'
   appendExceedingArguments: TRUE
