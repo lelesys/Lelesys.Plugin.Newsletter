@@ -1,18 +1,25 @@
 <f:layout name="DefaultBackend" />
 
 <f:section name="Content">
-	<div class="row neos-module-container indented">
+	<div class="row neos-content neos-container-fluid">
 		<legend>{party.title}</legend>
 		<table class="neos-table neos-table-bordered neos-table-condensed">
-			<tr>
-				<th><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></th>
-			<f:for each="{party.recipients}" as="recipient">
-				<tr><td>{recipient.primaryElectronicAddress.identifier}</td></tr>
-			</f:for>
-			</tr>
+			<tbody>
+				<tr><td><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate>:</td></tr>
+			<f:if condition="{party.recipients}">
+				<f:then>
+					<f:for each="{party.recipients}" as="recipient">
+						<tr><td>{recipient.primaryElectronicAddress.identifier}</td></tr>
+					</f:for>
+				</f:then>
+				<f:else>
+					<tr><td><f:translate id="lelesys.plugin.newsletter.noRecipientForGroup"></f:translate></td></tr>
+				</f:else>
+			</f:if>
+			</tbody>
 		</table>
 	</div>
-	<div class="neos-form-actions neos-form-footer">
+	<div class="neos-form-actions neos-footer">
 		<f:link.action action="index" class="neos-btn neos-button" title="Back">
 			<f:translate id="lelesys.plugin.newsletter.back"></f:translate>
 		</f:link.action>

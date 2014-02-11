@@ -18,13 +18,6 @@
     main:
       type: 'TYPO3.Neos:ContentCollection'
 
-'Lelesys.Plugin.Newsletter:NewsletterPlugin':
-  superTypes:
-    - 'TYPO3.Neos:Plugin'
-  ui:
-    label: 'Newsletter Container'
-    group: 'plugins'
-
 'Lelesys.Plugin.Newsletter:SubscribtionConfirmation':
   superTypes:
     - 'TYPO3.Neos:Plugin'

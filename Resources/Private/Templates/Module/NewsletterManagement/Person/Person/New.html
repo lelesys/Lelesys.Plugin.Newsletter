@@ -2,50 +2,50 @@
 
 <f:section name="Content">
 	<f:form action="create" objectName="newPerson" object="{newPerson}" id="newRecipient">
-		<div class="row neos-module-container indented">
+		<div class="row neos-content neos-container-fluid">
 			<f:render partial="Module\FlashMessage" arguments="{severityName: flashmessage}" />
 			<legend><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></legend>
 			<br />
-			<div class="control-group">
+			<div class="neos-control-group">
 				<label for="name"><f:translate id="lelesys.plugin.newsletter.name"></f:translate></label>
 				<f:form.textfield property="name.firstName" class="firstName required"/>
 			</div>
-			<div class="control-group">
+			<div class="neos-control-group">
 				<label for="name"><f:translate id="lelesys.plugin.newsletter.lastName"></f:translate></label>
 				<f:form.textfield property="name.lastName" class="lastName required"/>
 			</div>
-			<div class="control-group">
+			<div class="neos-control-group">
 				<label for="primaryElectronicAddress.identifier"><f:translate id="lelesys.plugin.newsletter.email"></f:translate></label>
 				<f:form.textfield property="primaryElectronicAddress.identifier" id="email" class="email required"/>
 				<f:form.hidden property="primaryElectronicAddress.type" value="Email" />
 				<f:form.hidden property="primaryElectronicAddress.usage" value="Home" />
 			</div>
-			<div class="control-group">
+			<div class="neos-control-group">
 				<label for="gender"><f:translate id="lelesys.plugin.newsletter.gender"></f:translate></label>
 				<f:form.radio property="gender" value="0" /><f:translate id="lelesys.plugin.newsletter.male"></f:translate>
 				<f:form.radio property="gender" value="1" checked="checked"/> <f:translate id="lelesys.plugin.newsletter.female"></f:translate>
 			</div>
-			<div class="control-group">
+			<div class="neos-control-group">
 				<label for="acceptsHtml"><f:translate id="lelesys.plugin.newsletter.htmlEmail"></f:translate></label>
 				<f:form.checkbox property="acceptsHtml" value="1" id="acceptsHtml" />
 			</div>
 			<f:if condition="{groups}">
-				<div class="control-group">
+				<div class="neos-control-group">
 					<label for="groups"><f:translate id="lelesys.plugin.newsletter.groups"></f:translate></label>
 					<f:form.select options="{groups}" optionLabelField="title" property="groups" class="required" id="groups" multiple="TRUE"></f:form.select>
 				</div>
 			</f:if>
 			<f:if condition="{categories}">
-				<div class="control-group">
+				<div class="neos-control-group">
 					<label for="categories"><f:translate id="lelesys.plugin.newsletter.categories"></f:translate></label>
 					<f:form.select options="{categories}" optionLabelField="title" property="categories" id="categories" multiple="TRUE"></f:form.select>
 				</div>
 			</f:if>
 		</div>
-		<div class="neos-form-actions neos-form-footer">
+		<div class="neos-form-actions neos-footer">
 			<f:link.action action="index" class="neos-btn neos-button"><f:translate id="lelesys.plugin.newsletter.cancel"></f:translate></f:link.action>
 			<div class="pull-right">
-				<f:form.submit class="neos-btn neos-btn-primary neos-button createRecipient" value="Create" />
+				<f:form.submit class="neos-btn neos-button-primary neos-button createRecipient" value="Create" />
 			</div>
 		</div>
 	</f:form>

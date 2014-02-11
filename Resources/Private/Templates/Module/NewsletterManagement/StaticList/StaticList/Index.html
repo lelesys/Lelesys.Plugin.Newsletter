@@ -1,7 +1,7 @@
 <f:layout name="DefaultBackend" />
 
 <f:section name="Content">
-	<div class="neos-module-container indented">
+	<div class="neos-content neos-container-fluid">
 		<f:render partial="Module\FlashMessage" arguments="{severityName: flashmessage}" />
 		<legend><f:translate id="lelesys.plugin.newsletter.groupList"></f:translate></legend>
 		<br />
@@ -20,7 +20,7 @@
 						<td>
 						<f:link.action action="edit" class="neos-btn neos-button pull-right" arguments="{staticList: staticList}"><f:translate id="lelesys.plugin.newsletter.edit"></f:translate></f:link.action>
 						<f:form action="delete"  class="pull-right" arguments="{staticList: staticList}">
-							<f:form.submit class="neos-btn neos-btn-danger neos-button" value="Delete" />
+							<f:form.submit class="neos-btn neos-button-danger neos-button" value="Delete" />
 						</f:form>
 						</td>
 						</tr>
@@ -33,9 +33,9 @@
 			</f:else>
 		</f:if>
 	</div>
-	<div class="neos-form-actions neos-form-footer">
+	<div class="neos-form-actions neos-footer">
 		<div class="pull-right">
-			<f:link.action action="new" class="neos-btn neos-button neos-btn-primary" title="Create static list">
+			<f:link.action action="new" class="neos-btn neos-button neos-button-primary" title="Create static list">
 				<i class="icon-user icon-white"></i>
 				<f:translate id="lelesys.plugin.newsletter.createGroup"></f:translate>
 			</f:link.action>

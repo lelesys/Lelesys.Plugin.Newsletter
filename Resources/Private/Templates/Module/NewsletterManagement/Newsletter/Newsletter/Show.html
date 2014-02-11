@@ -1,67 +1,67 @@
 <f:layout name="DefaultBackend" />
 
 <f:section name="Content">
-	<div class="row neos-module-container indented">
+	<div class="row neos-content neos-container-fluid">
 		<legend>{newsletter.subject}</legend>
 		<table class="neos-table neos-table-bordered neos-table-condensed">
 			<tbody>
 				<tr>
-					<th><f:translate id="lelesys.plugin.newsletter.senderName"></f:translate></th>
+					<td><f:translate id="lelesys.plugin.newsletter.senderName"></f:translate></td>
 					<td>{newsletter.fromName}</td>
 				</tr>
 
 				<tr>
-					<th><f:translate id="lelesys.plugin.newsletter.senderEmail"></f:translate></th>
+					<td><f:translate id="lelesys.plugin.newsletter.senderEmail"></f:translate></td>
 					<td>{newsletter.fromEmail}</td>
 				</tr>
 
 				<tr>
-					<th><f:translate id="lelesys.plugin.newsletter.replyName"></f:translate></th>
+					<td><f:translate id="lelesys.plugin.newsletter.replyName"></f:translate></td>
 					<td>{newsletter.replyToName}</td>
 				</tr>
 
 				<tr>
-					<th><f:translate id="lelesys.plugin.newsletter.replyEmail"></f:translate></th>
+					<td><f:translate id="lelesys.plugin.newsletter.replyEmail"></f:translate></td>
 					<td>{newsletter.replyToEmail}</td>
 				</tr>
 
 				<tr>
-					<th><f:translate id="lelesys.plugin.newsletter.organisationName"></f:translate></th>
+					<td><f:translate id="lelesys.plugin.newsletter.organisationName"></f:translate></td>
 					<td>{newsletter.organisation}</td>
 				</tr>
 
 				<tr>
-					<th><f:translate id="lelesys.plugin.newsletter.subject"></f:translate></th>
+					<td><f:translate id="lelesys.plugin.newsletter.subject"></f:translate></td>
 					<td>{newsletter.subject}</td>
 				</tr>
 
 				<tr>
-					<th><f:translate id="lelesys.plugin.newsletter.encode"></f:translate></th>
+					<td><f:translate id="lelesys.plugin.newsletter.encode"></f:translate></td>
 					<td>{newsletter.encoding}</td>
 				</tr>
 
 				<tr>
-					<th><f:translate id="lelesys.plugin.newsletter.characterSet"></f:translate></th>
+					<td><f:translate id="lelesys.plugin.newsletter.characterSet"></f:translate></td>
 					<td>{newsletter.characterSet}</td>
 				</tr>
 
 				<tr>
-					<th><f:translate id="lelesys.plugin.newsletter.priority"></f:translate></th>
+					<td><f:translate id="lelesys.plugin.newsletter.priority"></f:translate></td>
 					<td>{newsletter.priority}</td>
 				</tr>
 
 				<tr>
-					<th><f:translate id="lelesys.plugin.newsletter.attachment"></f:translate></th>
+					<td><f:translate id="lelesys.plugin.newsletter.attachment"></f:translate></td>
 					<td>{newsletter.attachments.fileName}</td>
 				</tr>
 
 				<tr>
-					<th><f:translate id="lelesys.plugin.newsletter.newsletterPage"></f:translate></th>
+					<td><f:translate id="lelesys.plugin.newsletter.newsletterPage"></f:translate></td>
 					<td>{contentNode.name}</td>
 				</tr>
 			<f:if condition="{newsletter.categories}">
 				<tr>
-					<th><f:translate id="lelesys.plugin.newsletter.category"></f:translate></th>
+					<td><f:translate id="lelesys.plugin.newsletter.category"></f:translate></td>
 				<f:for each="{newsletter.categories}" as="category">
 					<td>{category.title}</td>
 				</f:for>
@@ -74,8 +74,8 @@
 			<table class="neos-table neos-table-bordered neos-table-condensed">
 				<tbody>
 					<tr>
-						<th><f:translate id="lelesys.plugin.newsletter.groupTitle"></f:translate></th>
-						<th><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></th>
+						<td><f:translate id="lelesys.plugin.newsletter.groupTitle"></f:translate></td>
+						<td><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></td>
 					</tr>
 				<f:for each="{GroupParty}" as="group">
 					<tr>
@@ -110,7 +110,7 @@
 			<table class="neos-table neos-table-bordered neos-table-condensed">
 				<tbody>
 					<tr>
-						<th><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></th>
+						<td><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></td>
 					</tr>
 				<f:for each="{newsletter.recipients}" as="recipient">
 					<tr><td>{recipient.primaryElectronicAddress.identifier}</td></tr>
@@ -119,7 +119,7 @@
 			</table>
 		</f:if>
 	</div>
-	<div class="neos-form-actions neos-form-footer">
+	<div class="neos-form-actions neos-footer">
 		<f:link.action action="index" class="neos-btn neos-button" title="Back">
 			<f:translate id="lelesys.plugin.newsletter.back"></f:translate>
 		</f:link.action>

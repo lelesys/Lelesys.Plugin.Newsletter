@@ -3,20 +3,20 @@
 <f:section name="Content">
 	<f:render partial="Module\FlashMessage" arguments="{severityName: flashmessage}"/>
 	<f:form action="update" object="{category}" objectName="category" id="newsletterCategory">
-		<div class="neos-module-container indented">
+		<div class="neos-content neos-container-fluid">
 			<legend>{category.title}</legend>
 			<br />
-			<div class="control-group">
-				<label class="control-label" for="title"><f:translate id="lelesys.plugin.newsletter.title"></f:translate></label>
-				<div class="controls">
+			<div class="neos-control-group">
+				<label class="neos-control-label" for="title"><f:translate id="lelesys.plugin.newsletter.title"></f:translate></label>
+				<div class="neos-controls">
 					<f:form.textfield property="title" id="title" class="required"/>
 				</div>
 			</div>
 		</div>
-		<div class="neos-form-actions neos-form-footer">
+		<div class="neos-form-actions neos-footer">
 			<f:link.action action="index" class="neos-btn neos-button"><f:translate id="lelesys.plugin.newsletter.cancel"></f:translate></f:link.action>
 			<div class="pull-right">
-				<f:form.submit class="neos-btn neos-btn-primary neos-button" value="Update" />
+				<f:form.submit class="neos-btn neos-button-primary neos-button" value="Update" />
 			</div>
 		</div>
 	</f:form>

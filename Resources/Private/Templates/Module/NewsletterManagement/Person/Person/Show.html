@@ -1,23 +1,23 @@
 <f:layout name="DefaultBackend" />
 
 <f:section name="Content">
-	<div class="row neos-module-container indented">
+	<div class="row neos-content neos-container-fluid">
 		<legend>{person.name.firstname}&nbsp;{person.name.lastname}</legend>
 		<table class="neos-table neos-table-bordered neos-table-condensed">
 			<tr>
-				<th><f:translate id="lelesys.plugin.newsletter.name"></f:translate></th>
+				<td><f:translate id="lelesys.plugin.newsletter.name"></f:translate></td>
 			<td>{person.name.firstname}</td>
 			</tr>
 			<tr>
-				<th><f:translate id="lelesys.plugin.newsletter.lastName"></f:translate></th>
+				<td><f:translate id="lelesys.plugin.newsletter.lastName"></f:translate></td>
 			<td>{person.name.lastname}</td>
 			</tr>
 			<tr>
-				<th><f:translate id="lelesys.plugin.newsletter.email"></f:translate></th>
+				<td><f:translate id="lelesys.plugin.newsletter.email"></f:translate></td>
 			<td>{person.primaryElectronicAddress}</td>
 			</tr>
 			<tr>
-				<th><f:translate id="lelesys.plugin.newsletter.gender"></f:translate></th>
+				<td><f:translate id="lelesys.plugin.newsletter.gender"></f:translate></td>
 			<f:if condition="{person.gender} === 1">
 				<f:then>
 					<td><f:translate id="lelesys.plugin.newsletter.female"></f:translate></td>
@@ -28,7 +28,7 @@
 			</f:if>
 			</tr>
 			<tr>
-				<th><f:translate id="lelesys.plugin.newsletter.htmlEmail"></f:translate></th>
+				<td><f:translate id="lelesys.plugin.newsletter.htmlEmail"></f:translate></td>
 			<f:if condition="{person.acceptsHtml} === TRUE">
 				<f:then>
 					<td><f:translate id="lelesys.plugin.newsletter.yes"></f:translate></td>
@@ -41,22 +41,30 @@
 			<tr>
 			<f:if condition="{person.groups}">
 				<f:then>
-					<th><f:translate id="lelesys.plugin.newsletter.groups"></f:translate></th>
-					<td><f:form.select options="{person.groups}" optionLabelField="title" property="groups" id="groups" multiple="true"></f:form.select></td>
+					<td><f:translate id="lelesys.plugin.newsletter.groups"></f:translate></td>
+					<td>
+					<f:for each="{person.groups}" as="group">
+						<p>{group.title}</p>
+					</f:for>
+					</td>
 				</f:then>
 			</f:if>
 			</tr>
 			<tr>
 			<f:if condition="{person.categories}">
 				<f:then>
-					<th><f:translate id="lelesys.plugin.newsletter.categories"></f:translate></th>
-					<td><f:form.select options="{person.categories}" optionLabelField="title" property="categories" id="categories" multiple="true"></f:form.select></td>
+					<td><f:translate id="lelesys.plugin.newsletter.categories"></f:translate></td>
+					<td>
+					<f:for each="{person.categories}" as="category">
+						<p>{category.title}</p>
+					</f:for>
+					</td>
 				</f:then>
 			</f:if>
 			</tr>
 		</table>
 	</div>
-	<div class="neos-form-actions neos-form-footer">
+	<div class="neos-form-actions neos-footer">
 		<f:link.action action="index" class="neos-btn neos-button" title="Back">
 			<f:translate id="lelesys.plugin.newsletter.back"></f:translate>
 		</f:link.action>

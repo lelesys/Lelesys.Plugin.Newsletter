@@ -18,20 +18,13 @@ prototype(TYPO3.Neos:ContentCollection).newsletter {
 
 prototype(TYPO3.Neos:ContentCollection).newsletter < prototype(TYPO3.Neos:ContentCollection).newsletter
 
-prototype(Lelesys.Plugin.Newsletter:Newsletter) < prototype(TYPO3.Neos:Template)
+prototype(Lelesys.Plugin.Newsletter:Newsletter) < prototype(TYPO3.Neos:Content)
 prototype(Lelesys.Plugin.Newsletter:Newsletter) {
 	templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/Newsletter/Newsletter.html'
 	currentnode = ${(node)}
 	main = TYPO3.Neos:ContentCollection {
     nodePath = 'main'
 	}
-}
-
-prototype(Lelesys.Plugin.Newsletter:NewsletterPlugin) < prototype(TYPO3.Neos:Plugin)
-prototype(Lelesys.Plugin.Newsletter:NewsletterPlugin) {
-	package = 'Lelesys.Plugin.Newsletter'
-	controller = 'Newsletter'
-	action = 'newNewsletterNode'
 }
 prototype(Lelesys.Plugin.Newsletter:SubscribtionConfirmation) < prototype(TYPO3.Neos:Plugin)
 prototype(Lelesys.Plugin.Newsletter:SubscribtionConfirmation) {

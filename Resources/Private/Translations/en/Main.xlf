@@ -367,6 +367,10 @@
 				<source>Please check for space only comma(,) seperator for email addresses</source>
 				<target>Please check for space only comma(,) seperator for email addresses</target>
 			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.noRecipientForGroup" approved="yes">
+				<source>No recipient selected for group.</source>
+				<target>No recipient selected for group.</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

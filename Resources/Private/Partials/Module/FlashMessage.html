@@ -1,26 +1,7 @@
-<f:flashMessages severity="OK" as="flashMessages">
-	<div class="neos-alert neos-alert-success">
-		<button data-dismiss="alert" class="neos-close" type="button">×</button>
+<f:flashMessages as="flashMessages">
+	<ul id="neos-notifications-inline">
 		<f:for each="{flashMessages}" as="flashMessage">
-			{flashMessage}
+			<li data-type="{flashMessage.severity -> f:format.case(mode: 'lower')}">{flashMessage}</li>
 		</f:for>
-	</div>
-</f:flashMessages>
-
-<f:flashMessages severity="Error" as="flashMessages">
-	<div class="neos-alert neos-alert-error">
-		<button data-dismiss="alert" class="neos-close" type="button">×</button>
-		<f:for each="{flashMessages}" as="flashMessage">
-			{flashMessage}
-		</f:for>
-	</div>
-</f:flashMessages>
-
-<f:flashMessages severity="Warning" as="flashMessages">
-	<div class="neos-alert neos-alert-Notice">
-		<button data-dismiss="alert" class="neos-close" type="button">×</button>
-		<f:for each="{flashMessages}" as="flashMessage">
-			{flashMessage}
-		</f:for>
-	</div>
+	</ul>
 </f:flashMessages>

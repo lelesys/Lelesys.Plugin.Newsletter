@@ -2,18 +2,18 @@
 
 <f:section name="Content">
 	<f:form action="update" object="{party}" objectName="party" id="party">
-		<div class="neos-module-container indented">
+		<div class="neos-content neos-container-fluid">
 			<legend>{party.title}</legend>
 			<br />
-			<div class="control-group">
+			<div class="neos-control-group">
 				<label for="title"><f:translate id="lelesys.plugin.newsletter.title"></f:translate></label>
 				<f:form.textfield property="title" id="title" class="required" />
 			</div>
 		</div>
-		<div class="neos-form-actions neos-form-footer">
+		<div class="neos-form-actions neos-footer">
 			<f:link.action action="index" class="neos-btn neos-button"><f:translate id="lelesys.plugin.newsletter.cancel"></f:translate></f:link.action>
 			<div class="pull-right">
-				<f:form.submit class="neos-btn neos-btn-primary neos-button" value="Update" />
+				<f:form.submit class="neos-btn neos-button-primary neos-button" value="Update" />
 			</div>
 		</div>
 	</f:form>

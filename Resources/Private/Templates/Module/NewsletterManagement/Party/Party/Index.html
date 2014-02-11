@@ -1,7 +1,7 @@
 <f:layout name="DefaultBackend" />
 
 <f:section name="Content">
-	<div class="row neos-module-container indented">
+	<div class="row neos-content neos-container-fluid">
 		<f:render partial="Module\FlashMessage" arguments="{severityName: flashmessage}"/>
 		<legend><f:translate id="lelesys.plugin.newsletter.createGroup"></f:translate></legend>
 		<br />
@@ -11,24 +11,23 @@
 					<thead>
 						<tr>
 							<th><f:translate id="lelesys.plugin.newsletter.title"></f:translate></th>
-							<th></th>
-						</tr>
+					<th></th>
+					</tr>
 					</thead>
 					<tbody>
 					<f:for each="{parties}" as="party">
 						<tr><td>{party.title}</td>
 							<td>
-								<div class="pull-right"><f:link.action action="show" arguments="{party: party}" class="neos-btn neos-button" title="Click to view">
-										<i class="icon-info-sign icon-white"></i>
-									</f:link.action>
-									<f:link.action action="edit" arguments="{party: party}" class="neos-btn neos-button" title="Click to edit">
-										<i class="icon-pencil icon-white"></i>
-									</f:link.action>
-									<f:form action="delete" arguments="{party: party}">
-										<f:form.submit class="neos-btn neos-button neos-btn-danger" value="Delete" />
-									</f:form>
-								</div>
-							</td>
+						<f:link.action action="show" arguments="{party: party}" class="neos-btn neos-button pull-right" title="Click to view">
+							<i class="icon-info-sign icon-white"></i>
+						</f:link.action>
+						<f:link.action action="edit" arguments="{party: party}" class="neos-btn neos-button pull-right" title="Click to edit">
+							<i class="icon-pencil icon-white"></i>
+						</f:link.action>
+						<f:form action="delete" arguments="{party: party}">
+							<f:form.submit class="neos-btn neos-button neos-button-danger pull-right" value="Delete" />
+						</f:form>
+						</td>
 						</tr>
 					</f:for>
 					</tbody>
@@ -39,9 +38,9 @@
 			</f:else>
 		</f:if>
 	</div>
-	<div class="neos-form-actions neos-form-footer">
+	<div class="neos-form-actions neos-footer">
 		<div class="pull-right">
-			<f:link.action action="new" class="neos-btn neos-button neos-btn-primary" title="Create party">
+			<f:link.action action="new" class="neos-btn neos-button neos-button-primary" title="Create party">
 				<i class="icon-user icon-white"></i>
 				<f:translate id="lelesys.plugin.newsletter.createGroup"></f:translate>
 			</f:link.action>
