@@ -75,6 +75,23 @@ class NewsletterService {
 	protected $persistenceManager;
 
 	/**
+	 * Settings
+	 *
+	 * @var array
+	 */
+	protected $settings;
+
+	/**
+	 * Injects settings
+	 *
+	 * @param array $settings
+	 * @return void
+	 */
+	public function injectSettings(array $settings) {
+		$this->settings = $settings;
+	}
+
+	/**
 	 * Checks for deleted nodes from newsletter
 	 *
 	 * @return void
@@ -117,6 +134,31 @@ class NewsletterService {
 			'GroupParty' => $receipientsByGroupParty,
 			'GroupStatic' => $receipientsByGroupStatic
 		);
+	}
+
+	/**
+	 * Sends email
+	 * @param string $adminEmail
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter
+	 * @return void
+	 */
+	public function sendTestEmail($adminEmail, \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
+		$subject = $newsletter->getSubject();
+		$fromName = $this->settings['email']['senderName'];
+		$childNodes = array();
+		$node = $this->getContentNode($newsletter->getContentNode());
+		foreach ($node->getChildNodes() as $value) {
+			foreach ($value->getChildNodes() as $child) {
+				$childNodes[] = $child;
+			}
+		}
+		$attachments = array();
+		if ($newsletter->getAttachments() !== NULL) {
+			$attachments['path'] = $this->resourceManager->getPersistentResourcesStorageBaseUri() . $newsletter->getAttachments()->getResourcePointer()->getHash();
+			$attachments['name'] = $newsletter->getAttachments()->getFilename();
+		}
+		$message = $this->emailNotificationService->buildEmailMessage('Newsletter.html', array('contentNode' => $childNodes));
+		$this->emailNotificationService->sendMail($subject, $message, $adminEmail, $fromName, $attachments);
 	}
 
 	/**

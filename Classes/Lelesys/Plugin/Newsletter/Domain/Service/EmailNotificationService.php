@@ -83,11 +83,12 @@ class EmailNotificationService {
 	 * @param string $message The message text
 	 * @param string $recipientAddress The recipient email address
 	 * @param string $recipientName The recipient name
+	 * @param array $attachments The email attachments
 	 * @param array $bccAddresses Array of bcc email addresses
 	 * @param array $ccAddresses Array of cc email addresses
 	 * @return void
 	 */
-	public function sendMail($subject, $message, $recipientAddress, $recipientName, $bccAddresses = array(), $ccAddresses = array()) {
+	public function sendMail($subject, $message, $recipientAddress, $recipientName, $attachments = NULL, $bccAddresses = array(), $ccAddresses = array()) {
 		$mail = new Message();
 		$mail
 				->setFrom(array($this->settings['email']['senderEmail'] => $this->settings['email']['senderName']))
@@ -96,8 +97,11 @@ class EmailNotificationService {
 				->setBody($message, 'text/html')
 				->setTo(array($recipientAddress => $recipientName))
 				->setBcc($bccAddresses)
-				->setCc($ccAddresses)
-				->send();
+				->setCc($ccAddresses);
+		if (!empty($attachments)) {
+			$mail->attach(\Swift_Attachment::fromPath($attachments['path'])->setFilename($attachments['name']));
+		};
+		$mail->send();
 	}
 
 	/**

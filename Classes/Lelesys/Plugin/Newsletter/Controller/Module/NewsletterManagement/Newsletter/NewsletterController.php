@@ -106,16 +106,23 @@ class NewsletterController extends NewsletterManagementController {
 	 * Sends newsletter email
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter The newsletter
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\AbstractGroup $recipientGroups The recipent groups
+	 * @param string $adminEmail
 	 * @return void
 	 */
-	public function sendEmailAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
+	public function sendEmailAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, $adminEmail = NULL) {
 		try {
 			if ($newsletter->getContentNode() !== NULL) {
-				$this->newsletterService->sendEmail($newsletter);
-				$header = 'newsletter is sent';
-				$message = $this->centralService->translate('lelesys.plugin.newsletter.sent');
-				$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+				if ($adminEmail !== NULL) {
+					$this->newsletterService->sendTestEmail($adminEmail,$newsletter);
+					$header = 'newsletter is sent';
+					$message = $this->centralService->translate('lelesys.plugin.newsletter.sent');
+					$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+				} else {
+					$this->newsletterService->sendEmail($newsletter);
+					$header = 'newsletter is sent';
+					$message = $this->centralService->translate('lelesys.plugin.newsletter.sent');
+					$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+				}
 			} else {
 				$header = 'No page selected for newsletter cannot send email.';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.nopage');

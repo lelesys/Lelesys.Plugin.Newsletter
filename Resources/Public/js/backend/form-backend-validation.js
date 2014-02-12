@@ -18,6 +18,9 @@ jQuery(document).ready(function() {
 	jQuery('#newsletterCategory').each(function() {
 		jQuery(this).validate();
 	});
+	jQuery('.sendEmail').each(function() {
+		jQuery(this).validate();
+	});
 	//Validation for News form
 	jQuery('#recipientList').focusout(function() {
 		var email = jQuery('#recipientList').val(), emailRegex = new RegExp(/(([a-zA-Z0-9\-?\.?]+)@(([a-zA-Z0-9\-_]+\.)+)([a-z]{2,3})(\W?[,]\W?(?!$))?)+$/i);

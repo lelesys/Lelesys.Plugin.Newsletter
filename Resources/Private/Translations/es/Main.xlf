@@ -371,6 +371,10 @@
 				<source>No recipient selected for group.</source>
 				<target>No recipient selected for group.</target>
 			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.sendTestEmail" approved="yes">
+				<source>Send Test Email</source>
+				<target>Send Test Email</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
