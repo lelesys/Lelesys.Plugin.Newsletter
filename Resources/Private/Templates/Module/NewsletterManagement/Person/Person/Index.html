@@ -12,6 +12,7 @@
 							<th><f:translate id="lelesys.plugin.newsletter.name"></f:translate></th>
 					<th>Email confirmation status</th>
 					<th><f:translate id="lelesys.plugin.newsletter.groups"></f:translate></th>
+					<th><f:translate id="lelesys.plugin.newsletter.categories"></f:translate></th>
 					<th></th>
 					</tr>
 					</thead>
@@ -32,8 +33,15 @@
 							</ul>
 						</td>
 						<td>
+							<ul>
+								<f:for each="{person.categories}" as="category">
+									<li>{category.title}</li>
+								</f:for>
+							</ul>
+						</td>
+						<td>
 						<f:link.action action="edit" class="neos-btn neos-button pull-right" arguments="{person: person}"><f:translate id="lelesys.plugin.newsletter.edit"></f:translate></f:link.action>
-						<f:form action="delete" class="pull-right" arguments="{person: person}">
+						<f:form action="delete" class="pull-right delete" arguments="{person: person}">
 							<f:form.submit class="neos-btn neos-button-danger neos-button" value="Delete" />
 						</f:form>
 						</td>
@@ -55,4 +63,9 @@
 			</f:link.action>
 		</div>
 	</div>
+	<script>
+		var deleteMessage = '<f:translate id="lelesys.plugin.newsletter.confirmDelete"></f:translate>';
+	</script>
+	<f:render partial="Module/JavaScripts"/>
+	<f:render partial="Module/StyleSheets"/>
 </f:section>

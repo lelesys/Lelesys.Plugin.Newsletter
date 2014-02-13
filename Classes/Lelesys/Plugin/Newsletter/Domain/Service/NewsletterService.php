@@ -179,7 +179,10 @@ class NewsletterService {
 		$recipientAddress = array();
 		$contentType = array();
 		foreach ($newsletter->getRecipients() as $singleRecipient) {
-			if ($singleRecipient->getPrimaryElectronicAddress()->isApproved() === TRUE) {
+			if ((($this->personService->isUserApproved($singleRecipient) === TRUE) &&
+					($this->isValidCategory($newsletter, $singleRecipient) === TRUE)) ||
+					(($this->personService->isUserApproved($singleRecipient) === TRUE) &&
+					(count($singleRecipient->getCategories()) === 0))) {
 				if ($singleRecipient->getAcceptsHtml() === TRUE) {
 					$code = sha1($singleRecipient->getPrimaryElectronicAddress()->getIdentifier() . $singleRecipient->getUuid());
 					$contentType['html'] = 'text/html';
@@ -196,7 +199,10 @@ class NewsletterService {
 		foreach ($newsletter->getRecipientGroups() as $group) {
 			if ($group instanceof \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party) {
 				foreach ($group->getRecipients() as $recipient) {
-					if ($recipient->getPrimaryElectronicAddress()->isApproved() === TRUE) {
+					if ((($this->personService->isUserApproved($recipient) === TRUE) &&
+							($this->isValidCategory($newsletter, $recipient) === TRUE)) ||
+							(($this->personService->isUserApproved($recipient) === TRUE) &&
+							(count($recipient->getCategories()) === 0))) {
 						if ($recipient->getAcceptsHtml() === TRUE) {
 							$code = sha1($recipient->getPrimaryElectronicAddress()->getIdentifier() . $recipient->getUuid());
 							$contentType['html'] = 'text/html';
@@ -248,6 +254,31 @@ class NewsletterService {
 	 */
 	public function listAll() {
 		return $this->newsletterRepository->findAll();
+	}
+
+	/**
+	 * Get all newsletters by category
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category
+	 * @return array
+	 */
+	public function getAllNewslettersByCategory(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
+		return $this->newsletterRepository->getNewslettersByCategory($category);
+	}
+
+	/**
+	 * Checks if newsletter category and recipients category matches
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $recipient
+	 * @return boolean
+	 */
+	public function isValidCategory(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $recipient) {
+		foreach ($newsletter->getCategories() as $newsletterCategory) {
+			if (in_array($newsletterCategory, $recipient->getCategories()->toArray())) {
+				return TRUE;
+			}
+		}
 	}
 
 	/**

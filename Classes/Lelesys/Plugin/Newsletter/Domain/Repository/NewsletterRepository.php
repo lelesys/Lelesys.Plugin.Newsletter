@@ -31,6 +31,7 @@ class NewsletterRepository extends Repository {
 		return $query;
 	}
 
+
 	/**
 	 * All newsletter by given recipient group
 	 *
@@ -50,9 +51,11 @@ class NewsletterRepository extends Repository {
 	 * @return array The query result
 	 */
 	public function getNewslettersByCategory(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
-		$query = $this->entityManager->createQuery('SELECT n FROM \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter n JOIN n.categories c WHERE c.Persistence_Object_Identifier=\'' . $category->getUuid() . '\'')
-				->execute();
-		return $query;
+		$query = $this->createQuery();
+		return $query->matching(
+								$query->contains('categories', $category)
+						)
+						->execute();
 	}
 
 }

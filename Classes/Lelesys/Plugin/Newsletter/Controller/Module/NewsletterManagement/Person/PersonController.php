@@ -125,8 +125,8 @@ class PersonController extends NewsletterManagementController {
 	 * @return void
 	 */
 	public function editAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
-		$groups = $this->partyService->listAll();
-		$this->view->assign('groups', $groups);
+		$this->view->assign('groups', $this->partyService->listAll());
+		$this->view->assign('categories', $this->categoryService->listAll());
 		$this->view->assign('person', $person);
 	}
 

@@ -120,6 +120,20 @@ class PersonService {
 	}
 
 	/**
+	 * checks if user is approved
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person
+	 * @return boolean
+	 */
+	public function isUserApproved(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
+		if($person->getPrimaryElectronicAddress()->isApproved() === TRUE) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
+	/**
 	 * Adds new recipient
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson
@@ -176,6 +190,16 @@ class PersonService {
 	}
 
 	/**
+	 * Get all recipients by category
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category
+	 * @return array
+	 */
+	public function getAllRecipientsByCategory(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
+		return $this->personRepository->getRecipientsByCategory($category);
+	}
+
+	/**
 	 * Email approval by user
 	 *
 	 * @param \TYPO3\Party\Domain\Model\Person $user User
@@ -212,6 +236,20 @@ class PersonService {
 	 */
 	public function update(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
 		$this->personRepository->update($person);
+	}
+
+	/**
+	 * Delete Related Categories
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category
+	 * @return void
+	 */
+	public function deleteRelatedCategories(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
+		$recipients = $this->personRepository->getRecipientsByCategory($category);
+		foreach ($recipients as $recipient) {
+			$recipient->removeCategories($category);
+			$this->personRepository->update($recipient);
+		}
 	}
 
 	/**

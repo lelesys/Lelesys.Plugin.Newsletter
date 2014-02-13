@@ -19,7 +19,8 @@
 							<table class="neos-table">
 								<thead>
 									<tr>
-										<th><f:translate id="lelesys.plugin.newsletter.name"></f:translate></th>
+										<th><f:translate id="lelesys.plugin.newsletter.title"></f:translate></th>
+								<th><f:translate id="lelesys.plugin.newsletter.categories"></f:translate></th>
 								<th></th>
 								</tr>
 								</thead>
@@ -27,8 +28,15 @@
 								<f:for each="{newsletters}" as="newsletter">
 									<tr><td><f:link.action action="show" arguments="{newsletter: newsletter}">{newsletter.subject}</f:link.action></td>
 									<td>
+										<ul>
+											<f:for each="{newsletter.categories}" as="category">
+												<li>{category.title}</li>
+											</f:for>
+										</ul>
+									</td>
+									<td>
 									<f:link.action action="edit" class="neos-btn neos-button pull-right" arguments="{newsletter: newsletter}"><f:translate id="lelesys.plugin.newsletter.edit"></f:translate></f:link.action>
-									<f:form action="delete" arguments="{newsletter: newsletter}">
+									<f:form action="delete" class="delete" arguments="{newsletter: newsletter}">
 										<f:form.submit class="neos-btn neos-button-danger neos-button pull-right" value="Delete" />
 									</f:form>
 									</td>
@@ -70,7 +78,7 @@
 						<div class="neos-control-group">
 							<label class="neos-control-label" for="adminEmail"><f:translate id="lelesys.plugin.newsletter.senderEmail"></f:translate></label>
 							<div class="neos-controls">
-								<f:form.textfield name="adminEmail" id="adminEmail" class="required" />
+								<f:form.textfield name="adminEmail" id="adminEmail" class="email required" />
 							</div>
 						</div>
 						<div class="neos-control-group">
@@ -91,6 +99,9 @@
 	</div>
 	<div class="neos-form-actions neos-footer">
 	</div>
+	<script>
+		var deleteMessage = '<f:translate id="lelesys.plugin.newsletter.confirmDelete"></f:translate>';
+	</script>
 	<f:render partial="Module/JavaScripts"/>
 	<f:render partial="Module/StyleSheets"/>
 </f:section>

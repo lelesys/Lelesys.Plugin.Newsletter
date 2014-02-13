@@ -35,6 +35,14 @@ class CategoryService {
 	protected $categoryRepository;
 
 	/**
+	 * Person Service
+	 *
+	 * @Flow\Inject
+	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\PersonService
+	 */
+	protected $personService;
+
+	/**
 	 * List of all categories
 	 *
 	 * @return \Lelesys\Plugin\Newsletter\Domain\Model\Category
@@ -71,6 +79,7 @@ class CategoryService {
 	 */
 	public function delete(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
 		$this->newsletterService->deleteRelatedCategories($category);
+		$this->personService->deleteRelatedCategories($category);
 		$this->categoryRepository->remove($category);
 	}
 

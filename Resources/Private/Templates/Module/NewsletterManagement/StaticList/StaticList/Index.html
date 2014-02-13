@@ -11,15 +11,15 @@
 					<thead>
 						<tr>
 							<th><f:translate id="lelesys.plugin.newsletter.title"></f:translate></th>
-							<th></th>
-						</tr>
+					<th></th>
+					</tr>
 					</thead>
 					<tbody>
 					<f:for each="{staticLists}" as="staticList">
 						<tr><td><f:link.action action="show" arguments="{staticList: staticList}">{staticList.title}</f:link.action></td>
 						<td>
 						<f:link.action action="edit" class="neos-btn neos-button pull-right" arguments="{staticList: staticList}"><f:translate id="lelesys.plugin.newsletter.edit"></f:translate></f:link.action>
-						<f:form action="delete"  class="pull-right" arguments="{staticList: staticList}">
+						<f:form action="delete" class="pull-right delete" arguments="{staticList: staticList}">
 							<f:form.submit class="neos-btn neos-button-danger neos-button" value="Delete" />
 						</f:form>
 						</td>
@@ -41,4 +41,9 @@
 			</f:link.action>
 		</div>
 	</div>
+	<script>
+		var deleteMessage = '<f:translate id="lelesys.plugin.newsletter.confirmDelete"></f:translate>';
+	</script>
+	<f:render partial="Module/JavaScripts"/>
+	<f:render partial="Module/StyleSheets"/>
 </f:section>

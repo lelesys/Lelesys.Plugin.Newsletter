@@ -24,7 +24,7 @@
 						<f:link.action action="edit" arguments="{party: party}" class="neos-btn neos-button pull-right" title="Click to edit">
 							<i class="icon-pencil icon-white"></i>
 						</f:link.action>
-						<f:form action="delete" arguments="{party: party}">
+						<f:form action="delete" class="delete" arguments="{party: party}">
 							<f:form.submit class="neos-btn neos-button neos-button-danger pull-right" value="Delete" />
 						</f:form>
 						</td>
@@ -46,4 +46,9 @@
 			</f:link.action>
 		</div>
 	</div>
+	<script>
+		var deleteMessage = '<f:translate id="lelesys.plugin.newsletter.confirmDelete"></f:translate>';
+	</script>
+	<f:render partial="Module/JavaScripts"/>
+	<f:render partial="Module/StyleSheets"/>
 </f:section>

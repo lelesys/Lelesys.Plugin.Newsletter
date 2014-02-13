@@ -21,6 +21,23 @@ jQuery(document).ready(function() {
 	jQuery('.sendEmail').each(function() {
 		jQuery(this).validate();
 	});
+
+	//Validation for item delete before submit
+	   var removeItem = function(event, link) {
+		       event.preventDefault();
+		       jQuery('.delete').attr('action', link);
+		       jQuery('.delete').submit();
+	   }
+
+	   jQuery('form.delete').click(function(event) {
+		       event.preventDefault();
+		       var link = jQuery(this).attr('action');
+		       var itemDeleteMessage = confirm(deleteMessage);
+		       if (itemDeleteMessage == true) {
+			           removeItem(event, link);
+		       }
+	   });
+
 	//Validation for News form
 	jQuery('#recipientList').focusout(function() {
 		var email = jQuery('#recipientList').val(), emailRegex = new RegExp(/(([a-zA-Z0-9\-?\.?]+)@(([a-zA-Z0-9\-_]+\.)+)([a-z]{2,3})(\W?[,]\W?(?!$))?)+$/i);

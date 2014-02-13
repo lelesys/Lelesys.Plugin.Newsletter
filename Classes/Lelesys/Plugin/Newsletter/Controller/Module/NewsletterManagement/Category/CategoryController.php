@@ -30,6 +30,14 @@ class CategoryController extends NewsletterManagementController {
 	protected $categoryService;
 
 	/**
+	 * Person Service
+	 *
+	 * @Flow\Inject
+	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\PersonService
+	 */
+	protected $personService;
+
+	/**
 	 * Category Repository
 	 *
 	 * @Flow\Inject
@@ -46,6 +54,14 @@ class CategoryController extends NewsletterManagementController {
 	protected $centralService;
 
 	/**
+	 * Newsletter Service
+	 *
+	 * @Flow\Inject
+	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\NewsletterService
+	 */
+	protected $newsletterService;
+
+	/**
 	 * List of newsletter categories
 	 *
 	 * @return void
@@ -60,7 +76,26 @@ class CategoryController extends NewsletterManagementController {
 	 * @return void
 	 */
 	public function newAction() {
+	}
 
+	/**
+	 * Displays newsletter category
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category
+	 * @return void
+	 */
+	public function showAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
+		$newsletters = $this->newsletterService->getAllNewslettersByCategory($category);
+		$contentNodes = array();
+		foreach ($newsletters as $newsletter) {
+			$contentNodes[] = $this->newsletterService->getContentNode($newsletter->getContentNode());
+		}
+		$this->view->assignMultiple(array(
+			'category' => $category,
+			'recipients' => $this->personService->getAllRecipientsByCategory($category),
+			'contentNodes' => $contentNodes
+				)
+		);
 	}
 
 	/**

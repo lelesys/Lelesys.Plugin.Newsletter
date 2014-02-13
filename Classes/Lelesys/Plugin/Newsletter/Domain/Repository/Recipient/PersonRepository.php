@@ -30,6 +30,20 @@ class PersonRepository extends Repository {
 		return $query;
 	}
 
+	/**
+	 * All recipients by given category
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Category
+	 * @return \TYPO3\FLOW3\Persistence\QueryResultInterface The query result
+	 */
+	public function getRecipientsByCategory(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
+		$query = $this->createQuery();
+		return $query->matching(
+								$query->contains('categories', $category)
+						)
+						->execute();
+	}
+
 }
 
 ?>

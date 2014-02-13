@@ -2,7 +2,7 @@
 
 namespace Lelesys\Plugin\Newsletter\Domain\Model\Recipient;
 
-/*                                                                         *
+/* *
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -52,6 +52,15 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	 * @ORM\Column(nullable=true)
 	 */
 	protected $categories;
+
+	/**
+	 * Constructor
+	 *
+	 */
+	public function __construct() {
+		parent::__construct();
+		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+	}
 
 	/**
 	 * Gets gender
@@ -136,6 +145,16 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	 */
 	public function getUuid() {
 		return $this->Persistence_Object_Identifier;
+	}
+
+	/**
+	 * Removes a Recipients Category
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Recipient Category
+	 * @return void
+	 */
+	public function removeCategories(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
+		$this->categories->removeElement($category);
 	}
 
 }

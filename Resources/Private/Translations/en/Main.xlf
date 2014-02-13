@@ -375,6 +375,10 @@
 				<source>Send Test Email</source>
 				<target>Send Test Email</target>
 			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.confirmDelete" approved="yes">
+				<source>Are you sure you want to delete?</source>
+				<target>Are you sure you want to delete?</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
