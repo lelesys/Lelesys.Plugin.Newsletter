@@ -4,4 +4,6 @@
 .neos-container-fluid legend {
 	color: #fff;
 }
-
+select[multiple]{
+	height: 100px !important;
+}

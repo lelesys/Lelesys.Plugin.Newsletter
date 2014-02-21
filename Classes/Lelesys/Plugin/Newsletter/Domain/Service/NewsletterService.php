@@ -175,56 +175,51 @@ class NewsletterService {
 				$childNodes[] = $child;
 			}
 		}
-		$emailValues = array();
-		$recipientAddress = array();
-		$contentType = array();
-		foreach ($newsletter->getRecipients() as $singleRecipient) {
-			if ((($this->personService->isUserApproved($singleRecipient) === TRUE) &&
-					($this->isValidCategory($newsletter, $singleRecipient) === TRUE)) ||
-					(($this->personService->isUserApproved($singleRecipient) === TRUE) &&
-					(count($singleRecipient->getCategories()) === 0))) {
-				if ($singleRecipient->getAcceptsHtml() === TRUE) {
-					$code = sha1($singleRecipient->getPrimaryElectronicAddress()->getIdentifier() . $singleRecipient->getUuid());
-					$contentType['html'] = 'text/html';
-					$message = $this->emailNotificationService->buildEmailMessage('Newsletter.html', array('contentNode' => $childNodes, 'recipientId' => $singleRecipient->getUuid(), 'code' => $code));
-					$recipientAddress['html'][] = array($singleRecipient->getPrimaryElectronicAddress()->getIdentifier(), $message, $singleRecipient->getName()->getFirstName());
-				} else {
-					$code = sha1($singleRecipient->getPrimaryElectronicAddress()->getIdentifier() . $singleRecipient->getUuid());
-					$contentType['text'] = 'text/plain';
-					$message = $this->emailNotificationService->buildEmailMessage('Newsletter.txt', array('contentNode' => $childNodes, 'recipientId' => $singleRecipient->getUuid(), 'code' => $code));
-					$recipientAddress['text'][] = array($singleRecipient->getPrimaryElectronicAddress()->getIdentifier(), $message, $singleRecipient->getName()->getFirstName());
-				}
-			}
-		}
+		$this->sendNewsletterEmailToRecipients($newsletter, $childNodes, $newsletter->getRecipients());
 		foreach ($newsletter->getRecipientGroups() as $group) {
 			if ($group instanceof \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party) {
-				foreach ($group->getRecipients() as $recipient) {
-					if ((($this->personService->isUserApproved($recipient) === TRUE) &&
-							($this->isValidCategory($newsletter, $recipient) === TRUE)) ||
-							(($this->personService->isUserApproved($recipient) === TRUE) &&
-							(count($recipient->getCategories()) === 0))) {
-						if ($recipient->getAcceptsHtml() === TRUE) {
-							$code = sha1($recipient->getPrimaryElectronicAddress()->getIdentifier() . $recipient->getUuid());
-							$contentType['html'] = 'text/html';
-							$message = $this->emailNotificationService->buildEmailMessage('Newsletter.html', array('contentNode' => $childNodes, 'recipientId' => $recipient->getUuid(), 'code' => $code));
-							$recipientAddress['html'][] = array($recipient->getPrimaryElectronicAddress()->getIdentifier(), $message, $recipient->getName()->getFirstName(),);
-						} else {
-							$code = sha1($recipient->getPrimaryElectronicAddress()->getIdentifier() . $recipient->getUuid());
-							$contentType['text'] = 'text/plain';
-							$message = $this->emailNotificationService->buildEmailMessage('Newsletter.txt', array('contentNode' => $childNodes, 'recipientId' => $recipient->getUuid(), 'code' => $code));
-							$recipientAddress['text'][] = array($recipient->getPrimaryElectronicAddress()->getIdentifier(), $message, $recipient->getName()->getFirstName());
-						}
-					}
-				}
+				$this->sendNewsletterEmailToRecipients($newsletter, $childNodes, $group->getRecipients());
 			} else {
 				$staticList = explode(',', $group->getRecipients());
 				if (count($staticList) > 0) {
-					$contentType['text'] = 'text/plain';
-					foreach ($staticList as $recipient) {
-						$message = $this->emailNotificationService->buildEmailMessage('Newsletter.txt', array('contentNode' => $childNodes, 'recipient' => $recipient));
-						$recipientAddress['text'][] = array(trim($recipient), $message);
+					$this->sendNewsletterEmailToRecipients($newsletter, $childNodes, $staticList);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Send Newsletter Email To Recipients
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter
+	 * @param array $childNodes
+	 * @param array $recipients
+	 */
+	public function sendNewsletterEmailToRecipients(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, $childNodes, $recipients) {
+		$recipientAddress = array();
+		$contentType = array();
+		foreach ($recipients as $recipient) {
+			if (is_object($recipient) === TRUE) {
+				if ((($this->personService->isUserApproved($recipient) === TRUE) &&
+						($this->isValidCategory($newsletter, $recipient) === TRUE)) ||
+						(($this->personService->isUserApproved($recipient) === TRUE) &&
+						(count($recipient->getCategories()) === 0))) {
+					if ($recipient->getAcceptsHtml() === TRUE) {
+						$code = sha1($recipient->getPrimaryElectronicAddress()->getIdentifier() . $recipient->getUuid());
+						$contentType['html'] = 'text/html';
+						$message = $this->emailNotificationService->buildEmailMessage('Newsletter.html', array('contentNode' => $childNodes, 'recipientId' => $recipient->getUuid(), 'code' => $code));
+						$recipientAddress['html'][] = array($recipient->getPrimaryElectronicAddress()->getIdentifier(), $message, $recipient->getName()->getFirstName(),);
+					} else {
+						$code = sha1($recipient->getPrimaryElectronicAddress()->getIdentifier() . $recipient->getUuid());
+						$contentType['text'] = 'text/plain';
+						$message = $this->emailNotificationService->buildEmailMessage('Newsletter.txt', array('contentNode' => $childNodes, 'recipientId' => $recipient->getUuid(), 'code' => $code));
+						$recipientAddress['text'][] = array($recipient->getPrimaryElectronicAddress()->getIdentifier(), $message, $recipient->getName()->getFirstName());
 					}
 				}
+			} else {
+				$contentType['text'] = 'text/plain';
+				$message = $this->emailNotificationService->buildEmailMessage('Newsletter.txt', array('contentNode' => $childNodes, 'recipient' => $recipient));
+				$recipientAddress['text'][] = array(trim($recipient), $message);
 			}
 		}
 		$fromEmail = $newsletter->getFromEmail();
