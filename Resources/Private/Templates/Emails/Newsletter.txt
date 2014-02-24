@@ -6,3 +6,8 @@
 		</f:switch>
 	</f:for>
 </f:for>
+<f:if condition="{recipientId}">
+	<f:then>
+		Please click the link to unSubscribe : {baseUrl}?recipientId={recipientId}&code={code}
+	</f:then>
+</f:if>

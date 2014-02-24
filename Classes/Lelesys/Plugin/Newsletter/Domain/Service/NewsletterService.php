@@ -82,6 +82,14 @@ class NewsletterService {
 	protected $settings;
 
 	/**
+	 * Bootstrap
+	 *
+	 * @var \TYPO3\Flow\Core\Bootstrap
+	 * @Flow\Inject
+	 */
+	protected $bootstrap;
+
+	/**
 	 * Injects settings
 	 *
 	 * @param array $settings
@@ -198,6 +206,7 @@ class NewsletterService {
 	public function sendNewsletterEmailToRecipients(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, $childNodes, $recipients) {
 		$recipientAddress = array();
 		$contentType = array();
+		$baseUrl = $this->bootstrap->getActiveRequestHandler()->getHttpRequest()->getBaseUri();
 		foreach ($recipients as $recipient) {
 			if (is_object($recipient) === TRUE) {
 				if ((($this->personService->isUserApproved($recipient) === TRUE) &&
@@ -212,7 +221,7 @@ class NewsletterService {
 					} else {
 						$code = sha1($recipient->getPrimaryElectronicAddress()->getIdentifier() . $recipient->getUuid());
 						$contentType['text'] = 'text/plain';
-						$message = $this->emailNotificationService->buildEmailMessage('Newsletter.txt', array('contentNode' => $childNodes, 'recipientId' => $recipient->getUuid(), 'code' => $code));
+						$message = $this->emailNotificationService->buildEmailMessage('Newsletter.txt', array('contentNode' => $childNodes, 'recipientId' => $recipient->getUuid(), 'code' => $code, 'baseUrl' => $baseUrl. $this->settings['email']['unSubscribeLink']));
 						$recipientAddress['text'][] = array($recipient->getPrimaryElectronicAddress()->getIdentifier(), $message, $recipient->getName()->getFirstName());
 					}
 				}
