@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Controller\Module;
 
-/*                                                                         *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".               *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -20,5 +19,4 @@ use TYPO3\Flow\Annotations as Flow;
 class NewsletterManagementController extends \TYPO3\Neos\Controller\Module\AbstractModuleController {
 
 }
-
 ?>

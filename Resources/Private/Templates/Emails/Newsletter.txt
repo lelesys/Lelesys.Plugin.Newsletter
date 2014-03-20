@@ -1,13 +1,6 @@
-<f:for each="{contentNode}" as="node">
-	<f:for each="{node.properties}" key="nodeType" as="property">
-		<f:switch expression="{nodeType}">
-			<f:case value="text"><f:format.stripTags>{property-> f:format.raw()}</f:format.stripTags></f:case>
-			<f:case value="image">{f:uri.resource(resource: property.resource)}</f:case>
-		</f:switch>
-	</f:for>
-</f:for>
+<f:format.raw>{mailContent}</f:format.raw>
 <f:if condition="{recipientId}">
 	<f:then>
-		Please click the link to unSubscribe : {baseUrl}?recipientId={recipientId}&code={code}
+		<f:link.action action="unSubscribeConfirmation" controller="Person" package="Lelesys.Plugin.Newsletter" arguments="{recipientId: recipientId,code: code}">UnSubcribe</f:link.action>
 	</f:then>
 </f:if>

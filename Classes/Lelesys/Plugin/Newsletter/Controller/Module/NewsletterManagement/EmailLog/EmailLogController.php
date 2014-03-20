@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\EmailLog;
 
-/* *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -41,7 +40,7 @@ class EmailLogController extends NewsletterManagementController {
 	/**
 	 * Detail of email log
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $emailLog
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $emailLog EmailLog object
 	 * @return void
 	 */
 	public function showAction(\Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $emailLog) {
@@ -49,18 +48,9 @@ class EmailLogController extends NewsletterManagementController {
 	}
 
 	/**
-	 * New email log
-	 *
-	 * @return void
-	 */
-	public function newAction() {
-
-	}
-
-	/**
 	 * Creates email log
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $newEmailLog
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $newEmailLog EmailLog object
 	 * @return void
 	 */
 	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $newEmailLog) {
@@ -69,40 +59,5 @@ class EmailLogController extends NewsletterManagementController {
 		$this->redirect('index');
 	}
 
-	/**
-	 * Edit of email log
-	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $emailLog
-	 * @return void
-	 */
-	public function editAction(\Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $emailLog) {
-		$this->view->assign('emailLog', $emailLog);
-	}
-
-	/**
-	 * Update email log
-	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $emailLog
-	 * @return void
-	 */
-	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $emailLog) {
-		$this->emailLogService->update($emailLog);
-		$this->addFlashMessage('Updated the email log.');
-		$this->redirect('index');
-	}
-
-	/**
-	 * Delete email log
-	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $emailLog
-	 * @return void
-	 */
-	public function deleteAction(\Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $emailLog) {
-		$this->emailLogService->remove($emailLog);
-		$this->addFlashMessage('Deleted a email log.');
-		$this->redirect('index');
-	}
-
 }
-
 ?>

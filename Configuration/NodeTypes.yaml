@@ -1,3 +1,4 @@
+# Newsletter Subscribtion plugin
 'Lelesys.Plugin.Newsletter:Subscribtion':
   superTypes:
     - 'TYPO3.Neos:Plugin'
@@ -5,6 +6,7 @@
     label: 'Newsletter Subscription Form'
     group: 'plugins'
 
+# Newsletter custom node
 'Lelesys.Plugin.Newsletter:Newsletter':
   superTypes:
     - 'TYPO3.Neos:Document'
@@ -18,9 +20,75 @@
     main:
       type: 'TYPO3.Neos:ContentCollection'
 
+# Newsletter Subscribtion Confirmation plugin
 'Lelesys.Plugin.Newsletter:SubscribtionConfirmation':
   superTypes:
     - 'TYPO3.Neos:Plugin'
   ui:
     label: 'Newsletter Subscribtion Confirmation'
     group: 'plugins'
+
+##
+# Adjust the "TwoColumn" node type:
+# Disable some of the layout options, override labels and set the default layout
+#
+'TYPO3.Neos.NodeTypes:TwoColumn':
+  properties:
+    'layout':
+      defaultValue: '6-6'
+      ui:
+        inspector:
+          editorOptions:
+            values:
+              '50-50': ~
+              '75-25': ~
+              '25-75': ~
+              '66-33': ~
+              '33-66': ~
+              '6-6':
+                label: '50% / 50%'
+              '8-4':
+                label: '66% / 33%'
+              '4-8':
+                label: '33% / 66%'
+
+##
+# Adjust the "ThreeColumn" node type:
+# Disable some of the layout options, override labels and set the default layout
+#
+'TYPO3.Neos.NodeTypes:ThreeColumn':
+  properties:
+    'layout':
+      defaultValue: '4-4-4'
+      ui:
+        inspector:
+          editorOptions:
+            values:
+              '33-33-33': ~
+              '50-25-25': ~
+              '25-50-25': ~
+              '25-25-50': ~
+              '4-4-4':
+                label: '33% / 33% / 33%'
+              '6-3-3':
+                label: '50% / 25% / 33%'
+              '3-6-3':
+                label: '25% / 50% / 25%'
+              '3-3-6':
+                label: '25% / 25% / 50%'
+
+##
+# Adjust the "FourColumn" node type:
+# Disable some of the layout options, override labels and set the default layout
+#
+'TYPO3.Neos.NodeTypes:FourColumn':
+  properties:
+    'layout':
+      defaultValue: '3-3-3-3'
+      ui:
+        inspector:
+          editorOptions:
+            values:
+              '25-25-25-25': ~
+              '3-3-3-3':
+                label: '25% / 25% / 25% / 25%'

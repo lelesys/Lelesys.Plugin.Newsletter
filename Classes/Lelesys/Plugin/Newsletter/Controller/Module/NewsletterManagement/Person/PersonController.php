@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Person;
 
-/* *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -73,7 +72,7 @@ class PersonController extends NewsletterManagementController {
 	/**
 	 * Detail of recipients
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person Person object
 	 * @return void
 	 */
 	public function showAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
@@ -94,7 +93,7 @@ class PersonController extends NewsletterManagementController {
 	/**
 	 * Creates new recipient
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson Person object
 	 * @return void
 	 */
 	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson) {
@@ -121,7 +120,7 @@ class PersonController extends NewsletterManagementController {
 	/**
 	 * Edit recipient info
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person Person object
 	 * @return void
 	 */
 	public function editAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
@@ -133,7 +132,7 @@ class PersonController extends NewsletterManagementController {
 	/**
 	 * Update recipient info
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person Person object
 	 * @return void
 	 */
 	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
@@ -153,7 +152,7 @@ class PersonController extends NewsletterManagementController {
 	/**
 	 * Delete recipient
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person Person object
 	 * @return void
 	 */
 	public function deleteAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
@@ -171,5 +170,4 @@ class PersonController extends NewsletterManagementController {
 	}
 
 }
-
 ?>

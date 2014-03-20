@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Service;
 
-/* *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -47,7 +46,7 @@ class CentralService {
 	/**
 	 * Returns translated text for given label
 	 *
-	 * @param string $label
+	 * @param string $label Label
 	 * @return string Translated string
 	 */
 	public function translate($label) {
@@ -55,3 +54,4 @@ class CentralService {
 	}
 
 }
+?>

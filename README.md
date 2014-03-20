@@ -23,11 +23,14 @@ include: resource://Lelesys.Plugin.Newsletter/Private/TypoScripts/Library/NodeTy
 	  Plugin:
 		Newsletter:
 		  email:
-            admin: 'info@lelesys.com'
-            subject: 'Confirm Subscription'
-            replyTo: 'gauri.shirodkar@lelesys.com'
-            senderEmail: 'info@lelesys.com'
-            senderName: 'Lelesys'
+			admin: 'info@lelesys.com'
+			subject: 'Confirm Subscription'
+			replyTo: 'gauri.shirodkar@lelesys.com'
+			senderEmail: 'info@lelesys.com'
+			senderName: 'Lelesys'
+			ccAddresses: 'sushant.chari@lelesys.com'
+			bccAddresses: 'sushant.chari@lelesys.com'
+			baseUrl : 'Base url of your site(e.g. http://demosite.local.com')
           flashMessage:
             packageKey: 'Lelesys.Plugin.Newsletter'
 ```
@@ -37,6 +40,8 @@ Usage
 * add the plugin content element "Newsletter Subscription Form" to the position of your choice.
 
 * this will display form in frontend
+
+* add the plugin content element "Newsletter Subscribtion Confirmation" at site node (the first page of your site) to view confirmation message of newsletter subscribtion.
 
 * add the plugin content element "Lelesys Newsletter Node" to the position of your choice.
 

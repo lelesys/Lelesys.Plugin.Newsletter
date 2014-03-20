@@ -11,23 +11,24 @@
 					<thead>
 						<tr>
 							<th><f:translate id="lelesys.plugin.newsletter.title"></f:translate></th>
-					<th></th>
-					</tr>
+							<th></th>
+						</tr>
 					</thead>
 					<tbody>
 					<f:for each="{parties}" as="party">
-						<tr><td>{party.title}</td>
+						<tr>
+							<td>{party.title}</td>
 							<td>
-						<f:link.action action="show" arguments="{party: party}" class="neos-btn neos-button pull-right" title="Click to view">
-							<i class="icon-info-sign icon-white"></i>
-						</f:link.action>
-						<f:link.action action="edit" arguments="{party: party}" class="neos-btn neos-button pull-right" title="Click to edit">
-							<i class="icon-pencil icon-white"></i>
-						</f:link.action>
-						<f:form action="delete" class="delete" arguments="{party: party}">
-							<f:form.submit class="neos-btn neos-button neos-button-danger pull-right" value="Delete" />
-						</f:form>
-						</td>
+								<f:link.action action="show" arguments="{party: party}" class="neos-btn neos-button pull-right" title="Click to view">
+								<i class="icon-info-sign icon-white"></i>
+							</f:link.action>
+							<f:link.action action="edit" arguments="{party: party}" class="neos-btn neos-button pull-right" title="Click to edit">
+								<i class="icon-pencil icon-white"></i>
+							</f:link.action>
+							<f:link.action action="delete" arguments="{party: party}" class="neos-btn neos-button pull-right" title="Click to delete">
+								<i class="icon-trash icon-white"></i>
+							</f:link.action>
+							</td>
 						</tr>
 					</f:for>
 					</tbody>

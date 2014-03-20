@@ -47,7 +47,19 @@
 
 				<tr>
 					<td><f:translate id="lelesys.plugin.newsletter.priority"></f:translate></td>
-					<td>{newsletter.priority}</td>
+					<td>
+						<f:switch expression="{newsletter.priority}">
+							<f:case value="2">
+								<f:translate id="lelesys.plugin.newsletter.priority.high"></f:translate>
+							</f:case>
+							<f:case value="3">
+								<f:translate id="lelesys.plugin.newsletter.priority.normal"></f:translate>
+							</f:case>
+							<f:case value="4">
+								<f:translate id="lelesys.plugin.newsletter.priority.low"></f:translate>
+							</f:case>
+						</f:switch>
+					</td>
 				</tr>
 
 				<tr>

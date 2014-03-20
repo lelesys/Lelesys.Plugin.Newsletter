@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Service;
 
-/* *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -14,8 +13,13 @@ use TYPO3\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\Newsletter;
 use TYPO3\TYPO3CR\Domain\Model\NodeTemplate;
 use TYPO3\TYPO3CR\Domain\Model\PersistentNodeInterface;
+use TYPO3\Fluid\View\StandaloneView;
+use TYPO3\TYPO3CR\Domain\Model\Node;
+use TYPO3\Flow\Http\Request as Request;
 
 /**
+ * Newsletter Service
+ *
  * @Flow\Scope("singleton")
  */
 class NewsletterService {
@@ -37,20 +41,20 @@ class NewsletterService {
 	protected $emailNotificationService;
 
 	/**
+	 * EmailLog Service
+	 *
+	 * @Flow\Inject
+	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\EmailLogService
+	 */
+	protected $emailLogService;
+
+	/**
 	 * NodeData Repository
 	 *
 	 * @Flow\Inject
 	 * @var \TYPO3\TYPO3CR\Domain\Repository\NodeDataRepository
 	 */
 	protected $nodeDataRepository;
-
-	/**
-	 * NodeTypeManager
-	 *
-	 * @Flow\Inject
-	 * @var \TYPO3\TYPO3CR\Domain\Service\NodeTypeManager
-	 */
-	protected $nodeTypeManager;
 
 	/**
 	 * Person Service
@@ -61,6 +65,14 @@ class NewsletterService {
 	protected $personService;
 
 	/**
+	 * Newsletter Service
+	 *
+	 * @Flow\Inject
+	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\NewsletterBuildService
+	 */
+	protected $newsletterBuildService;
+
+	/**
 	 * ResourceManager
 	 *
 	 * @Flow\Inject
@@ -69,6 +81,8 @@ class NewsletterService {
 	protected $resourceManager;
 
 	/**
+	 * Inject PersistenceManagerInterface
+	 *
 	 * @Flow\Inject
 	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
 	 */
@@ -82,12 +96,52 @@ class NewsletterService {
 	protected $settings;
 
 	/**
-	 * Bootstrap
+	 * Contextfactory
 	 *
-	 * @var \TYPO3\Flow\Core\Bootstrap
+	 * @Flow\Inject
+	 * @var TYPO3\TYPO3CR\Domain\Service\ContextFactoryInterface
+	 */
+	protected $contextFactory;
+
+	/**
+	 * Inject ConfigurationManager
+	 *
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
+	 */
+	protected $configurationManager;
+
+	/**
+	 * Inject RouterInterface
+	 *
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Mvc\Routing\RouterInterface
+	 */
+	protected $router;
+
+	/**
+	 * Inject dispatcher
+	 *
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Mvc\Dispatcher
+	 */
+	protected $dispatcher;
+
+	/**
+	 * The security conntext
+	 *
+	 * @var \TYPO3\Flow\Security\Context
 	 * @Flow\Inject
 	 */
-	protected $bootstrap;
+	protected $securityContext;
+
+	/**
+	 * Inject ObjectManagerInterface
+	 *
+	 * @var \TYPO3\Flow\Object\ObjectManagerInterface
+	 * @Flow\Inject
+	 */
+	protected $objectManager;
 
 	/**
 	 * Injects settings
@@ -119,7 +173,7 @@ class NewsletterService {
 	/**
 	 * List of all Recipients By Groups
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
 	 * @return void
 	 */
 	public function getAllRecipientsByGroups(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
@@ -145,27 +199,21 @@ class NewsletterService {
 	}
 
 	/**
-	 * Sends email
-	 * @param string $adminEmail
+	 * Sends test email
+	 *
+	 * @param string $adminEmail Admin email
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter
 	 * @return void
 	 */
 	public function sendTestEmail($adminEmail, \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
 		$subject = $newsletter->getSubject();
 		$fromName = $this->settings['email']['senderName'];
-		$childNodes = array();
-		$node = $this->getContentNode($newsletter->getContentNode());
-		foreach ($node->getChildNodes() as $value) {
-			foreach ($value->getChildNodes() as $child) {
-				$childNodes[] = $child;
-			}
-		}
+		$message = $this->newsletterBuildService->buildMailContents('Newsletter.html', array('recipient' => $adminEmail), $newsletter, array('html' => 'text/html'));
 		$attachments = array();
 		if ($newsletter->getAttachments() !== NULL) {
 			$attachments['path'] = $this->resourceManager->getPersistentResourcesStorageBaseUri() . $newsletter->getAttachments()->getResourcePointer()->getHash();
 			$attachments['name'] = $newsletter->getAttachments()->getFilename();
 		}
-		$message = $this->emailNotificationService->buildEmailMessage('Newsletter.html', array('contentNode' => $childNodes));
 		$this->emailNotificationService->sendMail($subject, $message, $adminEmail, $fromName, $attachments);
 	}
 
@@ -176,22 +224,38 @@ class NewsletterService {
 	 * @return void
 	 */
 	public function sendEmail(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
-		$childNodes = array();
-		$node = $this->getContentNode($newsletter->getContentNode());
-		foreach ($node->getChildNodes() as $value) {
-			foreach ($value->getChildNodes() as $child) {
-				$childNodes[] = $child;
-			}
-		}
-		$this->sendNewsletterEmailToRecipients($newsletter, $childNodes, $newsletter->getRecipients());
+		$allArrays = $this->sendNewsletterEmailToRecipients($newsletter, $newsletter->getRecipients());
+		$personEmailList = $list = $staticLists = array();
 		foreach ($newsletter->getRecipientGroups() as $group) {
 			if ($group instanceof \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party) {
-				$this->sendNewsletterEmailToRecipients($newsletter, $childNodes, $group->getRecipients());
+				$recipeints = $group->getRecipients();
+				$personListArray = $this->sendNewsletterEmailToRecipients($newsletter, $recipeints, $allArrays['list'], $allArrays['personEmailList']);
+				$list = $personListArray['list'];
+				$personEmailList = $personListArray['personEmailList'];
 			} else {
-				$staticList = explode(',', $group->getRecipients());
-				if (count($staticList) > 0) {
-					$this->sendNewsletterEmailToRecipients($newsletter, $childNodes, $staticList);
+				$staticLists = \TYPO3\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients());
+			}
+		}
+		if ((count($personEmailList) > 0 && count($list) > 0) || ($allArrays['list'] > 0)) {
+			if (empty($personEmailList) === TRUE) {
+				$groupEmails = array_unique($allArrays['personEmailList']);
+			} else {
+				$groupEmails = array_unique($personEmailList);
+			}
+			$staticEmails = array_unique($staticLists);
+			$finalList = array_merge($groupEmails, $staticEmails);
+			$list = array_unique($finalList);
+			foreach ($list as $recepeintIdentifier => $email) {
+				if (is_int($recepeintIdentifier) === TRUE) {
+					$this->emailLogService->create($newsletter, \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog::RECIPIENT_TYPE_STATIC, $email);
+				} else {
+					$this->emailLogService->create($newsletter, \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog::RECIPIENT_TYPE_PERSON, $recepeintIdentifier);
 				}
+			}
+		} elseif (count($staticLists) > 0) {
+			$staticEmails = array_unique($staticLists);
+			foreach ($staticEmails as $email) {
+				$this->emailLogService->create($newsletter, \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog::RECIPIENT_TYPE_STATIC, $email);
 			}
 		}
 	}
@@ -199,56 +263,23 @@ class NewsletterService {
 	/**
 	 * Send Newsletter Email To Recipients
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter
-	 * @param array $childNodes
-	 * @param array $recipients
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
+	 * @param array $recipients Array of recipients
+	 * @param array $list List
+	 * @param array $personEmailList Array of email list
 	 */
-	public function sendNewsletterEmailToRecipients(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, $childNodes, $recipients) {
-		$recipientAddress = array();
-		$contentType = array();
-		$baseUrl = $this->bootstrap->getActiveRequestHandler()->getHttpRequest()->getBaseUri();
+	public function sendNewsletterEmailToRecipients(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, $recipients, $list = array(), $personEmailList = array()) {
+		$recipeintType = '';
 		foreach ($recipients as $recipient) {
-			if (is_object($recipient) === TRUE) {
-				if ((($this->personService->isUserApproved($recipient) === TRUE) &&
-						($this->isValidCategory($newsletter, $recipient) === TRUE)) ||
-						(($this->personService->isUserApproved($recipient) === TRUE) &&
-						(count($recipient->getCategories()) === 0))) {
-					if ($recipient->getAcceptsHtml() === TRUE) {
-						$code = sha1($recipient->getPrimaryElectronicAddress()->getIdentifier() . $recipient->getUuid());
-						$contentType['html'] = 'text/html';
-						$message = $this->emailNotificationService->buildEmailMessage('Newsletter.html', array('contentNode' => $childNodes, 'recipientId' => $recipient->getUuid(), 'code' => $code));
-						$recipientAddress['html'][] = array($recipient->getPrimaryElectronicAddress()->getIdentifier(), $message, $recipient->getName()->getFirstName(),);
-					} else {
-						$code = sha1($recipient->getPrimaryElectronicAddress()->getIdentifier() . $recipient->getUuid());
-						$contentType['text'] = 'text/plain';
-						$message = $this->emailNotificationService->buildEmailMessage('Newsletter.txt', array('contentNode' => $childNodes, 'recipientId' => $recipient->getUuid(), 'code' => $code, 'baseUrl' => $baseUrl. $this->settings['email']['unSubscribeLink']));
-						$recipientAddress['text'][] = array($recipient->getPrimaryElectronicAddress()->getIdentifier(), $message, $recipient->getName()->getFirstName());
-					}
-				}
-			} else {
-				$contentType['text'] = 'text/plain';
-				$message = $this->emailNotificationService->buildEmailMessage('Newsletter.txt', array('contentNode' => $childNodes, 'recipient' => $recipient));
-				$recipientAddress['text'][] = array(trim($recipient), $message);
+			if ((($this->personService->isUserApproved($recipient) === TRUE) &&
+					($this->isValidCategory($newsletter, $recipient) === TRUE)) ||
+					(($this->personService->isUserApproved($recipient) === TRUE) &&
+					(count($recipient->getCategories()) === 0))) {
+				$list[] = $recipient->getUuid();
+				$personEmailList[$recipient->getUuid()] = $recipient->getPrimaryElectronicAddress()->getIdentifier();
 			}
 		}
-		$fromEmail = $newsletter->getFromEmail();
-		$fromName = $newsletter->getFromName();
-		$subject = $newsletter->getSubject();
-		$priority = $newsletter->getPriority();
-		$characterSet = $newsletter->getCharacterSet();
-		$attachments = array();
-		if ($newsletter->getAttachments() !== NULL) {
-			$attachments['path'] = $this->resourceManager->getPersistentResourcesStorageBaseUri() . $newsletter->getAttachments()->getResourcePointer()->getHash();
-			$attachments['name'] = $newsletter->getAttachments()->getFilename();
-		}
-		$replyEmail = $newsletter->getReplyToEmail();
-		$replyName = $newsletter->getReplyToName();
-		if (isset($contentType['html'])) {
-			$this->emailNotificationService->sendNewsletterMail($fromEmail, $fromName, $replyEmail, $replyName, $subject, $priority, $characterSet, $attachments, $contentType['html'], $recipientAddress['html']);
-		}
-		if (isset($contentType['text'])) {
-			$this->emailNotificationService->sendNewsletterMail($fromEmail, $fromName, $replyEmail, $replyName, $subject, $priority, $characterSet, $attachments, $contentType['text'], $recipientAddress['text']);
-		}
+		return array('list' => $list, 'personEmailList' => $personEmailList);
 	}
 
 	/**
@@ -263,7 +294,7 @@ class NewsletterService {
 	/**
 	 * Get all newsletters by category
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category object
 	 * @return array
 	 */
 	public function getAllNewslettersByCategory(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
@@ -273,8 +304,8 @@ class NewsletterService {
 	/**
 	 * Checks if newsletter category and recipients category matches
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $recipient
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $recipient Recipient object
 	 * @return boolean
 	 */
 	public function isValidCategory(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $recipient) {
@@ -312,22 +343,9 @@ class NewsletterService {
 	}
 
 	/**
-	 * Gets all content node
-	 *
-	 * @param string $contentNode
-	 * @return \TYPO3\TYPO3CR\Domain\Model\NodeData $newsletterNode
-	 */
-	public function getContentNode($contentNode = NULL) {
-		if ($contentNode !== NULL) {
-			$newsletterNode = $this->nodeDataRepository->findByIdentifier($contentNode);
-			return $newsletterNode;
-		}
-	}
-
-	/**
 	 * Adds news newsletter
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter Newsletter object
 	 * @return void
 	 */
 	public function create(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter) {
@@ -337,7 +355,7 @@ class NewsletterService {
 	/**
 	 * Removed contentNode form newsletter which are deleted
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
 	 * @return void
 	 */
 	public function removeContentNode(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
@@ -349,7 +367,7 @@ class NewsletterService {
 	/**
 	 * Updates newsletter
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
 	 * @return void
 	 */
 	public function update(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
@@ -359,16 +377,17 @@ class NewsletterService {
 	/**
 	 * Deletes newsletter
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
 	 * @return void
 	 */
 	public function delete(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
 		$this->newsletterRepository->remove($newsletter);
+		$this->persistenceManager->persistAll();
 	}
 
 	/**
 	 * Deletes Related Recipients
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person Person object
 	 * @return void
 	 */
 	public function deleteRelatedRecipients(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
@@ -382,7 +401,7 @@ class NewsletterService {
 	/**
 	 * Delete Related Recipient Group Party
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party Party object
 	 * @return void
 	 */
 	public function deleteRelatedRecipientGroupParty(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party) {
@@ -396,7 +415,7 @@ class NewsletterService {
 	/**
 	 * Delete Related Recipient Group StaticList
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\StaticList $staticList
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\StaticList $staticList Static list
 	 * @return void
 	 */
 	public function deleteRelatedRecipientGroupStaticList(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\StaticList $staticList) {
@@ -410,7 +429,7 @@ class NewsletterService {
 	/**
 	 * Delete Related Categories
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category
 	 * @return void
 	 */
 	public function deleteRelatedCategories(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
@@ -421,6 +440,18 @@ class NewsletterService {
 		}
 	}
 
-}
+	/**
+	 * Gets all content node
+	 *
+	 * @param string $contentNode Node identifier
+	 * @return \TYPO3\TYPO3CR\Domain\Model\NodeData $newsletterNode
+	 */
+	public function getContentNode($contentNode = NULL) {
+		if ($contentNode !== NULL) {
+			$newsletterNode = $this->nodeDataRepository->findByIdentifier($contentNode);
+			return $newsletterNode;
+		}
+	}
 
+}
 ?>

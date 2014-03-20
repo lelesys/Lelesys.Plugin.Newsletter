@@ -1,0 +1,13 @@
+<f:security.ifAccess resource="TYPO3_Neos_Backend_GeneralAccess">
+	<f:then>
+		{namespace neos=TYPO3\Neos\ViewHelpers}
+		<div{attributes -> f:format.raw()}>
+			{neos:contentElement.editable(property: 'title')}
+		</div>
+	</f:then>
+	<f:else>
+		<div class="headline" style="border-bottom: 1px solid #D2D2D2; font-family: Helvetica, arial, sans-serif; font-size: 18px; color: #666666; padding: 0px 20px !important;">
+			{title-> f:format.raw()}
+		</div>
+	</f:else>
+</f:security.ifAccess>

@@ -1,3 +1,4 @@
+# Policy configuration for Lelesys.Plugin.Newsletter package
 roles:
   'NewsletterAdmin': []
 resources:

@@ -1,5 +1,4 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Model;
 
 /* *
@@ -185,7 +184,7 @@ class Newsletter {
 	/**
 	 * Sets FromName
 	 *
-	 * @param string $fromName
+	 * @param string $fromName FromName
 	 * @return void
 	 */
 	public function setFromName($fromName) {
@@ -204,7 +203,7 @@ class Newsletter {
 	/**
 	 * Sets FromEmail
 	 *
-	 * @param string $fromEmail
+	 * @param string $fromEmail FromEmail
 	 * @return void
 	 */
 	public function setFromEmail($fromEmail) {
@@ -223,7 +222,7 @@ class Newsletter {
 	/**
 	 * Sets ReplyToName
 	 *
-	 * @param string $replyToName
+	 * @param string $replyToName ReplyToName
 	 * @return void
 	 */
 	public function setReplyToName($replyToName) {
@@ -242,7 +241,7 @@ class Newsletter {
 	/**
 	 * Sets ReplyToEmail
 	 *
-	 * @param string $replyToEmail
+	 * @param string $replyToEmail ReplyToEmail
 	 * @return void
 	 */
 	public function setReplyToEmail($replyToEmail) {
@@ -261,7 +260,7 @@ class Newsletter {
 	/**
 	 * Sets Organisation
 	 *
-	 * @param string $organisation
+	 * @param string $organisation Organisation
 	 * @return void
 	 */
 	public function setOrganisation($organisation) {
@@ -280,7 +279,7 @@ class Newsletter {
 	/**
 	 * Sets Subject
 	 *
-	 * @param string $subject
+	 * @param string $subject Subject
 	 * @return void
 	 */
 	public function setSubject($subject) {
@@ -299,7 +298,7 @@ class Newsletter {
 	/**
 	 * Sets Encoding
 	 *
-	 * @param string $encoding
+	 * @param string $encoding Encoding
 	 * @return void
 	 */
 	public function setEncoding($encoding) {
@@ -318,7 +317,7 @@ class Newsletter {
 	/**
 	 * Sets CharacterSet
 	 *
-	 * @param string $characterSet
+	 * @param string $characterSet CharacterSet
 	 * @return void
 	 */
 	public function setCharacterSet($characterSet) {
@@ -337,7 +336,7 @@ class Newsletter {
 	/**
 	 * Sets HtmlBody
 	 *
-	 * @param string $htmlBody
+	 * @param string $htmlBody HtmlBody
 	 * @return void
 	 */
 	public function setHtmlBody($htmlBody) {
@@ -356,7 +355,7 @@ class Newsletter {
 	/**
 	 * Sets PlainTextBody
 	 *
-	 * @param string $plainTextBody
+	 * @param string $plainTextBody PlainTextBody
 	 * @return void
 	 */
 	public function setPlainTextBody($plainTextBody) {
@@ -375,7 +374,7 @@ class Newsletter {
 	/**
 	 * Sets Priority
 	 *
-	 * @param integer $priority
+	 * @param integer $priority Priority
 	 * @return void
 	 */
 	public function setPriority($priority) {
@@ -394,7 +393,7 @@ class Newsletter {
 	/**
 	 * Sets Attachments
 	 *
-	 * @param \TYPO3\Flow\Resource\Resource $attachments
+	 * @param \TYPO3\Flow\Resource\Resource $attachments Attachments
 	 * @return void
 	 */
 	public function setAttachments(\TYPO3\Flow\Resource\Resource $attachments) {
@@ -451,7 +450,7 @@ class Newsletter {
 	/**
 	 * Sets Categories
 	 *
-	 * @param \Doctrine\Common\Collections\Collection $categories
+	 * @param \Doctrine\Common\Collections\Collection $categories Categories
 	 * @return void
 	 */
 	public function setCategories(\Doctrine\Common\Collections\Collection $categories) {
@@ -470,7 +469,7 @@ class Newsletter {
 	/**
 	 * Sets RecipientGroups
 	 *
-	 * @param \Doctrine\Common\Collections\Collection $recipientGroups
+	 * @param \Doctrine\Common\Collections\Collection $recipientGroups Recipient groups
 	 * @return void
 	 */
 	public function setRecipientGroups(\Doctrine\Common\Collections\Collection $recipientGroups) {
@@ -489,7 +488,7 @@ class Newsletter {
 	/**
 	 * Sets Recipients
 	 *
-	 * @param \Doctrine\Common\Collections\Collection $recipients
+	 * @param \Doctrine\Common\Collections\Collection $recipients Recipients
 	 * @return void
 	 */
 	public function setRecipients(\Doctrine\Common\Collections\Collection $recipients) {
@@ -499,7 +498,7 @@ class Newsletter {
 	/**
 	 * Removes a Newsletters's Recipients
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person Person object
 	 * @return void
 	 */
 	public function removeRecipients(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
@@ -527,5 +526,4 @@ class Newsletter {
 	}
 
 }
-
 ?>

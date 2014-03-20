@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Controller;
 
-/* *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -47,6 +46,7 @@ class PersonController extends ActionController {
 
 	/**
 	 * Central Service
+	 *
 	 * @Flow\Inject
 	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\CentralService
 	 */
@@ -64,6 +64,10 @@ class PersonController extends ActionController {
 	/**
 	 * Creates new recipient
 	 *
+	 * @Flow\Validate(type="NotEmpty",value="newPerson.primaryElectronicAddress.identifier")
+	 * @Flow\Validate(type="EmailAddress",value="newPerson.primaryElectronicAddress.identifier")
+	 * @Flow\Validate(type="NotEmpty",value="newPerson.name.firstName")
+	 * @Flow\Validate(type="NotEmpty",value="newPerson.name.lastName")
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson The recipient
 	 * @return void
 	 */
@@ -74,17 +78,20 @@ class PersonController extends ActionController {
 			if (($isExistingUser !== NULL) && ($isExistingUser === 1)) {
 				$header = 'This email address has already subscribed!';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.emailExist');
-				$this->addFlashMessage('' . $newPerson->getPrimaryElectronicAddress()->getIdentifier() . $message . '', \TYPO3\Flow\Error\Message::SEVERITY_OK);
+				$this->addFlashMessage('' . $newPerson->getPrimaryElectronicAddress()->getIdentifier() . $message . '', \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+				$this->redirect("new");
 			} else {
 				$this->personService->create($newPerson);
 				$header = 'Thank you for subscribing to our newsletter.';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.subscribed');
 				$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+				$this->redirect("new");
 			}
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Cannot subscribe to newslette at this time!!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.subscribe');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+			$this->redirect("new");
 		}
 		$this->redirectToUri($baseUri);
 	}
@@ -93,7 +100,7 @@ class PersonController extends ActionController {
 	 * Unsubscribe confirmation of newsletter
 	 *
 	 * @param string $recipientId To unsubcribe
-	 * @param string $code
+	 * @param string $code Code
 	 * @return void
 	 */
 	public function unSubscribeConfirmationAction($recipientId, $code) {
@@ -106,29 +113,30 @@ class PersonController extends ActionController {
 
 	/**
 	 * Subscription confirmation
-	 *
 	 * User confirmation after registration
+	 *
 	 * @return array
 	 */
 	public function subscriptionConfirmationAction() {
+		$recipientId = $this->request->getHttpRequest()->getArgument('recipientId');
 		$code = $this->request->getHttpRequest()->getArgument('code');
+		if (empty($recipientId) === FALSE) {
+			$this->redirect('unSubscribeConfirmation', NULL, NULL, array('recipientId' => $recipientId, 'code' => $code));
+		}
 		$userIdentifier = $this->request->getHttpRequest()->getArgument('user');
 		$isConfirmed = $this->personService->confirmSubscription($code, $userIdentifier);
 		if ($isConfirmed === 1) {
 			$header = 'The user is approved!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.user.approved');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
-			throw new \TYPO3\Flow\Mvc\Exception\StopActionException();
 		} elseif ($isConfirmed === 0) {
 			$header = 'Link not valid!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.linkNotValid');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
-			throw new \TYPO3\Flow\Mvc\Exception\StopActionException();
 		} elseif ($isConfirmed === 2) {
 			$header = 'Already confirmed user!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.user.confirmed');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
-			throw new \TYPO3\Flow\Mvc\Exception\StopActionException();
 		}
 	}
 
@@ -136,18 +144,18 @@ class PersonController extends ActionController {
 	 * UnSubscribe newsletter
 	 *
 	 * @param string $recipient To unsubcribe
-	 * @param string $code
+	 * @param string $code Code
 	 * @return void
 	 */
 	public function unSubscribeAction($recipient, $code) {
 		$unSubscribed = $this->personService->unSubscribe($recipient, $code);
 		$baseUri = $this->request->getHttpRequest()->getBaseUri();
 		if ($unSubscribed === 1) {
-			$header = 'You are now unsubscribed!.';
+			$header = 'You are now unsubscribed!';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.user.unsubscribed');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
 		} elseif ($unSubscribed === 0) {
-			$header = 'Link not valid!.';
+			$header = 'Link not valid!';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.linkNotValid');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
 		}
@@ -155,5 +163,4 @@ class PersonController extends ActionController {
 	}
 
 }
-
 ?>

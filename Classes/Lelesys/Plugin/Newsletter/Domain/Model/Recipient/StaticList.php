@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Model\Recipient;
 
-/*                                                                         *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -45,5 +44,4 @@ class StaticList {
 	}
 
 }
-
 ?>

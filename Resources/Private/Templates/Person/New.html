@@ -3,46 +3,65 @@
 <f:section name="Title"></f:section>
 
 <f:section name="Content">
-	<div class="container-fluid">
-		<f:form action="create" objectName="newPerson" id="newRecipient">
-			<div class="control-group">
-				<label for="name"><f:translate id="lelesys.plugin.newsletter.name"></f:translate></label>
-				<f:form.textfield property="name.firstName" class="firstName required"/>
-			</div>
-			<div class="control-group">
-				<label for="name"><f:translate id="lelesys.plugin.newsletter.lastName"></f:translate></label>
-				<f:form.textfield property="name.lastName" class="lastName required"/>
-			</div>
-			<div class="control-group">
-				<label for="email"><f:translate id="lelesys.plugin.newsletter.email"></f:translate></label>
-				<f:form.textfield property="primaryElectronicAddress.identifier" class="required" id="email" />
-				<f:form.hidden property="primaryElectronicAddress.type" value="Email" />
-				<f:form.hidden property="primaryElectronicAddress.usage" value="Home" />
-				<f:form.hidden property="primaryElectronicAddress.approved" value="FALSE" />
-			</div>
-			<div class="control-group">
-				<label for="gender"><f:translate id="lelesys.plugin.newsletter.gender"></f:translate></label>
-				<f:form.radio property="gender" value="0" /> <f:translate id="lelesys.plugin.newsletter.male"></f:translate>
-				<f:form.radio property="gender" value="1" checked="checked"/> <f:translate id="lelesys.plugin.newsletter.female"></f:translate>
-			</div>
-
-			<div class="control-group">
-				<label for="acceptsHtml"><f:translate id="lelesys.plugin.newsletter.htmlEmail"></f:translate></label>
-				<f:form.checkbox property="acceptsHtml" value="1" id="acceptsHtml" class="acceptsHtml" />
-			</div>
-			<f:if condition="{categories}">
-				<div class="control-group">
-					<label for="categories"><f:translate id="lelesys.plugin.newsletter.categories"></f:translate></label>
-					<f:form.select options="{categories}" optionLabelField="title" property="categories" multiple="TRUE"></f:form.select>
+	<div class="container">
+		<div class="row">
+			<f:render partial="FlashMessage" />
+			<f:form action="create" objectName="newPerson" id="newRecipient" class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="name"><f:translate id="lelesys.plugin.newsletter.name"></f:translate></label>
+					<div class="col-sm-4">
+						<f:form.textfield property="name.firstName" class="firstName required form-control"/>
+						<f:render partial="FormErrors" arguments="{for: 'newPerson.name.firstName'}" />
+					</div>
 				</div>
-			</f:if>
-			<div class="control-group">
-				<f:form.submit class="createRecipient" value="<f:translate id='lelesys.plugin.newsletter.subscribe'></f:translate>" />
-			</div>
-		</f:form>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="name"><f:translate id="lelesys.plugin.newsletter.lastName"></f:translate></label>
+					<div class="col-sm-4">
+						<f:form.textfield property="name.lastName" class="lastName required form-control"/>
+						<f:render partial="FormErrors" arguments="{for: 'newPerson.name.lastName'}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="email"><f:translate id="lelesys.plugin.newsletter.email"></f:translate></label>
+					<div class="col-sm-4">
+						<f:form.textfield property="primaryElectronicAddress.identifier" class="required form-control" id="email" />
+						<f:form.hidden property="primaryElectronicAddress.type" value="Email" />
+						<f:form.hidden property="primaryElectronicAddress.usage" value="Home" />
+						<f:form.hidden property="primaryElectronicAddress.approved" value="FALSE" />
+						<f:render partial="FormErrors" arguments="{for: 'newPerson.primaryElectronicAddress.identifier'}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="gender"><f:translate id="lelesys.plugin.newsletter.gender"></f:translate></label>
+					<div class="col-sm-4">
+						<f:form.radio property="gender" value="0" /> <f:translate id="lelesys.plugin.newsletter.male"></f:translate>
+						<f:form.radio property="gender" value="1" /> <f:translate id="lelesys.plugin.newsletter.female"></f:translate>
+						<f:render partial="FormErrors" arguments="{for: 'newPerson.gender'}" />
+					</div>
+				</div>
+				<f:if condition="{categories}">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="categories"><f:translate id="lelesys.plugin.newsletter.categories"></f:translate></label>
+						<div class="col-sm-4">
+							<f:form.select options="{categories}" optionLabelField="title" property="categories" multiple="TRUE" class="form-control" ></f:form.select>
+						</div>
+					</div>
+				</f:if>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-4">
+						<div class="checkbox">
+							<label>
+								<f:form.checkbox property="acceptsHtml" value="1" id="acceptsHtml" class="acceptsHtml" /><f:translate id="lelesys.plugin.newsletter.htmlEmail"></f:translate>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-4">
+						<f:form.submit class="createRecipient btn btn-primary" value="<f:translate id='lelesys.plugin.newsletter.subscribe'></f:translate>" />
+					</div>
+				</div>
+			</f:form>
+		</div>
 	</div>
-
-	<script src="{f:uri.resource(path:'js/jquery.validate.js')}" type="text/javascript"></script>
-	<script src="{f:uri.resource(path:'js/form-validations.js')}" type="text/javascript"></script>
-	<link href="{f:uri.resource(path: 'resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/custom.css')}" rel="stylesheet" media="screen">
 </f:section>

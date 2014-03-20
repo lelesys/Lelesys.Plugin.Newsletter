@@ -1,5 +1,4 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\StaticList;
 
 /* *
@@ -67,7 +66,7 @@ class StaticListController extends NewsletterManagementController {
 
 	/**
 	 * Creates new staticList group
-	 *
+	 * @Flow\Validate(argumentName="newStaticList.recipientList", type="\Lelesys\Plugin\Newsletter\Validator\EmailValidator")
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\StaticList $newStaticList
 	 * @return void
 	 */
@@ -98,6 +97,7 @@ class StaticListController extends NewsletterManagementController {
 	/**
 	 * Updates staticList group
 	 *
+	 * @Flow\Validate(argumentName="staticList.recipientList", type="\Lelesys\Plugin\Newsletter\Validator\EmailValidator")
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\StaticList $staticList
 	 * @return void
 	 */
@@ -136,5 +136,4 @@ class StaticListController extends NewsletterManagementController {
 	}
 
 }
-
 ?>

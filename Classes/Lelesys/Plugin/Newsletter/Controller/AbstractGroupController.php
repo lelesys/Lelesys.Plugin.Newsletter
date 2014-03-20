@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Controller;
 
-/* *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -41,7 +40,7 @@ class AbstractGroupController extends ActionController {
 	/**
 	 * Detail of abstractGroup
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $abstractGroup
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $abstractGroup Newsletter abstract group object
 	 * @return void
 	 */
 	public function showAction(AbstractGroup $abstractGroup) {
@@ -49,7 +48,7 @@ class AbstractGroupController extends ActionController {
 	}
 
 	/**
-	 * New abstract group
+	 * New abstract group function
 	 *
 	 * @return void
 	 */
@@ -60,7 +59,7 @@ class AbstractGroupController extends ActionController {
 	/**
 	 * Creates new abstractGroup
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $newAbstractGroup
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $newAbstractGroup Newsletter abstract group object
 	 * @return void
 	 */
 	public function createAction(AbstractGroup $newAbstractGroup) {
@@ -72,7 +71,7 @@ class AbstractGroupController extends ActionController {
 	/**
 	 * Edit abstractGroup
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $abstractGroup
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $abstractGroup Newsletter abstract group object
 	 * @return void
 	 */
 	public function editAction(AbstractGroup $abstractGroup) {
@@ -82,7 +81,7 @@ class AbstractGroupController extends ActionController {
 	/**
 	 * Update abstractGroup
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $abstractGroup
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $abstractGroup Newsletter abstract group object
 	 * @return void
 	 */
 	public function updateAction(AbstractGroup $abstractGroup) {
@@ -94,7 +93,7 @@ class AbstractGroupController extends ActionController {
 	/**
 	 * Delete abstractGroup
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $abstractGroup
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $abstractGroup Newsletter abstract group object
 	 * @return void
 	 */
 	public function deleteAction(AbstractGroup $abstractGroup) {
@@ -104,5 +103,4 @@ class AbstractGroupController extends ActionController {
 	}
 
 }
-
 ?>

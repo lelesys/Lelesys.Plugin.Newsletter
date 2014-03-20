@@ -7,9 +7,13 @@ Lelesys:
         replyTo: 'gauri.shirodkar@lelesys.com'
         senderEmail: 'info@lelesys.com'
         senderName: 'Lelesys'
+        ccAddresses: 'sushant.chari@lelesys.com'
+        bccAddresses: 'sushant.chari@lelesys.com'
+        baseUrl : 'http://demosite.local.com/'
         unSubscribeLink: 'lelesys.plugin.newsletter/person/unsubscribeconfirmation'
       flashMessage:
         packageKey: 'Lelesys.Plugin.Newsletter'
+      noOfEmails: '100'
 
 # Backend modules configuration
 TYPO3:
@@ -32,6 +36,12 @@ TYPO3:
               index:
                 label: 'Newsletter list'
                 title: 'Newsletter list'
+            additionalResources:
+              javaScripts:
+                - resource://Lelesys.Plugin.Newsletter/Public/js/jquery.dataTables.min.js
+              styleSheets:
+                - resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/dataTable.css
+
           category:
             label: Newsletter Category
             controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Category\CategoryController'
@@ -43,7 +53,7 @@ TYPO3:
                 label: 'Newsletter category list'
                 title: 'See of category newsletter categories'
           person:
-            label: recipients
+            label: Recipients
             controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Person\PersonController'
             description: 'You can configure recipients here.'
             icon: 'icon-archive'
@@ -52,10 +62,16 @@ TYPO3:
               index:
                 label: 'Recipient List'
                 title: 'See list of recipients'
+            additionalResources:
+              javaScripts:
+                - resource://Lelesys.Plugin.Newsletter/Public/js/jquery.dataTables.min.js
+              styleSheets:
+                - resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/dataTable.css
+
           party:
-            label: group
+            label: Group
             controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Party\PartyController'
-            description: 'Group Party'
+            description: 'You can configure group for subcribed users here'
             icon: 'icon-archive'
             resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Party'
             actions:
@@ -69,9 +85,15 @@ TYPO3:
             icon: 'icon-archive'
             resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Email'
             actions:
-              new:
+              index:
                 label: 'Email Queue'
                 title: 'Email Queue'
+            additionalResources:
+              javaScripts:
+                - resource://Lelesys.Plugin.Newsletter/Public/js/jquery.dataTables.min.js
+              styleSheets:
+                - resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/dataTable.css
+
           staticlist:
             label: Static
             controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\StaticList\StaticListController'
@@ -82,3 +104,8 @@ TYPO3:
               index:
                 label: 'Static List'
                 title: 'Static List'
+
+    typoScript:
+      # autoInclude TS2 for Lelesys.Plugin.Newsletter :
+      autoInclude:
+        'Lelesys.Plugin.Newsletter': TRUE

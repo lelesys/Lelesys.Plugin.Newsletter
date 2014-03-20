@@ -1,5 +1,4 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Party;
 
 /* *
@@ -49,7 +48,7 @@ class PartyController extends NewsletterManagementController {
 	/**
 	 * Detail of party group
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party Party object
 	 * @return void
 	 */
 	public function showAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party) {
@@ -68,7 +67,7 @@ class PartyController extends NewsletterManagementController {
 	/**
 	 * Creates a new group party
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $newParty
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $newParty Party object
 	 * @return void
 	 */
 	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $newParty) {
@@ -88,7 +87,7 @@ class PartyController extends NewsletterManagementController {
 	/**
 	 * Edit group party
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party Party object
 	 * @return void
 	 */
 	public function editAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party) {
@@ -98,7 +97,7 @@ class PartyController extends NewsletterManagementController {
 	/**
 	 * Updates group party
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party Party object
 	 * @return void
 	 */
 	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party) {
@@ -118,7 +117,7 @@ class PartyController extends NewsletterManagementController {
 	/**
 	 * Delete group party
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party Party object
 	 * @return void
 	 */
 	public function deleteAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party) {
@@ -136,5 +135,4 @@ class PartyController extends NewsletterManagementController {
 	}
 
 }
-
 ?>

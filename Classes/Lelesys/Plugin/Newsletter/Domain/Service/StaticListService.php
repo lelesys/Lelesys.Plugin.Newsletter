@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Service;
 
-/* *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -14,6 +13,8 @@ use TYPO3\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\StaticList;
 
 /**
+ * The StaticList Service
+ *
  * @Flow\Scope("singleton")
  */
 class StaticListService {
@@ -33,6 +34,12 @@ class StaticListService {
 	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\NewsletterService
 	 */
 	protected $newsletterService;
+
+	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+	 */
+	protected $persistenceManager;
 
 	/**
 	 * List of all staticList group
@@ -72,8 +79,8 @@ class StaticListService {
 	public function delete(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\StaticList $staticList) {
 		$this->newsletterService->deleteRelatedRecipientGroupStaticList($staticList);
 		$this->staticListRepository->remove($staticList);
+		$this->persistenceManager->persistAll();
 	}
 
 }
-
 ?>

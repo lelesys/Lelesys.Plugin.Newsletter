@@ -1,0 +1,17 @@
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+<f:security.ifAccess resource="TYPO3_Neos_Backend_GeneralAccess">
+	<f:then>
+		<div{attributes -> f:format.raw()}>
+			{columnContent -> f:format.raw()}
+		</div>
+	</f:then>
+	<f:else>
+		<table align="{align}" width="50%">
+			<tr>
+				<td width="50%">
+					{columnContent -> f:format.raw()}
+				</td>
+			</tr>
+		</table>
+	</f:else>
+</f:security.ifAccess>

@@ -1,5 +1,4 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Service;
 
 /* *
@@ -11,12 +10,11 @@ namespace Lelesys\Plugin\Newsletter\Domain\Service;
  *                                                                         */
 
 /**
- * A Service Exception
+ * An  Exception Service
  *
  * @api
  */
 class Exception extends \Lelesys\Plugin\Newsletter\Exception {
 
 }
-
 ?>

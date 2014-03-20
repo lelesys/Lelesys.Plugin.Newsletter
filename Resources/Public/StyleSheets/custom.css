@@ -1,7 +1,21 @@
 .error {
 	color: #B94A48 !important;
-	width: 65% !important;
 }
 input.acceptsHtml {
 	margin: 0px;
+}
+.form-group label {
+	font-weight: normal;
+}
+label[for="--lelesys_plugin_newsletter-subscribtion[newPerson][gender]"] {
+	float: right;
+	line-height: 2;
+}
+.alert {
+	margin-bottom: 10px;
+	margin-top: 10px;
+	padding: 10px;
+}
+.close {
+	opacity: 0.4;
 }

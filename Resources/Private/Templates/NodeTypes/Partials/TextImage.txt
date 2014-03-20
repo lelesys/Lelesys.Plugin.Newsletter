@@ -1,0 +1,8 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace media=TYPO3\Media\ViewHelpers}
+{namespace baseUrl=Lelesys\Plugin\Newsletter\ViewHelpers}
+<f:if condition="{image}">
+	<f:then>
+		Please check here for graphics <f:link.external uri="<baseUrl:BaseUrl></baseUrl:BaseUrl>{f:uri.resource(resource: image.resource)}" target="_blank"><baseUrl:BaseUrl></baseUrl:BaseUrl>{f:uri.resource(resource: image.resource)}</f:link.external>
+	</f:then>
+</f:if>

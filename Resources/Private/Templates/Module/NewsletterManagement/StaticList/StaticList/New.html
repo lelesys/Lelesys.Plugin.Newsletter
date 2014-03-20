@@ -6,14 +6,16 @@
 			<div class="neos-control-group">
 				<label for="title"><f:translate id="lelesys.plugin.newsletter.title"></f:translate></label>
 				<div class="neos-controls">
-					<f:form.textfield property="title" id="title" class="required span3"/>
+					<f:form.textfield property="title" id="title" class="required not-empty" />
+					<f:render partial="FormErrors" arguments="{for: 'title'}" />
 				</div>
 			</div>
 			<div class="neos-control-group">
-				<p><f:translate id="lelesys.plugin.newsletter.commaSeperated"></f:translate></p>
-				<label for="recipientList"><f:translate id="lelesys.plugin.newsletter.email"></f:translate></label>
+				<label for="recipientList"><f:translate id="lelesys.plugin.newsletter.email"></f:translate> ( <f:translate id="lelesys.plugin.newsletter.commaSeperated"></f:translate> )</label>
+
 				<div class="neos-controls">
-					<f:form.textarea property="recipientList" id="recipientList" class="required span3" rows="10"/>
+					<f:form.textarea property="recipientList" id="recipientList" class="required not-empty span3" rows="10"/>
+					<f:render partial="FormErrors" arguments="{for: 'newStaticList.recipientList'}" />
 				</div>
 			</div>
 			<div class="neos-alert neos-alert-error form-error error checkvalid" style="display: none;"></div>

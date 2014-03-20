@@ -1,5 +1,4 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Repository\Recipient;
 
 /* *
@@ -21,11 +20,22 @@ class PersonRepository extends Repository {
 	/**
 	 * gets existing user
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson Person object
 	 * @return array The query result
 	 */
 	public function isExistingUser(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson) {
 		$query = $this->entityManager->createQuery('SELECT r FROM \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person r JOIN r.primaryElectronicAddress email WHERE email.identifier=\'' . $newPerson->getPrimaryElectronicAddress()->getIdentifier() . '\'')
+				->execute();
+		return $query;
+	}
+
+	/**
+	 * Get all approved user
+	 *
+	 * @return array The query result
+	 */
+	public function findAllApprovedUsers() {
+		$query = $this->entityManager->createQuery('SELECT r FROM \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person r JOIN r.primaryElectronicAddress email WHERE email.approved=1')
 				->execute();
 		return $query;
 	}
@@ -45,5 +55,4 @@ class PersonRepository extends Repository {
 	}
 
 }
-
 ?>

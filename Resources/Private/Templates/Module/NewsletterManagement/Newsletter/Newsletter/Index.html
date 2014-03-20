@@ -16,30 +16,35 @@
 				<div class="tab-pane active" id="tab1">
 					<f:if condition="{newsletters}">
 						<f:then>
-							<table class="neos-table">
+							<table  id="paid-course-subscription" class="neos-table">
 								<thead>
 									<tr>
 										<th><f:translate id="lelesys.plugin.newsletter.title"></f:translate></th>
-								<th><f:translate id="lelesys.plugin.newsletter.categories"></f:translate></th>
-								<th></th>
-								</tr>
+										<th><f:translate id="lelesys.plugin.newsletter.categories"></f:translate></th>
+										<th></th>
+									</tr>
 								</thead>
 								<tbody>
 								<f:for each="{newsletters}" as="newsletter">
 									<tr><td><f:link.action action="show" arguments="{newsletter: newsletter}">{newsletter.subject}</f:link.action></td>
-									<td>
-										<ul>
-											<f:for each="{newsletter.categories}" as="category">
-												<li>{category.title}</li>
-											</f:for>
-										</ul>
-									</td>
-									<td>
-									<f:link.action action="edit" class="neos-btn neos-button pull-right" arguments="{newsletter: newsletter}"><f:translate id="lelesys.plugin.newsletter.edit"></f:translate></f:link.action>
-									<f:form action="delete" class="delete" arguments="{newsletter: newsletter}">
-										<f:form.submit class="neos-btn neos-button-danger neos-button pull-right" value="Delete" />
-									</f:form>
-									</td>
+										<td>
+											<ul>
+												<f:for each="{newsletter.categories}" as="category">
+													<li>{category.title}</li>
+												</f:for>
+											</ul>
+										</td>
+										<td>
+										<f:link.action action="show" arguments="{newsletter: newsletter}" class="neos-btn neos-button pull-right" title="Click to view">
+											<i class="icon-info-sign icon-white"></i>
+										</f:link.action>
+										<f:link.action action="edit" arguments="{newsletter: newsletter}" class="neos-btn neos-button pull-right" title="Click to edit">
+											<i class="icon-pencil icon-white"></i>
+										</f:link.action>
+										<f:link.action action="delete" arguments="{newsletter: newsletter}" class="neos-btn neos-button pull-right delete" title="Click to delete">
+											<i class="icon-trash icon-white"></i>
+										</f:link.action>
+										</td>
 									</tr>
 								</f:for>
 								</tbody>
@@ -51,7 +56,7 @@
 					</f:if>
 					<div class="neos-control-group">
 						<div class="neos-controls">
-							<f:link.action action="new" class="neos-btn neos-button neos-button-primary" title="Create Newsletter">
+							<f:link.action action="new" class="neos-btn neos-button neos-button-primary create-button" title="Create Newsletter">
 								<i class="icon-user icon-white"></i>
 								<f:translate id="lelesys.plugin.newsletter.createNewsletter"></f:translate>
 							</f:link.action>

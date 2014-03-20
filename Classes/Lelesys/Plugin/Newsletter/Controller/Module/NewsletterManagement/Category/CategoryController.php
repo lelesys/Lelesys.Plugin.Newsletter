@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Category;
 
-/* *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -15,7 +14,7 @@ use Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagementController;
 use Lelesys\Plugin\Newsletter\Domain\Model\Category;
 
 /**
- * A Category Controller
+ * A Newsletter Category Controller
  *
  * @Flow\Scope("singleton")
  */
@@ -76,12 +75,13 @@ class CategoryController extends NewsletterManagementController {
 	 * @return void
 	 */
 	public function newAction() {
+
 	}
 
 	/**
 	 * Displays newsletter category
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category
 	 * @return void
 	 */
 	public function showAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
@@ -94,14 +94,14 @@ class CategoryController extends NewsletterManagementController {
 			'category' => $category,
 			'recipients' => $this->personService->getAllRecipientsByCategory($category),
 			'contentNodes' => $contentNodes
-				)
+			)
 		);
 	}
 
 	/**
 	 * Creates new newsletter category
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory Newsletter category
 	 * @return void
 	 */
 	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory) {
@@ -121,7 +121,7 @@ class CategoryController extends NewsletterManagementController {
 	/**
 	 * Edit newsletter category
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category
 	 * @return void
 	 */
 	public function editAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
@@ -131,7 +131,7 @@ class CategoryController extends NewsletterManagementController {
 	/**
 	 * Update newsletter category
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category
 	 * @return void
 	 */
 	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
@@ -151,7 +151,7 @@ class CategoryController extends NewsletterManagementController {
 	/**
 	 * Delete newsletter category
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category
 	 * @return void
 	 */
 	public function deleteAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
@@ -169,5 +169,4 @@ class CategoryController extends NewsletterManagementController {
 	}
 
 }
-
 ?>

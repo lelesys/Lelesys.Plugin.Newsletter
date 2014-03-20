@@ -1,25 +1,53 @@
-<f:layout name="Default" />
+{namespace re=Lelesys\Plugin\Newsletter\ViewHelpers}
+<f:layout name="DefaultBackend" />
 
-<f:section name="Title">A list of email logs</f:section>
+<f:section name="Title"><f:translate id="lelesys.plugin.news.logs">Email logs</f:translate></f:section>
 
 <f:section name="Content">
 	<f:if condition="{emailLogs}">
 		<f:then>
-			<ul>
+			<table id="paid-course-subscription" class="neos-table">
+				<thead>
+					<th><f:translate id="lelesys.plugin.newsletter.subject">Newsletter Subject</f:translate></th>
+					<th><f:translate id="lelesys.plugin.newsletter.timeSent">Time of Mail Sent</f:translate></th>
+					<th><f:translate id="lelesys.plugin.newsletter.mailStatus">Mail Status</f:translate></th>
+					<th><f:translate id="lelesys.plugin.newsletter.recipientType"> Recipient Type</f:translate></th>
+					<th><f:translate id="lelesys.plugin.newsletter.recipientEmail">Recipient Email</f:translate></th>
+				</thead>
+				<tbody>
 				<f:for each="{emailLogs}" as="emailLog">
-					<li>
-						<f:link.action action="show" arguments="{emailLog: emailLog}">{emailLog.name}</f:link.action>
-						<f:link.action action="edit" arguments="{emailLog: emailLog}">Edit</f:link.action>
-						<f:form action="delete" arguments="{emailLog: emailLog}">
-							<f:form.submit value="Delete" />
-						</f:form>
-					</li>
+					<tr>
+						<td>{emailLog.newsletter.subject}</td>
+						<td><f:format.date format='d-M-Y h:i:s'>{emailLog.timeSent}</f:format.date></td>
+
+					<f:if condition="{emailLog.isSent}==1">
+						<f:then>
+							<td><f:translate id="lelesys.plugin.newsletter.sent">Sent successfully</f:translate></td>
+						</f:then>
+						<f:else>
+							<td><f:translate id="lelesys.plugin.newsletter.pending">Pending </f:translate></td>
+						</f:else>
+					</f:if>
+					<td>
+					<f:if condition="{0: emailLog.recipientType} == {0: '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\StaticList'}">
+						<f:then>
+							<f:translate id="lelesys.plugin.newsletter.recipientTypeStatic">Static</f:translate>
+						</f:then>
+						<f:else>
+							<f:translate id="lelesys.plugin.newsletter.recipientTypeSubscriber">Subscriber</f:translate>
+						</f:else>
+					</f:if>
+						</td>
+						<td><re:recipientEmail>{emailLog.recipient}</re:recipientEmail></td>
+					</tr>
 				</f:for>
-			</ul>
+				</tbody>
+			</table>
 		</f:then>
 		<f:else>
-			<p>No email logs created yet.</p>
+			<p><f:translate id="lelesys.plugin.newsletter.error.noLog">There are no any email logs</f:translate></p>
 		</f:else>
 	</f:if>
-	<p><f:link.action action="new">Create a new email log</f:link.action></p>
+	<f:render partial="Module/JavaScripts"/>
+	<f:render partial="Module/StyleSheets"/>
 </f:section>

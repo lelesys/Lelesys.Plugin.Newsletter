@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Newsletter;
 
-/* *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -15,7 +14,7 @@ use Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagementController;
 use TYPO3\Flow\Mvc\Routing\UriBuilder;
 
 /**
- * A Newsletter Controller
+ * A Newsletter Controller to manage all CRUD methods of newsletter
  *
  * @Flow\Scope("singleton")
  */
@@ -74,7 +73,7 @@ class NewsletterController extends NewsletterManagementController {
 	/**
 	 * Detail of newsletter
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
 	 * @return void
 	 */
 	public function showAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
@@ -85,43 +84,56 @@ class NewsletterController extends NewsletterManagementController {
 			'GroupParty' => $recipientsByGroups['GroupParty'],
 			'GroupStatic' => $recipientsByGroups['GroupStatic'],
 			'contentNode' => $this->newsletterService->getContentNode($newsletter->getContentNode())
-				)
+			)
 		);
 	}
 
 	/**
 	 * New newsletter
 	 *
-	 * @param \TYPO3\TYPO3CR\Domain\Model\Node $currentNode
+	 * @param \TYPO3\TYPO3CR\Domain\Model\Node $currentNode Current Node
 	 * @return void
 	 */
 	public function newAction() {
 		$this->view->assign('contentNode', $this->newsletterService->getAllNewsletterChildNodes());
 		$this->view->assign('recipientGroups', $this->abstractGroupService->listAll());
 		$this->view->assign('categories', $this->categoryService->listAll());
-		$this->view->assign('recipients', $this->personService->listAll());
+		$this->view->assign('recipients', $this->personService->listAllApproved());
 	}
 
 	/**
 	 * Sends newsletter email
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter The newsletter
-	 * @param string $adminEmail
+	 * @param string $adminEmail Admin email
 	 * @return void
 	 */
 	public function sendEmailAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, $adminEmail = NULL) {
 		try {
 			if ($newsletter->getContentNode() !== NULL) {
 				if ($adminEmail !== NULL) {
-					$this->newsletterService->sendTestEmail($adminEmail,$newsletter);
-					$header = 'newsletter is sent';
+					$this->newsletterService->sendTestEmail($adminEmail, $newsletter);
+					$header = 'Newsletter is sent';
 					$message = $this->centralService->translate('lelesys.plugin.newsletter.sent');
 					$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
 				} else {
+					$recipientGroups = $newsletter->getRecipientGroups();
+					$count = 0;
+					foreach ($recipientGroups as $recipientGroup) {
+						$recipient = count($recipientGroup->getRecipients());
+						$count = $count + $recipient;
+					}
+					if (($count < 1)
+						&& (count($newsletter->getRecipients()) < 1 )) {
+							$header = 'Newsletter does not have any subscribers';
+							$message = $this->centralService->translate('lelesys.plugin.newsletter.noUsers');
+							$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+						} else {
 					$this->newsletterService->sendEmail($newsletter);
-					$header = 'newsletter is sent';
+					$header = 'Newsletter is sent';
 					$message = $this->centralService->translate('lelesys.plugin.newsletter.sent');
 					$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+				}
 				}
 			} else {
 				$header = 'No page selected for newsletter cannot send email.';
@@ -139,7 +151,7 @@ class NewsletterController extends NewsletterManagementController {
 	/**
 	 * Creates a new newsletter
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter Newsletter object
 	 * @return void
 	 */
 	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter) {
@@ -159,21 +171,21 @@ class NewsletterController extends NewsletterManagementController {
 	/**
 	 * Edit of newsletter
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
 	 * @return void
 	 */
 	public function editAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
 		$this->view->assign('categories', $this->categoryService->listAll());
 		$this->view->assign('recipientGroups', $this->abstractGroupService->listAll());
 		$this->view->assign('contentNode', $this->newsletterService->getAllNewsletterChildNodes());
-		$this->view->assign('recipients', $this->personService->listAll());
+		$this->view->assign('recipients', $this->personService->listAllApproved());
 		$this->view->assign('newsletter', $newsletter);
 	}
 
 	/**
 	 * Update newsletter
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
 	 * @return void
 	 */
 	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
@@ -193,7 +205,7 @@ class NewsletterController extends NewsletterManagementController {
 	/**
 	 * Delete newsletter
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
 	 * @return void
 	 */
 	public function deleteAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
@@ -211,5 +223,4 @@ class NewsletterController extends NewsletterManagementController {
 	}
 
 }
-
 ?>

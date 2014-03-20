@@ -1,30 +1,45 @@
-<div class="container">
-	<div class="masthead">
-		<div class="row-fluid">
-			<div class="span6">
-				<h1><a href="/">Corporate</a></h1>
-			</div>
-		</div>
-	</div>
-	<div class="row-fluid">
-		<div class="span12">
-			<f:for each="{contentNode}" as="node">
-				<f:for each="{node.properties}" key="nodeType" as="property">
-					<f:switch expression="{nodeType}">
-						<f:case value="text"><p>{property-> f:format.raw()}</p></f:case>
-						<f:case value="image"><p><img src="{f:uri.resource(resource: property.resource)}" caption="" width="110" /></p></f:case>
-					</f:switch>
-				</f:for>
-			</f:for>
+{namespace baseUrl=Lelesys\Plugin\Newsletter\ViewHelpers}
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<style type="text/css">
+			@media only screen and (max-width: 640px) {
+				div[class=block],
+				div[class=headline],
+				div[class=text] {
+					width: 440px!important;text-align:center!important;
+				}
+				img {
+					width: 440px!important;
+					height:220px!important;
+				}
+			}
+			/*IPHONE STYLES*/
+			@media only screen and (max-width: 480px) {
+				div[class=block],
+				div[class=headline],
+				div[class=text] {
+					width: 280px!important;
+					text-align:center!important;
+				}
+				img {
+					width: 280px!important;
+					height:140px!important;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="block" style="width: 900px; margin: 0 auto; border: 1px solid #D2D2D2;">
+			<f:format.raw>{mailContent}</f:format.raw>
 			<f:if condition="{recipientId}">
 				<f:then>
-					<f:link.action action="unSubscribeConfirmation" controller="Person" package="Lelesys.Plugin.Newsletter" arguments="{recipientId: recipientId,code: code}">UnSubcribe</f:link.action>
+					<div style="border-top: 1px solid #D2D2D2; padding: 20px; font-size: 13px;" class="footer">
+						If at any time you wish to stop receiving our emails, you can : <f:link.action action="unSubscribeConfirmation" controller="Person" package="Lelesys.Plugin.Newsletter" arguments="{recipientId: recipientId,code: code}"><button style="padding: 20px; background-color: #428BCA;border: none;border-color: #357EBD;color: #FFFFFF;padding: 6px 12px;border-radius: 4px;cursor: pointer;">Unsubscribe here.</button></f:link.action>
+					</div>
 				</f:then>
 			</f:if>
 		</div>
-	</div>
-	<hr />
-	<footer class="row-fluid">
-		<div class="span11">Website integrated by <a href="http://www.lelesys.com/?ref=starter-site-corporate" target="_blank">Lelesys</a></div>
-	</footer>
-</div>
+	</body>
+</html>

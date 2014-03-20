@@ -1,5 +1,4 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Model\Recipient;
 
 /* *
@@ -158,5 +157,4 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	}
 
 }
-
 ?>

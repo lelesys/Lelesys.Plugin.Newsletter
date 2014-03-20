@@ -7,3 +7,15 @@
 select[multiple]{
 	height: 100px !important;
 }
+
+#staticList .form-error {
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border: medium none;
+}
+#paid-course-subscription tr:first-child th:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+.neos-controls .create-button {
+	margin-top: 15px;
+}

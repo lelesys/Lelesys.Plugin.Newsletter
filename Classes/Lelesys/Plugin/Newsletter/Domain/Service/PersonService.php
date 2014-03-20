@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Service;
 
-/* *
+/*                                                                         *
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -15,6 +14,8 @@ use Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person;
 use \TYPO3\Fluid\View\StandaloneView;
 
 /**
+ * The Person Service
+ *
  * @Flow\Scope("singleton")
  */
 class PersonService {
@@ -84,6 +85,15 @@ class PersonService {
 	}
 
 	/**
+	 * Gets all approved recipients
+	 *
+	 * @return \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person
+	 */
+	public function listAllApproved() {
+		return $this->personRepository->findAllApprovedUsers();
+	}
+
+	/**
 	 * Unsubscribe newsletter
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $recipient To unsubcribe
@@ -95,11 +105,14 @@ class PersonService {
 			$user = $this->getUserFromIdentifier($recipient);
 			if ($user !== NULL) {
 				$newcode = sha1($user->getPrimaryElectronicAddress()->getIdentifier() . $user->getUuid());
-				if (($user->getPrimaryElectronicAddress()->isApproved() === TRUE) && ($code === $newcode)) {
-					$this->delete($user);
+				$approved = $user->getPrimaryElectronicAddress()->isApproved();
+				if (($approved === TRUE) && ($code === $newcode)) {
+					$user->getPrimaryElectronicAddress()->setApproved(FALSE);
+					$this->personRepository->update($user);
+					$this->persistenceManager->persistAll();
 					return 1;
-				} elseif ($code !== $newcode) {
-					// Link not valid
+				} elseif ($code !== $newcode || $approved === FALSE) {
+						// Link not valid
 					return 0;
 				}
 			}
@@ -107,9 +120,9 @@ class PersonService {
 	}
 
 	/**
-	 * checks if existing user
+	 * Checks if existing user
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson Person object
 	 * @return boolean
 	 */
 	public function isExistingUser(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson) {
@@ -120,13 +133,13 @@ class PersonService {
 	}
 
 	/**
-	 * checks if user is approved
+	 * Checks if user is approved
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person Person object
 	 * @return boolean
 	 */
 	public function isUserApproved(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
-		if($person->getPrimaryElectronicAddress()->isApproved() === TRUE) {
+		if ($person->getPrimaryElectronicAddress()->isApproved() === TRUE) {
 			return TRUE;
 		} else {
 			return FALSE;
@@ -136,12 +149,12 @@ class PersonService {
 	/**
 	 * Adds new recipient
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson Person object
 	 * @return void
 	 */
 	public function create(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson) {
 		$this->personRepository->add($newPerson);
-// To check if the user is subcribed user
+			// To check if the user is subcribed user
 		$code = sha1($newPerson->getPrimaryElectronicAddress()->getIdentifier() . $newPerson->getUuid());
 		$baseUrl = $this->bootstrap->getActiveRequestHandler()->getHttpRequest()->getBaseUri();
 		$values = array('url' => $baseUrl, 'code' => $code, 'user' => $newPerson);
@@ -169,10 +182,10 @@ class PersonService {
 					$this->emailApprovalByUser($user);
 					return 1;
 				} elseif ($code !== $newcode) {
-					// Link not valid
+						// Link not valid
 					return 0;
 				} elseif (($user->getPrimaryElectronicAddress()->isApproved() === TRUE) && ($code === $newcode)) {
-					// already confirmed user
+						// already confirmed user
 					return 2;
 				}
 			}
@@ -192,7 +205,7 @@ class PersonService {
 	/**
 	 * Get all recipients by category
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category
 	 * @return array
 	 */
 	public function getAllRecipientsByCategory(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
@@ -216,8 +229,8 @@ class PersonService {
 	 *
 	 * @param string $url
 	 * @param \TYPO3\Party\Domain\Model\Person $user User
-	 * @param string $template
-	 * @param string $subject
+	 * @param string $template Template name
+	 * @param string $subject Email subject
 	 * @return void
 	 */
 	public function sendEmail($url, $user, $template, $subject) {
@@ -231,7 +244,7 @@ class PersonService {
 	/**
 	 * Update recipient
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person Person object
 	 * @return void
 	 */
 	public function update(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
@@ -241,7 +254,7 @@ class PersonService {
 	/**
 	 * Delete Related Categories
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category
 	 * @return void
 	 */
 	public function deleteRelatedCategories(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
@@ -255,14 +268,14 @@ class PersonService {
 	/**
 	 * Delete recipient
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person Person object
 	 * @return void
 	 */
 	public function delete(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
 		$this->newsletterService->deleteRelatedRecipients($person);
 		$this->personRepository->remove($person);
+		$this->persistenceManager->persistAll();
 	}
 
 }
-
 ?>

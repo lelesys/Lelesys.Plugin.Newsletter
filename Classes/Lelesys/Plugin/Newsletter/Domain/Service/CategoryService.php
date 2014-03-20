@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Service;
 
-/* *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -14,6 +13,8 @@ use TYPO3\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\Category;
 
 /**
+ * Newsletter Category Service
+ *
  * @Flow\Scope("singleton")
  */
 class CategoryService {
@@ -54,7 +55,7 @@ class CategoryService {
 	/**
 	 * Adds new category
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory Newsletter category
 	 * @return void
 	 */
 	public function create(\Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory) {
@@ -64,7 +65,7 @@ class CategoryService {
 	/**
 	 * Updates category
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category
 	 * @return void
 	 */
 	public function update(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
@@ -74,7 +75,7 @@ class CategoryService {
 	/**
 	 * Deletes category
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category
 	 * @return void
 	 */
 	public function delete(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
@@ -84,5 +85,4 @@ class CategoryService {
 	}
 
 }
-
 ?>

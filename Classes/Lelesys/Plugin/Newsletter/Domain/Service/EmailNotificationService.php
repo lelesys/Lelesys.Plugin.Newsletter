@@ -1,9 +1,8 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Service;
 
 /* *
- * This script belongs to the TYPO3 Flow package "Madresfera.Madresfera". *
+ * This script belongs to the TYPO3 Flow package "Lelesys.Plugin.Newsletter". *
  *                                                                        *
  *                                                                        */
 
@@ -12,6 +11,8 @@ use TYPO3\Fluid\View\StandaloneView;
 use TYPO3\SwiftMailer\Message;
 
 /**
+ * Service to send Newsletter mails
+ *
  * @Flow\Scope("singleton")
  */
 class EmailNotificationService {
@@ -34,7 +35,8 @@ class EmailNotificationService {
 	}
 
 	/**
-	 * Sends mail
+	 * Sends newsletter mail to particular recipients
+	 *
 	 * @param string $fromEmail The sender address
 	 * @param string $fromName The sender name
 	 * @param string $replyEmail The reply email
@@ -52,9 +54,10 @@ class EmailNotificationService {
 	 * @return void
 	 */
 	public function sendNewsletterMail($fromEmail, $fromName, $replyEmail, $replyName, $subject, $priority = NULL, $characterSet = NULL, $attachments = NULL, $contentType = NULL, $recipientAddress, $message = NULL, $bccAddresses = array(), $ccAddresses = array()) {
+		$bccAddresses = $this->settings['email']['bccAddresses'];
+		$ccAddresses = $this->settings['email']['ccAddresses'];
 		$mail = new Message();
-		$mail
-				->setFrom(array($fromEmail => $fromName))
+		$mail->setFrom(array($fromEmail => $fromName))
 				->setSubject($subject)
 				->setPriority($priority)
 				->setCharset($characterSet)
@@ -71,13 +74,13 @@ class EmailNotificationService {
 			} else {
 				$mail->setTo($recipient[0]);
 			}
-			$mail->setBody($recipient[1]);
+			$mail->setBody($recipient[1], 'text/html');
 			$mail->send();
 		}
 	}
 
 	/**
-	 * Sends mail
+	 * Sends test mail of newsletter
 	 *
 	 * @param string $subject The email subject
 	 * @param string $message The message text
@@ -100,7 +103,7 @@ class EmailNotificationService {
 				->setCc($ccAddresses);
 		if (!empty($attachments)) {
 			$mail->attach(\Swift_Attachment::fromPath($attachments['path'])->setFilename($attachments['name']));
-		};
+		}
 		$mail->send();
 	}
 
@@ -109,15 +112,16 @@ class EmailNotificationService {
 	 *
 	 * @param string $templateName The template filename
 	 * @param array $values The array of values to be assigned to tmeplate
+	 * @param atring $format Format of email
 	 * @return string The message
 	 */
-	public function buildEmailMessage($templateName, array $values) {
+	public function buildEmailMessage($templateName, array $values, $format = 'txt') {
 		$template = new StandaloneView();
 		$template->setTemplatePathAndFilename('resource://Lelesys.Plugin.Newsletter/Private/Templates/Emails/' . $templateName);
 		$template->assignMultiple($values);
+		$template->setFormat($format);
 		return $template->render();
 	}
 
 }
-
 ?>

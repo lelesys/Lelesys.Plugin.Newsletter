@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Service;
 
-/* *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -14,6 +13,8 @@ use TYPO3\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\Recipient\AbstractGroup;
 
 /**
+ * Abstract Group Service
+ *
  * @Flow\Scope("singleton")
  */
 class AbstractGroupService {
@@ -47,7 +48,7 @@ class AbstractGroupService {
 	/**
 	 * Adds newAbstractGroup
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $newAbstractGroup
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $newAbstractGroup AbstractGroup object
 	 * @return void
 	 */
 	public function create(\Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $newAbstractGroup) {
@@ -57,7 +58,7 @@ class AbstractGroupService {
 	/**
 	 * Updates abstractGroup
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $abstractGroup
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $abstractGroup AbstractGroup object
 	 * @return void
 	 */
 	public function update(\Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $abstractGroup) {
@@ -67,7 +68,7 @@ class AbstractGroupService {
 	/**
 	 * Deletes abstractGroup
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $abstractGroup
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $abstractGroup AbstractGroup object
 	 * @return void
 	 */
 	public function delete(\Lelesys\Plugin\Newsletter\Domain\Model\AbstractGroup $abstractGroup) {
@@ -75,5 +76,4 @@ class AbstractGroupService {
 	}
 
 }
-
 ?>

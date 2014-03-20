@@ -1,7 +1,7 @@
 <?php
 namespace Lelesys\Plugin\Newsletter;
 
-/*                                                                         *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".               *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -17,5 +17,4 @@ namespace Lelesys\Plugin\Newsletter;
 class Exception extends \TYPO3\Flow\Exception {
 
 }
-
 ?>

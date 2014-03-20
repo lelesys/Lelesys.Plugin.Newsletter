@@ -1,0 +1,13 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+<f:security.ifAccess resource="TYPO3_Neos_Backend_GeneralAccess">
+	<f:then>
+		<div{attributes -> f:format.raw()}>
+			<f:render partial="Image" arguments="{_all}" />
+		</div>
+	</f:then>
+	<f:else>
+		<div style="width: 100%; padding: 0px;">
+			<f:render partial="Image" arguments="{_all}" />
+		</div>
+	</f:else>
+</f:security.ifAccess>

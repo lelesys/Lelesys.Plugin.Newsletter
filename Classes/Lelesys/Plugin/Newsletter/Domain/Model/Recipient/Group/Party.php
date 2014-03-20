@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group;
 
-/*                                                                         *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -40,7 +39,7 @@ class Party extends \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\AbstractGr
 	/**
 	 * Sets recipients
 	 *
-	 * @param \Doctrine\Common\Collections\Collection $recipients
+	 * @param \Doctrine\Common\Collections\Collection $recipients Recipients
 	 * @return void
 	 */
 	public function setRecipients(\Doctrine\Common\Collections\Collection $recipients) {
@@ -57,5 +56,4 @@ class Party extends \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\AbstractGr
 	}
 
 }
-
 ?>

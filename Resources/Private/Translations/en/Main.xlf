@@ -35,6 +35,10 @@
 				<source>Newsletter is sent.</source>
 				<target>Newsletter is sent.</target>
 			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.noUsers" approved="yes">
+				<source>Newsletter does not have any subscribers</source>
+				<target>Newsletter does not have any subscribers</target>
+			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.nopage" approved="yes">
 				<source>No page selected for newsletter cannot send email!</source>
 				<target>No page selected for newsletter cannot send email!</target>
@@ -116,20 +120,20 @@
 				<target>Cannot subscribe to newslette at this time!!.</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.cannot.subscribed" approved="yes">
-				<source>Thank you for subscribing to our newsletter!</source>
-				<target>Thank you for subscribing to our newsletter!</target>
+				<source>Thank you for subscribing to our newsletter.The confirmation email has been sent to your specified email address. Please click on the confirmation link to confirm your subscription.</source>
+				<target>Thank you for subscribing to our newsletter.The confirmation email has been sent to your specified email address. Please click on the confirmation link to confirm your subscription.</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.user.approved" approved="yes">
-				<source>The user is approved!</source>
-				<target>The user is approved!</target>
+				<source>You have successfully confirmed your subscription to Newsletter.</source>
+				<target>You have successfully confirmed your subscription to Newsletter.</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.linkNotValid" approved="yes">
-				<source>Link not valid.</source>
-				<target>Link not valid.</target>
+				<source>The confirmation link is not valid.</source>
+				<target>The confirmation link is not valid.</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.user.confirmed" approved="yes">
-				<source>Already confirmed user.</source>
-				<target>Already confirmed user.</target>
+				<source>You have already confirmed your subscription.</source>
+				<target>You have already confirmed your subscription.</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.user.unsubscribed" approved="yes">
 				<source>You are now unsubscribed!</source>
@@ -160,8 +164,8 @@
 				<target>Organisation Name</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.subject" approved="yes">
-				<source>Subject</source>
-				<target>Subject</target>
+				<source>Newsletter Subject</source>
+				<target>Newsletter Subject</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.priority" approved="yes">
 				<source>Priority</source>
@@ -276,8 +280,8 @@
 				<target>List of group</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.lastName" approved="yes">
-				<source>LastName</source>
-				<target>LastName</target>
+				<source>Last Name</source>
+				<target>Last Name</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.email" approved="yes">
 				<source>Email</source>
@@ -378,6 +382,70 @@
 			<trans-unit id="lelesys.plugin.newsletter.confirmDelete" approved="yes">
 				<source>Are you sure you want to delete?</source>
 				<target>Are you sure you want to delete?</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.timeSent" approved="yes">
+				<source>Time of Mail Sent</source>
+				<target>Time of Mail Sent</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.mailStatus" approved="yes">
+				<source>Mail Status</source>
+				<target>Mail Status</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.recipientType" approved="yes">
+				<source>Recipient Type</source>
+				<target>Recipient Type</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.recipientTypeStatic" approved="yes">
+				<source>Static</source>
+				<target>Static</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.recipientTypeSubscriber" approved="yes">
+				<source>Subscriber</source>
+				<target>Subscriber</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.pending" approved="yes">
+				<source>Pending</source>
+				<target>Pending</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.sent" approved="yes">
+				<source>Sent successfully</source>
+				<target>Sent successfully</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.recipientEmail" approved="yes">
+				<source>Recipient Email</source>
+				<target>Recipient Email</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.error.1324641097" approved="yes">
+				<source>Please enter valid email address</source>
+				<target>Please enter valid email address</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.noLog" approved="yes">
+				<source>There are no any email logs</source>
+				<target>There are no any email logs</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.logs" approved="yes">
+				<source>Email logs</source>
+				<target>Email logs</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.priority.high" approved="yes">
+				<source>High</source>
+				<target>High</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.priority.normal" approved="yes">
+				<source>Normal</source>
+				<target>Normal</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.priority.low" approved="yes">
+				<source>Low</source>
+				<target>Low</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.confirmation" approved="yes">
+				<source>Newsletter Subscription Confirmation Plugin</source>
+				<target>Newsletter Subscription Confirmation Plugin</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.email.confirmation.status" approved="yes">
+				<source>Status</source>
+				<target>Status</target>
 			</trans-unit>
 		</body>
 	</file>

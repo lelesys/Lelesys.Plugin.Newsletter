@@ -11,20 +11,20 @@
 					<thead>
 						<tr>
 							<th><f:translate id="lelesys.plugin.newsletter.title"></f:translate></th>
-					<th></th>
-					</tr>
+							<th></th>
+						</tr>
 					</thead>
 					<tbody>
-					<f:for each="{categories}" as="category">
+						<f:for each="{categories}" as="category">
 						<tr><td><f:link.action action="show" arguments="{category: category}">{category.title}</f:link.action></td>
-						<td>
-						<f:link.action action="edit" class="neos-btn neos-button pull-right" arguments="{category: category}"><f:translate id="lelesys.plugin.newsletter.edit"></f:translate></f:link.action>
-						<f:form action="delete" class="delete" arguments="{category: category}">
-							<f:form.submit class="neos-btn neos-button-danger neos-button pull-right" value="Delete" />
-						</f:form>
-						</td>
-					</f:for>
-					</tr>
+							<td>
+							<f:link.action action="edit" class="neos-btn neos-button pull-right" arguments="{category: category}"><f:translate id="lelesys.plugin.newsletter.edit"></f:translate></f:link.action>
+							<f:form action="delete" class="delete" arguments="{category: category}">
+								<f:form.submit class="neos-btn neos-button-danger neos-button pull-right" value="Delete" />
+							</f:form>
+							</td>
+						</f:for>
+						</tr>
 					</tbody>
 				</table>
 			</f:then>

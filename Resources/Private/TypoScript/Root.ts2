@@ -1,0 +1,134 @@
+# Newsletter Subscribtion plugin
+prototype(Lelesys.Plugin.Newsletter:Subscribtion) < prototype(TYPO3.Neos:Plugin)
+prototype(Lelesys.Plugin.Newsletter:Subscribtion) {
+	package = 'Lelesys.Plugin.Newsletter'
+	controller = 'Person'
+	action = 'new'
+}
+
+# Newsletter Subscribtion Confirmation plugin
+prototype(Lelesys.Plugin.Newsletter:SubscribtionConfirmation) < prototype(TYPO3.Neos:Plugin)
+prototype(Lelesys.Plugin.Newsletter:SubscribtionConfirmation) {
+	package = 'Lelesys.Plugin.Newsletter'
+	controller = 'Person'
+	action = 'subscriptionConfirmation'
+}
+
+# For Html format request
+prototype(Lelesys.Plugin.Newsletter:NewsletterHtml) < prototype(TYPO3.Neos:Page)
+prototype(Lelesys.Plugin.Newsletter:NewsletterHtml) {
+	body {
+		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/Newsletter/Newsletter.html'
+		sectionName = 'body'
+		content {
+			main = TYPO3.Neos:PrimaryContent
+			main {
+				nodePath = 'main'
+			}
+		}
+	}
+
+	# optimize html output for newsletters
+
+	prototype(TYPO3.Neos:ContentCollection)  {
+		attributes.class >
+	}
+	prototype(TYPO3.Neos.NodeTypes:Image) {
+		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/NodeTypes/Image.html'
+
+	}
+	prototype(TYPO3.Neos.NodeTypes:TextWithImage) {
+		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/NodeTypes/TextWithImage.html'
+	}
+
+	prototype(TYPO3.Neos.NodeTypes:Text) {
+		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/NodeTypes/Text.html'
+
+	}
+	prototype(TYPO3.Neos.NodeTypes:Headline) {
+		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/NodeTypes/Headline.html'
+	}
+
+	prototype(TYPO3.Neos.NodeTypes:MultiColumnItem) {
+		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/NodeTypes/MultiColumnItem.html'
+		attributes.class = ${'col-sm-' + String.split(q(node).parent().property('layout'), '-')[multiColumnIteration.index]}
+		align = ${multiColumnIteration.isLast ? 'right' : 'left'}
+	}
+	prototype(TYPO3.Neos.NodeTypes:MultiColumn) {
+		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/NodeTypes/MultiColumn.html'
+		columns.iterationName = 'multiColumnIteration'
+	}
+}
+root.newsletterHtml {
+   position = 'end 9993'
+   condition = ${q(documentNode).is('[instanceof Lelesys.Plugin.Newsletter:Newsletter]') && request.format == 'html'}
+   type = 'Lelesys.Plugin.Newsletter:NewsletterHtml'
+}
+
+# For txt format request
+prototype(Lelesys.Plugin.Newsletter:NewsletterPlainText) < prototype(TYPO3.TypoScript:Array)
+prototype(Lelesys.Plugin.Newsletter:NewsletterPlainText) {
+	body = TYPO3.TypoScript:Template
+	body {
+		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/Newsletter/Newsletter.txt'
+		sectionName = 'body'
+		content {
+			main = TYPO3.Neos:PrimaryContent
+			main {
+				nodePath = 'main'
+			}
+		}
+	}
+
+	prototype(TYPO3.Neos:ContentCollection)  {
+		attributes.class >
+	}
+
+	# optimize standard nodeTypes for text rendering
+	prototype(TYPO3.Neos.NodeTypes:Text) {
+		attributes >
+		@process.contentElementWrapping >
+		text.@process.stripTags = ${String.stripTags(value)}
+	}
+	prototype(TYPO3.Neos.NodeTypes:Headline) {
+		@process.contentElementWrapping >
+		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/NodeTypes/Headline.txt'
+		attributes >
+		title.@process.stripTags = ${String.stripTags(value)}
+	}
+	prototype(TYPO3.Neos.NodeTypes:Html) {
+		@process.contentElementWrapping >
+		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/NodeTypes/Html.txt'
+		attributes >
+		source.@process.stripTags = ${String.stripTags(value)}
+	}
+	prototype(TYPO3.Neos.NodeTypes:Image) {
+		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/NodeTypes/Image.txt'
+		attributes >
+		@process.contentElementWrapping >
+	}
+	prototype(TYPO3.Neos.NodeTypes:TextWithImage) {
+		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/NodeTypes/TextWithImage.txt'
+		attributes >
+		@process.contentElementWrapping >
+		text.@process.stripTags = ${String.stripTags(value)}
+	}
+	prototype(TYPO3.Neos.NodeTypes:MultiColumn) {
+		@process.contentElementWrapping >
+		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/NodeTypes/MultiColumn.txt'
+
+	}
+	prototype(TYPO3.Neos.NodeTypes:MultiColumnItem) {
+		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/NodeTypes/MultiColumnItem.txt'
+		attributes >
+		@process.contentElementWrapping >
+		columns.@process.stripTags = ${String.stripTags(value)}
+	}
+
+}
+
+root.newsletterPlainText {
+	@position = 'end 9994'
+	condition = ${q(documentNode).is('[instanceof Lelesys.Plugin.Newsletter:Newsletter]') && request.format == 'txt'}
+	type = 'Lelesys.Plugin.Newsletter:NewsletterPlainText'
+}

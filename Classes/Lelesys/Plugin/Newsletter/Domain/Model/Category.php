@@ -1,5 +1,4 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Model;
 
 /*                                                                         *
@@ -40,7 +39,7 @@ class Category {
 	/**
 	 * Sets category title
 	 *
-	 * @param string $title
+	 * @param string $title Category title
 	 * @return void
 	 */
 	public function setTitle($title) {
@@ -57,5 +56,4 @@ class Category {
 	}
 
 }
-
 ?>

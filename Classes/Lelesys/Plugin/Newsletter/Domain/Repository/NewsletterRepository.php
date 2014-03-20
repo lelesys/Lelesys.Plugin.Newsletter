@@ -1,8 +1,7 @@
 <?php
-
 namespace Lelesys\Plugin\Newsletter\Domain\Repository;
 
-/* *
+/*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -15,14 +14,16 @@ use TYPO3\Flow\Persistence\Doctrine\Repository;
 use TYPO3\Flow\Reflection\ObjectAccess;
 
 /**
+ * The Newsletter Repository
+ *
  * @Flow\Scope("singleton")
  */
 class NewsletterRepository extends Repository {
 
 	/**
-	 * All newsletter by given recipient
+	 * All newsletters by given recipient
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person Person object
 	 * @return array The query result
 	 */
 	public function getNewslettersByRecipient(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
@@ -31,9 +32,8 @@ class NewsletterRepository extends Repository {
 		return $query;
 	}
 
-
 	/**
-	 * All newsletter by given recipient group
+	 * All newsletters by given recipient group
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\AbstractGroup $recipientGroup Recipient Group
 	 * @return array The query result
@@ -45,7 +45,7 @@ class NewsletterRepository extends Repository {
 	}
 
 	/**
-	 * All newsletter by given category
+	 * All newsletters by given category
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Category
 	 * @return array The query result
@@ -59,5 +59,4 @@ class NewsletterRepository extends Repository {
 	}
 
 }
-
 ?>

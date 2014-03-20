@@ -19,6 +19,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EmailLog {
 
+	const RECIPIENT_TYPE_STATIC = '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\StaticList';
+	const RECIPIENT_TYPE_PERSON = 'Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person';
+
 	/**
 	 * Time Created
 	 *
@@ -30,14 +33,14 @@ class EmailLog {
 	 * Time Sent
 	 *
 	 * @var \DateTime
+	 * @ORM\Column(nullable=true)
 	 */
 	protected $timeSent;
 
 	/**
-	 * Newsletter
-	 *
-	 * @var \Doctrine\Common\Collections\Collection<\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter>
-	 * @ORM\ManyToMany
+	 * The Newsletter
+	 * @var \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter
+	 * @ORM\ManyToOne
 	 */
 	protected $newsletter;
 
@@ -70,6 +73,14 @@ class EmailLog {
 	protected $isFailed;
 
 
+
+	/**
+	 * The Constructor for Order
+	 */
+	public function __construct() {
+		$this->timeCreated = new \DateTime();
+	}
+
 	/**
 	 * Gets Time Created
 	 *
@@ -82,7 +93,7 @@ class EmailLog {
 	/**
 	 * Sets Time Created
 	 *
-	 * @param \DateTime $timeCreated
+	 * @param \DateTime $timeCreated Time Created
 	 * @return void
 	 */
 	public function setTimeCreated($timeCreated) {
@@ -101,7 +112,7 @@ class EmailLog {
 	/**
 	 * Sets Time Sent
 	 *
-	 * @param \DateTime $timeSent
+	 * @param \DateTime $timeSent Time Sent
 	 * @return void
 	 */
 	public function setTimeSent($timeSent) {
@@ -111,7 +122,7 @@ class EmailLog {
 	/**
 	 * Gets Newsletter
 	 *
-	 * @return  \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter
+	 * @return \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter
 	 */
 	public function getNewsletter() {
 		return $this->newsletter;
@@ -120,10 +131,10 @@ class EmailLog {
 	/**
 	 * Sets Newsletter
 	 *
-	 * @param  \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter
 	 * @return void
 	 */
-	public function setNewsletter( \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
+	public function setNewsletter(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
 		$this->newsletter = $newsletter;
 	}
 
@@ -139,7 +150,7 @@ class EmailLog {
 	/**
 	 * Sets Recipient Type
 	 *
-	 * @param string $recipientType
+	 * @param string $recipientType Recipient Type
 	 * @return void
 	 */
 	public function setRecipientType($recipientType) {
@@ -158,7 +169,7 @@ class EmailLog {
 	/**
 	 * Sets Recipient
 	 *
-	 * @param string $recipient
+	 * @param string $recipient Recipient
 	 * @return void
 	 */
 	public function setRecipient($recipient) {
@@ -177,7 +188,7 @@ class EmailLog {
 	/**
 	 * Sets IsSent
 	 *
-	 * @param boolean $isSent
+	 * @param boolean $isSent IsSent
 	 * @return void
 	 */
 	public function setIsSent($isSent) {
@@ -196,7 +207,7 @@ class EmailLog {
 	/**
 	 * Sets IsFailed
 	 *
-	 * @param boolean $isFailed
+	 * @param boolean $isFailed IsFailed
 	 * @return void
 	 */
 	public function setIsFailed($isFailed) {

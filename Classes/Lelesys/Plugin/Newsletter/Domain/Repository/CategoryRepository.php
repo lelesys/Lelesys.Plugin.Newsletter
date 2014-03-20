@@ -1,7 +1,7 @@
 <?php
 namespace Lelesys\Plugin\Newsletter\Domain\Repository;
 
-/*                                                                         *
+/* *
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -13,11 +13,11 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Persistence\Repository;
 
 /**
+ * Newsletter Category Repository
+ *
  * @Flow\Scope("singleton")
  */
 class CategoryRepository extends Repository {
-
 	// add customized methods here
-
 }
 ?>

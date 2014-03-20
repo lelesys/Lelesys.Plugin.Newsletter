@@ -4,8 +4,8 @@
 			<button data-dismiss="alert" class="neos-close" type="button">×</button>
 			<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
 				<f:for each="{errors}" as="error">
-					<f:translate id="madresfera.madresfera.error.{error.code}">
-					{error.code}
+					<f:translate id="lelesys.plugin.newsletter.error.{error.code}">
+						{error}
 					</f:translate>
 				</f:for>
 			</f:for>
