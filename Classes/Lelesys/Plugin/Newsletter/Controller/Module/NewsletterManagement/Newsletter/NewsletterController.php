@@ -113,8 +113,8 @@ class NewsletterController extends NewsletterManagementController {
 			if ($newsletter->getContentNode() !== NULL) {
 				if ($adminEmail !== NULL) {
 					$this->newsletterService->sendTestEmail($adminEmail, $newsletter);
-					$header = 'Newsletter is sent';
-					$message = $this->centralService->translate('lelesys.plugin.newsletter.sent');
+					$header = 'Added in Email Log';
+					$message = $this->centralService->translate('lelesys.plugin.newsletter.addedLog');
 					$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
 				} else {
 					$recipientGroups = $newsletter->getRecipientGroups();
@@ -130,8 +130,8 @@ class NewsletterController extends NewsletterManagementController {
 							$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
 						} else {
 					$this->newsletterService->sendEmail($newsletter);
-					$header = 'Newsletter is sent';
-					$message = $this->centralService->translate('lelesys.plugin.newsletter.sent');
+					$header = 'Added in Email Log';
+					$message = $this->centralService->translate('lelesys.plugin.newsletter.addedLog');
 					$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
 				}
 				}

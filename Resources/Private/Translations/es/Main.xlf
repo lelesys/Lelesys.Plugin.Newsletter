@@ -32,8 +32,8 @@
 				<target>Cannot send newsetter at this time!!.</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.sent" approved="yes">
-				<source>Newsletter is sent.</source>
-				<target>Newsletter is sent.</target>
+				<source>Sent successfully</source>
+				<target>Sent successfully</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.nopage" approved="yes">
 				<source>No page selected for newsletter cannot send email!</source>
@@ -116,8 +116,12 @@
 				<target>Cannot subscribe to newslette at this time!!.</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.cannot.subscribed" approved="yes">
-				<source>Thank you for subscribing to our newsletter.The confirmation email has been sent to your specified email address. Please click on the confirmation link to confirm your subscription.</source>
-				<target>Thank you for subscribing to our newsletter.The confirmation email has been sent to your specified email address. Please click on the confirmation link to confirm your subscription.</target>
+				<source>Thank you. The confirmation email has been sent to your specified email address.</source>
+				<target>Thank you. The confirmation email has been sent to your specified email address.</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.addedLog" approved="yes">
+				<source>Added in email log</source>
+				<target>Added in email log</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.user.approved" approved="yes">
 				<source>You have successfully confirmed your subscription to Newsletter.</source>

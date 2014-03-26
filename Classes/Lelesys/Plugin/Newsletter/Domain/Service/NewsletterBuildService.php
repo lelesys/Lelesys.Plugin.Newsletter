@@ -227,7 +227,7 @@ class NewsletterBuildService {
 		$response->makeStandardsCompliant($httpRequest);
 		$output = $response->getContent();
 		if ($format === 'txt') {
-			$output = strip_tags($output);
+			$output = strip_tags($output,'<a>');
 		}
 		$values['mailContent'] = $output;
 		return $this->emailNotificationService->buildEmailMessage($templateName, $values, $format);

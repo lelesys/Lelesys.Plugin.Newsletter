@@ -3,6 +3,6 @@
 {namespace baseUrl=Lelesys\Plugin\Newsletter\ViewHelpers}
 <f:if condition="{image}">
 	<f:then>
-		Please check here for graphics <f:link.external uri="<baseUrl:BaseUrl></baseUrl:BaseUrl>{f:uri.resource(resource: image.resource)}" target="_blank"><baseUrl:BaseUrl></baseUrl:BaseUrl>{f:uri.resource(resource: image.resource)}</f:link.external>
+		Please click here for graphics :  <f:link.external uri="<baseUrl:BaseUrl></baseUrl:BaseUrl>{f:uri.resource(resource: image.resource)}" target="_blank"><baseUrl:BaseUrl></baseUrl:BaseUrl>{f:uri.resource(resource: image.resource)}</f:link.external>
 	</f:then>
 </f:if>
