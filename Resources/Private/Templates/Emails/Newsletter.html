@@ -1,4 +1,5 @@
 {namespace baseUrl=Lelesys\Plugin\Newsletter\ViewHelpers}
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -36,7 +37,7 @@
 			<f:if condition="{recipientId}">
 				<f:then>
 					<div style="border-top: 1px solid #D2D2D2; padding: 20px; font-size: 13px;" class="footer">
-						If at any time you wish to stop receiving our emails, you can : <f:link.action action="unSubscribeConfirmation" controller="Person" package="Lelesys.Plugin.Newsletter" arguments="{recipientId: recipientId,code: code}"><button style="padding: 20px; background-color: #428BCA;border: none;border-color: #357EBD;color: #FFFFFF;padding: 6px 12px;border-radius: 4px;cursor: pointer;">Unsubscribe here.</button></f:link.action>
+						If at any time you wish to stop receiving our emails, you can : <f:link.external uri="<baseUrl:BaseUrl></baseUrl:BaseUrl>?recipientId={recipientId}&code={code}" ><button style="padding: 20px; background-color: #428BCA;border: none;border-color: #357EBD;color: #FFFFFF;padding: 6px 12px;border-radius: 4px;cursor: pointer;">Unsubscribe here.</button></f:link.external>
 					</div>
 				</f:then>
 			</f:if>
