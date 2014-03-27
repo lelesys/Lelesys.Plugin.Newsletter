@@ -12,10 +12,8 @@
     - 'TYPO3.Neos:Document'
   ui:
     label: 'Lelesys Newsletter Node'
-    group: 'plugins'
-    icon:
-      light: Images/Icons/White/doc_empty_icon-16.png
-      dark: Images/Icons/Black/doc_empty_icon-16.png
+    group: 'general'
+    icon: 'icon-file'
   childNodes:
     main:
       type: 'TYPO3.Neos:ContentCollection'

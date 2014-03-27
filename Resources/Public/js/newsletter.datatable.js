@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-	if (jQuery('#paid-course-subscription').length > 0) {
+	if (jQuery('#newsletter-dataTable').length > 0) {
 		var oTable;
 			// Add the events etc before DataTables hides a column
 		jQuery("thead input").keyup(function() {
@@ -8,13 +8,11 @@ jQuery(document).ready(function($) {
 					oTable.fnSettings(), $("thead input").index(this)));
 		});
 
-		oTable = jQuery('#paid-course-subscription').dataTable({
+		oTable = jQuery('#newsletter-dataTable').dataTable({
 			"fnDrawCallback": function(oSettings) {
-				if (jQuery('#paid-course-subscription tr').length < 11) {
-					jQuery('.dataTables_paginate').hide();
+				if (jQuery('#newsletter-dataTable tr').length < 10) {
 					jQuery('.dataTables_length').hide();
 				} else {
-					jQuery('.dataTables_paginate').show();
 					jQuery('.dataTables_length').show();
 					jQuery('.neos-controls create-button').removeClass("create-button");
 				}

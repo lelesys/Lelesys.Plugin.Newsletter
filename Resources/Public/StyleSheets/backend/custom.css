@@ -12,7 +12,7 @@ select[multiple]{
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 	border: medium none;
 }
-#paid-course-subscription tr:first-child th:hover {
+#newsletter-dataTable tr:first-child th:hover {
 	cursor: pointer;
 	text-decoration: underline;
 }

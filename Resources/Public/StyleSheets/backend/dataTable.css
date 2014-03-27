@@ -1,10 +1,10 @@
 /************ CSS for data table Pagination *****/
 
-#paid-course-subscription_paginate a {
+#newsletter-dataTable_paginate a {
     border-radius: 0 0 0 0;
     box-shadow: none;
 }
-#paid-course-subscription_paginate a {
+#newsletter-dataTable_paginate a {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     display: inline-block;
     margin-bottom: 0;
@@ -12,10 +12,10 @@
 	border-bottom-left-radius: 2px;
     border-top-left-radius: 2px;
 }
-#paid-course-subscription_paginate a:first-child {
+#newsletter-dataTable_paginate a:first-child {
 	border-left-width: 1px;
 }
-#paid-course-subscription_paginate a {
+#newsletter-dataTable_paginate a {
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
@@ -33,28 +33,28 @@
 	margin-bottom: 10px;
     text-decoration: none;
 }
-#paid-course-subscription_paginate .paginate_active {
+#newsletter-dataTable_paginate .paginate_active {
 	background-color: #FF8A14;
 	border: 1px solid #FF8A14;
 	color: #656565;
 }
 
-#paid-course-subscription_length {
+#newsletter-dataTable_length {
 	width: 32%;
 	float: left
 }
 
-#paid-course-subscription_filter {
+#newsletter-dataTable_filter {
 	float: right;
 	width: 22%;
 }
 
-#paid-course-subscription_wrapper {
+#newsletter-dataTable_wrapper {
 	float: left;
 	width: 100%;
 }
 
-#paid-course-subscription_length select {
+#newsletter-dataTable_length select {
     height: 34px;
     padding: 0;
     width: 23%;
