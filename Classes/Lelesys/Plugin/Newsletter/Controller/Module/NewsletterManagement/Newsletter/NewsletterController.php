@@ -113,8 +113,8 @@ class NewsletterController extends NewsletterManagementController {
 			if ($newsletter->getContentNode() !== NULL) {
 				if ($adminEmail !== NULL) {
 					$this->newsletterService->sendTestEmail($adminEmail, $newsletter);
-					$header = 'Added in Email Log';
-					$message = $this->centralService->translate('lelesys.plugin.newsletter.addedLog');
+					$header = 'Test email sent';
+					$message = $this->centralService->translate('lelesys.plugin.newsletter.testEmailSent');
 					$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
 				} else {
 					$recipientGroups = $newsletter->getRecipientGroups();
@@ -127,7 +127,7 @@ class NewsletterController extends NewsletterManagementController {
 						&& (count($newsletter->getRecipients()) < 1 )) {
 							$header = 'Newsletter does not have any subscribers';
 							$message = $this->centralService->translate('lelesys.plugin.newsletter.noUsers');
-							$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+							$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
 						} else {
 					$this->newsletterService->sendEmail($newsletter);
 					$header = 'Added in Email Log';

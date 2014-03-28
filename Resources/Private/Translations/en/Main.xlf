@@ -183,6 +183,10 @@
 				<source>Attachment</source>
 				<target>Attachment</target>
 			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.noAttachments" approved="yes">
+				<source>No attachments</source>
+				<target>No attachments</target>
+			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.category" approved="yes">
 				<source>Category</source>
 				<target>Category</target>
@@ -414,6 +418,10 @@
 			<trans-unit id="lelesys.plugin.newsletter.addedLog" approved="yes">
 				<source>Added in email log</source>
 				<target>Added in email log</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.testEmailSent" approved="yes">
+				<source>Test Email sent successfully</source>
+				<target>Test Email sent successfully</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.recipientEmail" approved="yes">
 				<source>Recipient Email</source>

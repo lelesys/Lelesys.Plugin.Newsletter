@@ -102,7 +102,7 @@ class PersonController extends NewsletterManagementController {
 			if (($isExistingUser !== NULL) && ($isExistingUser === 1)) {
 				$header = 'This email address has already subscribed!';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.emailExist');
-				$this->addFlashMessage('' . $newPerson->getPrimaryElectronicAddress()->getIdentifier() . $message . '', \TYPO3\Flow\Error\Message::SEVERITY_OK);
+				$this->addFlashMessage('' . $newPerson->getPrimaryElectronicAddress()->getIdentifier() . $message . '', $header , \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
 			} else {
 				$this->personService->create($newPerson);
 				$header = 'Created a new recipient.';

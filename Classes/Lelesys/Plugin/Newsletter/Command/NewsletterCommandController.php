@@ -80,9 +80,9 @@ class NewsletterCommandController extends \TYPO3\Flow\Cli\CommandController {
 				}
 			}
 			if ($emailSentCount === 1) {
-				$this->outputLine($emailSentCount . ' ' . 'Mail is sent successfully to particular recipients');
+				$this->outputLine('Mail is sent successfully to particular recipient');
 			} else {
-				$this->outputLine($emailSentCount . ' ' . 'Mails are sent successfully to particular recipients');
+				$this->outputLine('Mails are sent successfully to particular recipients');
 			}
 			unlink($fileName);
 		} else {

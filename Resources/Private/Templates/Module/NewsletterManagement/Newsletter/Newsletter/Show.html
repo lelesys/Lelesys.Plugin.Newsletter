@@ -64,7 +64,16 @@
 
 				<tr>
 					<td><f:translate id="lelesys.plugin.newsletter.attachment"></f:translate></td>
-					<td>{newsletter.attachments.fileName}</td>
+					<td>
+						<f:if condition="{newsletter.attachments}">
+							<f:then>
+								{newsletter.attachments.fileName}
+							</f:then>
+							<f:else>
+								<f:translate id="lelesys.plugin.newsletter.noAttachments">No attachments</f:translate>
+							</f:else>
+						</f:if>
+					</td>
 				</tr>
 
 				<tr>

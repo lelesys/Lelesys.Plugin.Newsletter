@@ -12,9 +12,11 @@ jQuery(document).ready(function($) {
 			"fnDrawCallback": function(oSettings) {
 				if (jQuery('#newsletter-dataTable tr').length < 10) {
 					jQuery('.dataTables_length').hide();
+					jQuery('.dataTables_paginate').hide();
 				} else {
 					jQuery('.dataTables_length').show();
 					jQuery('.neos-controls create-button').removeClass("create-button");
+					jQuery('.dataTables_paginate').show();
 				}
 			}
 		});
