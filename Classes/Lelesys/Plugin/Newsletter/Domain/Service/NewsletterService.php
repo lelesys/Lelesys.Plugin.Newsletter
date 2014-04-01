@@ -226,9 +226,9 @@ class NewsletterService {
 		$fromName = $this->settings['email']['senderName'];
 		$message = $this->newsletterBuildService->buildMailContents('Newsletter.html', array('recipient' => $adminEmail), $newsletter, array('html' => 'text/html'));
 		$attachments = array();
-		if ($newsletter->getAttachments() !== NULL) {
-			$attachments['path'] = $this->resourceManager->getPersistentResourcesStorageBaseUri() . $newsletter->getAttachments()->getResourcePointer()->getHash();
-			$attachments['name'] = $newsletter->getAttachments()->getFilename();
+		$newsletterAttachments = $newsletter->getAttachments();
+		foreach($newsletterAttachments as $newsletterAttachment) {
+			$attachments[$this->resourceManager->getPersistentResourcesStorageBaseUri() . $newsletterAttachment->getResource()->getResourcePointer()->getHash()] = $newsletterAttachment->getTitle();
 		}
 		$this->emailNotificationService->sendMail($subject, $message, $adminEmail, $fromName, $attachments);
 	}

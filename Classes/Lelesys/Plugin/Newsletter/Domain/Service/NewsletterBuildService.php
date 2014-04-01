@@ -149,9 +149,8 @@ class NewsletterBuildService {
 		$replyName = $newsletter->getReplyToName();
 
 		$attachments = array();
-		if (($newsletter->getAttachments()) !== NULL) {
-			$attachments['path'] = $this->resourceManager->getPersistentResourcesStorageBaseUri() . $emailLog->getNewsletter()->getAttachments()->getResourcePointer()->getHash();
-			$attachments['name'] = $emailLog->getNewsletter()->getAttachments()->getFilename();
+		foreach($newsletterAttachments as $newsletterAttachment) {
+			$attachments[$this->resourceManager->getPersistentResourcesStorageBaseUri() . $newsletterAttachment->getResource()->getResourcePointer()->getHash()] = $newsletterAttachment->getTitle();
 		}
 
 		if ($emailLog->getRecipientType() == \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog::RECIPIENT_TYPE_PERSON) {

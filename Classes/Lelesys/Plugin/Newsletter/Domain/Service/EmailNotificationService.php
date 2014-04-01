@@ -63,7 +63,9 @@ class EmailNotificationService {
 				->setCharset($characterSet)
 				->setContentType($contentType);
 		if (!empty($attachments)) {
-			$mail->attach(\Swift_Attachment::fromPath($attachments['path'])->setFilename($attachments['name']));
+			foreach ($attachments as $path => $fileName) {
+				$mail->attach(\Swift_Attachment::fromPath($path)->setFilename($fileName));
+			}
 		}
 		$mail->setReplyTo(array($replyEmail => $replyName))
 				->setBcc($bccAddresses)
@@ -102,7 +104,9 @@ class EmailNotificationService {
 				->setBcc($bccAddresses)
 				->setCc($ccAddresses);
 		if (!empty($attachments)) {
-			$mail->attach(\Swift_Attachment::fromPath($attachments['path'])->setFilename($attachments['name']));
+			foreach ($attachments as $path => $fileName) {
+				$mail->attach(\Swift_Attachment::fromPath($path)->setFilename($fileName));
+			}
 		}
 		$mail->send();
 	}
