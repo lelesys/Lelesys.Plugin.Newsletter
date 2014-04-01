@@ -19,3 +19,6 @@ select[multiple]{
 .neos-controls .create-button {
 	margin-top: 15px;
 }
+.attachment {
+	float: left;
+}

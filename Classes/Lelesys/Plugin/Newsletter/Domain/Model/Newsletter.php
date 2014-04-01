@@ -112,8 +112,8 @@ class Newsletter {
 	/**
 	 * Attachments
 	 *
-	 * @var \TYPO3\Flow\Resource\Resource
-	 * @ORM\ManyToOne(cascade={"persist", "detach"})
+	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Media\Domain\Model\Document>
+	 * @ORM\ManyToMany(cascade={"remove", "detach"})
 	 * @ORM\Column(nullable=true)
 	 */
 	protected $attachments;
@@ -170,6 +170,7 @@ class Newsletter {
 		$this->recipients = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->recipientGroups = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
 	}
 
 	/**
@@ -384,7 +385,7 @@ class Newsletter {
 	/**
 	 * Gets Attachments
 	 *
-	 * @return \TYPO3\Flow\Resource\Resource The Newsletter's attachments
+	 * @return \Doctrine\Common\Collections\Collection The Newsletter's attachments
 	 */
 	public function getAttachments() {
 		return $this->attachments;
@@ -393,11 +394,31 @@ class Newsletter {
 	/**
 	 * Sets Attachments
 	 *
-	 * @param \TYPO3\Flow\Resource\Resource $attachments Attachments
+	 * @param \Doctrine\Common\Collections\Collection $attachments Attachments
 	 * @return void
 	 */
-	public function setAttachments(\TYPO3\Flow\Resource\Resource $attachments) {
+	public function setAttachments(\Doctrine\Common\Collections\Collection $attachments) {
 		$this->attachments = $attachments;
+	}
+
+	/**
+	 * Adds Attachments
+	 *
+	 * @param \TYPO3\Media\Domain\Model\Document $attachment Attachments
+	 * @return void
+	 */
+	public function addAttachment(\TYPO3\Media\Domain\Model\Document $attachment) {
+		$this->attachments->add($attachment);
+	}
+
+	/**
+	 * Removes Attachments
+	 *
+	 * @param \TYPO3\Media\Domain\Model\Document $attachment Attachments
+	 * @return void
+	 */
+	public function removeAttachment(\TYPO3\Media\Domain\Model\Document $attachment) {
+		$this->attachments->removeElement($attachment);
 	}
 
 	/**

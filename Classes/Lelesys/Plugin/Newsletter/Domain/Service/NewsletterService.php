@@ -89,6 +89,22 @@ class NewsletterService {
 	protected $persistenceManager;
 
 	/**
+	 * Injection for property mapper
+	 *
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Property\PropertyMapper
+	 */
+	protected $propertyMapper;
+
+	/**
+	 * Asset repository
+	 *
+	 * @Flow\Inject
+	 * @var \TYPO3\Media\Domain\Repository\AssetRepository
+	 */
+	protected $assetRepository;
+
+	/**
 	 * Settings
 	 *
 	 * @var array
@@ -233,7 +249,7 @@ class NewsletterService {
 				$list = $personListArray['list'];
 				$personEmailList = $personListArray['personEmailList'];
 			} else {
-				$staticLists = \TYPO3\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients());
+				$staticLists = array_merge($staticLists, \TYPO3\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients()));
 			}
 		}
 		if ((count($personEmailList) > 0 && count($list) > 0) || ($allArrays['list'] > 0)) {
@@ -346,10 +362,33 @@ class NewsletterService {
 	 * Adds news newsletter
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter Newsletter object
+	 * @param array $attachments Attachments
 	 * @return void
 	 */
-	public function create(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter) {
-		$this->newsletterRepository->add($newNewsletter);
+	public function create(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter, $attachments = array()) {
+		$this->newsletterRepository->add($this->addAttachments($newNewsletter, $attachments));
+	}
+
+	/**
+	 * Adds attachment to newsletter during create and edit actions
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter Newsletter object
+	 * @param type $attachments  Attachments
+	 * @return \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter Newsletter
+	 */
+	public function addAttachments(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter, $attachments = array()) {
+		if (empty($attachments) === FALSE) {
+			foreach ($attachments as $attachment) {
+				if (!empty($attachment['name'])) {
+					$resource = $this->propertyMapper->convert($attachment, 'TYPO3\Flow\Resource\Resource');
+					$file = new \TYPO3\Media\Domain\Model\Document($resource);
+					$file->setTitle($attachment['name']);
+					$this->assetRepository->add($file);
+					$newNewsletter->addAttachment($file);
+				}
+			}
+		}
+		return $newNewsletter;
 	}
 
 	/**
@@ -368,10 +407,11 @@ class NewsletterService {
 	 * Updates newsletter
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
+	 * @param array $attachments Attachments
 	 * @return void
 	 */
-	public function update(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
-		$this->newsletterRepository->update($newsletter);
+	public function update(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, $attachments = array()) {
+		$this->newsletterRepository->update($this->addAttachments($newsletter, $attachments));
 	}
 
 	/**
@@ -453,5 +493,18 @@ class NewsletterService {
 		}
 	}
 
+	/**
+	 * Delete attachments of the newsletter
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
+	 * @param \TYPO3\Media\Domain\Model\Document $attachment Attachment object
+	 * @return void
+	 */
+	public function deleteAttachment(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, \TYPO3\Media\Domain\Model\Document $attachment) {
+		$newsletter->removeAttachment($attachment);
+		$this->update($newsletter);
+		$this->assetRepository->remove($attachment);
+		$this->persistenceManager->persistAll();
+	}
 }
 ?>

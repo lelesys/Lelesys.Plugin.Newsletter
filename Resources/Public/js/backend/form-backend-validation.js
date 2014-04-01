@@ -59,7 +59,16 @@ jQuery(document).ready(function() {
 		}
 	});
 
-
+	jQuery('.add-more').click(function() {
+		var inputLength = jQuery('.attachments').length;
+		var inputVal = jQuery('.attachments:first').clone();
+		jQuery(inputVal).find('input').each(function() {
+			jQuery(this).attr('name', jQuery(this).attr('name').replace('0', inputLength));
+			jQuery(this).val('');
+			jQuery(inputVal).append('<a onclick="deleteAttachment()" class="delete" rel="tooltip" title="Delete attachment"><i class="icon-trash"></i></a>');
+		});
+		jQuery(inputVal).insertAfter('.attachments:last');
+	});
 });
 
 var notEmptyValidation = function(selector, message) {
@@ -86,4 +95,6 @@ function isValidEmailAddress(emailAddress) {
 		return 1;
 	}
 };
-
+function deleteAttachment() {
+	jQuery('.attachments:last').remove();
+};

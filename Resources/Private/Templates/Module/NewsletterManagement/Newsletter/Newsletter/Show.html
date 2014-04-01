@@ -67,7 +67,9 @@
 					<td>
 						<f:if condition="{newsletter.attachments}">
 							<f:then>
-								{newsletter.attachments.fileName}
+								<f:for each="{newsletter.attachments}" as="attachment" iteration="attachmentIterator">
+									{attachment.title}{f:if(condition: attachmentIterator.isLast, then: '', else: ', ')}
+								</f:for>
 							</f:then>
 							<f:else>
 								<f:translate id="lelesys.plugin.newsletter.noAttachments">No attachments</f:translate>

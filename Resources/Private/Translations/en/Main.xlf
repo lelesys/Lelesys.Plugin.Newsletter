@@ -459,6 +459,14 @@
 				<source>Status</source>
 				<target>Status</target>
 			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteAttachmentSuccessful" approved="yes">
+				<source>Deleted attachment</source>
+				<target>Deleted attachment</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteAttachmentFail" approved="yes">
+				<source>Could not delete attachment</source>
+				<target>Could not delete attachment</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

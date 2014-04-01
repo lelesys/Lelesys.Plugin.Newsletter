@@ -129,11 +129,11 @@ class NewsletterController extends NewsletterManagementController {
 							$message = $this->centralService->translate('lelesys.plugin.newsletter.noUsers');
 							$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
 						} else {
-					$this->newsletterService->sendEmail($newsletter);
-					$header = 'Added in Email Log';
-					$message = $this->centralService->translate('lelesys.plugin.newsletter.addedLog');
-					$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
-				}
+							$this->newsletterService->sendEmail($newsletter);
+							$header = 'Added in Email Log';
+							$message = $this->centralService->translate('lelesys.plugin.newsletter.addedLog');
+							$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+						}
 				}
 			} else {
 				$header = 'No page selected for newsletter cannot send email.';
@@ -152,16 +152,17 @@ class NewsletterController extends NewsletterManagementController {
 	 * Creates a new newsletter
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter Newsletter object
+	 * @param array $attachments Attachments
 	 * @return void
 	 */
-	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter) {
+	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter, $attachments = array()) {
 		try {
-			$this->newsletterService->create($newNewsletter);
-			$header = 'Created a new newsletter.';
+			$this->newsletterService->create($newNewsletter, $attachments);
+			$header = 'Created a new newsletter';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.add.newsletter');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
-			$header = 'Cannot create newsletter at this time!!.';
+			$header = 'Cannot create newsletter at this time!!';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.addNewsletter');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
 		}
@@ -186,16 +187,17 @@ class NewsletterController extends NewsletterManagementController {
 	 * Update newsletter
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
+	 * @param array $attachments Attachments
 	 * @return void
 	 */
-	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
+	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, $attachments = array()) {
 		try {
-			$this->newsletterService->update($newsletter);
-			$header = 'Updated newsletter.';
+			$this->newsletterService->update($newsletter, $attachments);
+			$header = 'Updated newsletter';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.update.newsletter');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
-			$header = 'Cannot update newsletter at this time!!.';
+			$header = 'Cannot update newsletter at this time!!';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.updateNewsletter');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
 		}
@@ -222,5 +224,25 @@ class NewsletterController extends NewsletterManagementController {
 		$this->redirect('index');
 	}
 
+	/**
+	 * Delete newsletter attachment
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
+	 * @param \TYPO3\Media\Domain\Model\Document $attachment
+	 * @return void
+	 */
+	public function deleteAttachmentAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, \TYPO3\Media\Domain\Model\Document $attachment) {
+		try {
+			$this->newsletterService->deleteAttachment($newsletter, $attachment);
+			$header = 'Deleted attachment';
+			$message = $this->centralService->translate('lelesys.plugin.newsletter.deleteAttachmentSuccessful');
+			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
+			$header = 'Could not delete attachment';
+			$message = $this->centralService->translate('lelesys.plugin.newsletter.deleteAttachmentFail');
+			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+		}
+		$this->redirect('edit', '', '', array('newsletter' => $newsletter));
+	}
 }
 ?>

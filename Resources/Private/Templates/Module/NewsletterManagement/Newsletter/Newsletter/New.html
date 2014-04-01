@@ -70,9 +70,10 @@
 
 				<div class="neos-control-group">
 					<label class="neos-control-label" for="attachments"><f:translate id="lelesys.plugin.newsletter.attachment"></f:translate></label>
-					<div class="neos-controls">
-						<f:form.upload property="attachments" id="attachments" />
+					<div class="neos-controls clearfix attachments">
+						<f:form.upload name="attachments[0]" class="attachment" />
 					</div>
+					<span><a href="javascript:void(0);" class="add-more" title="Add attachment"><i class="icon-plus"/></i></a></span>
 				</div>
 				<f:if condition="{categories}">
 					<div class="neos-control-group">

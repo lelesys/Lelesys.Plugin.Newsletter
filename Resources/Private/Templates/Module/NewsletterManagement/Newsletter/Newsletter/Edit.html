@@ -59,22 +59,21 @@
 					<div class="neos-control-group">
 						<label class="neos-control-label" for="attachments"><f:translate id="lelesys.plugin.newsletter.attachment"></f:translate></label>
 						<div class="neos-controls">
-							<ul>
-								<li>{newsletter.attachments.fileName}</li>
-							</ul>
-							<f:form.upload property="attachments"/>
+							<f:for each="{newsletter.attachments}" as="attachment">
+								<span class="productImagesSpan">{attachment.title}</span>
+								<f:link.action action="deleteAttachment" arguments="{newsletter:newsletter, attachment:attachment}" title="Delete attachment" onclick="return confirm('Are you sure you want to delete the attachment?')" ><i class="icon-trash"></i></f:link.action>
+								<br />
+							</f:for>
 						</div>
 					</div>
 				</f:then>
-				<f:else>
-					<div class="neos-control-group">
-						<label class="neos-control-label" for="attachments"><f:translate id="lelesys.plugin.newsletter.attachment"></f:translate></label>
-						<div class="neos-controls">
-							<f:form.upload property="attachments"/>
-						</div>
-					</div>
-				</f:else>
 			</f:if>
+			<div class="neos-control-group">
+				<div class="neos-controls clearfix attachments">
+					<f:form.upload name="attachments[0]" class="attachment" />
+				</div>
+				<span><a href="javascript:void(0);" class="add-more" title="Add attachment"><i class="icon-plus"/></i></a></span>
+			</div>
 			<f:if condition="{categories}">
 				<div class="neos-control-group">
 					<label class="neos-control-label" for="categories"><f:translate id="lelesys.plugin.newsletter.category"></f:translate></label>
