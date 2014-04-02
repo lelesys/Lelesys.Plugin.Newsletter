@@ -65,7 +65,7 @@ jQuery(document).ready(function() {
 		jQuery(inputVal).find('input').each(function() {
 			jQuery(this).attr('name', jQuery(this).attr('name').replace('0', inputLength));
 			jQuery(this).val('');
-			jQuery(inputVal).append('<a onclick="deleteAttachment()" class="delete" rel="tooltip" title="Delete attachment"><i class="icon-trash"></i></a>');
+			jQuery(inputVal).append('<a onclick="deleteAttachment()" class="delete" rel="tooltip" title="'+deleteAttachmentTitle+'"><i class="icon-trash"></i></a>');
 		});
 		jQuery(inputVal).insertAfter('.attachments:last');
 	});

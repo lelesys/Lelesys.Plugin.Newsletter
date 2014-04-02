@@ -7,18 +7,5 @@ jQuery(document).ready(function($) {
 			oTable.fnFilter(this.value, oTable.oApi._fnVisibleToColumnIndex(
 					oTable.fnSettings(), $("thead input").index(this)));
 		});
-
-		oTable = jQuery('#newsletter-dataTable').dataTable({
-			"fnDrawCallback": function(oSettings) {
-				if (jQuery('#newsletter-dataTable tr').length < 10) {
-					jQuery('.dataTables_length').hide();
-					jQuery('.dataTables_paginate').hide();
-				} else {
-					jQuery('.dataTables_length').show();
-					jQuery('.neos-controls create-button').removeClass("create-button");
-					jQuery('.dataTables_paginate').show();
-				}
-			}
-		});
 	}
 });
