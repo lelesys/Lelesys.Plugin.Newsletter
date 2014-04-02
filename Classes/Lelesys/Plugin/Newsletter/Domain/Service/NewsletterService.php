@@ -190,7 +190,7 @@ class NewsletterService {
 	 * List of all Recipients By Groups
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
-	 * @return void
+	 * @return array
 	 */
 	public function getAllRecipientsByGroups(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
 		$receipientsByGroupParty = array();
@@ -199,7 +199,8 @@ class NewsletterService {
 			if ($group instanceof \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party) {
 				$receipientsByGroupParty[] = array($group->getTitle(), $group->getRecipients());
 			} else {
-				$staticList = explode(',', $group->getRecipients());
+				$recipientList = array();
+				$staticList = \TYPO3\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients());
 				foreach ($staticList as $recipient) {
 					$recipientList[] = $recipient;
 				}
