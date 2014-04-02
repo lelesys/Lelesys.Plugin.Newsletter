@@ -21,13 +21,13 @@
 								<f:link.action action="show" arguments="{staticList: staticList}">{staticList.title}</f:link.action>
 							</td>
 							<td>
-								<f:link.action action="show" arguments="{staticList: staticList}" class="neos-btn neos-button pull-right" title="Click to view">
+								<f:link.action action="show" arguments="{staticList: staticList}" class="neos-btn neos-button pull-right" title="<f:translate id=\"lelesys.plugin.newsletter.view\"></f:translate>">
 									<i class="icon-info-sign icon-white"></i>
 								</f:link.action>
-								<f:link.action action="edit" arguments="{staticList: staticList}" class="neos-btn neos-button pull-right" title="Click to edit">
+								<f:link.action action="edit" arguments="{staticList: staticList}" class="neos-btn neos-button pull-right" title="<f:translate id=\"lelesys.plugin.newsletter.editTitle\"></f:translate>">
 									<i class="icon-pencil icon-white"></i>
 								</f:link.action>
-								<f:link.action action="delete" arguments="{staticList: staticList}" class="neos-btn neos-button pull-right" title="Click to delete">
+								<f:link.action action="delete" arguments="{staticList: staticList}" class="neos-btn neos-button pull-right" title="<f:translate id=\"lelesys.plugin.newsletter.deleteTitle\"></f:translate>">
 									<i class="icon-trash icon-white"></i>
 								</f:link.action>
 							</td>
@@ -43,7 +43,7 @@
 	</div>
 	<div class="neos-form-actions neos-footer">
 		<div class="pull-right">
-			<f:link.action action="new" class="neos-btn neos-button neos-button-primary" title="Create static list">
+			<f:link.action action="new" class="neos-btn neos-button neos-button-primary" title="<f:translate id=\"lelesys.plugin.newsletter.createStaticListTitle\"></f:translate>">
 				<i class="icon-user icon-white"></i>
 				<f:translate id="lelesys.plugin.newsletter.createGroup"></f:translate>
 			</f:link.action>

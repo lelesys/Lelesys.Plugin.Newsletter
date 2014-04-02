@@ -467,6 +467,46 @@
 				<source>Could not delete attachment</source>
 				<target>Could not delete attachment</target>
 			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteAttachmentAlert" approved="yes">
+				<source>Are you sure you want to delete the attachment?</source>
+				<target>Are you sure you want to delete the attachment?</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteAttachmentTitle" approved="yes">
+				<source>Delete attachment</source>
+				<target>Delete attachment</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.addAttachmentTitle" approved="yes">
+				<source>Add attachment</source>
+				<target>Add attachment</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.back" approved="yes">
+				<source>Back</source>
+				<target>Back</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.view" approved="yes">
+				<source>Click to view</source>
+				<target>Click to view</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.editTitle" approved="yes">
+				<source>Click to edit</source>
+				<target>Click to edit</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteTitle" approved="yes">
+				<source>Click to delete</source>
+				<target>Click to delete</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.createPartyTitle" approved="yes">
+				<source>Create party</source>
+				<target>Create party</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.createAddressTitle" approved="yes">
+				<source>Create address</source>
+				<target>Create address</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.createStaticListTitle" approved="yes">
+				<source>Create static list</source>
+				<target>Create static list</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
