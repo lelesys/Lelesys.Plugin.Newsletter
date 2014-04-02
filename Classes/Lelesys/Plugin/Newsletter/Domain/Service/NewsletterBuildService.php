@@ -147,7 +147,7 @@ class NewsletterBuildService {
 		$characterSet = $newsletter->getCharacterSet();
 		$replyEmail = $newsletter->getReplyToEmail();
 		$replyName = $newsletter->getReplyToName();
-
+		$newsletterAttachments = $newsletter->getAttachments();
 		$attachments = array();
 		foreach($newsletterAttachments as $newsletterAttachment) {
 			$attachments[$this->resourceManager->getPersistentResourcesStorageBaseUri() . $newsletterAttachment->getResource()->getResourcePointer()->getHash()] = $newsletterAttachment->getTitle();
