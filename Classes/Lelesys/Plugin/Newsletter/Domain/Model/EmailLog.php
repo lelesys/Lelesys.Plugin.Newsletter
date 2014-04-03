@@ -20,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
 class EmailLog {
 
 	const RECIPIENT_TYPE_STATIC = '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\StaticList';
-	const RECIPIENT_TYPE_PERSON = 'Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person';
+	const RECIPIENT_TYPE_PERSON = '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person';
 
 	/**
 	 * Time Created

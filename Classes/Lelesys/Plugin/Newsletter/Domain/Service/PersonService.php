@@ -45,6 +45,14 @@ class PersonService {
 	protected $emailNotificationService;
 
 	/**
+	 * EmailLog Service
+	 *
+	 * @Flow\Inject
+	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\EmailLogService
+	 */
+	protected $emailLogService;
+
+	/**
 	 * Bootstrap
 	 *
 	 * @var \TYPO3\Flow\Core\Bootstrap
@@ -107,9 +115,7 @@ class PersonService {
 				$newcode = sha1($user->getPrimaryElectronicAddress()->getIdentifier() . $user->getUuid());
 				$approved = $user->getPrimaryElectronicAddress()->isApproved();
 				if (($approved === TRUE) && ($code === $newcode)) {
-					$user->getPrimaryElectronicAddress()->setApproved(FALSE);
-					$this->personRepository->update($user);
-					$this->persistenceManager->persistAll();
+					$this->emailLogService->updateRecipient($user);
 					return 1;
 				} elseif ($code !== $newcode || $approved === FALSE) {
 						// Link not valid

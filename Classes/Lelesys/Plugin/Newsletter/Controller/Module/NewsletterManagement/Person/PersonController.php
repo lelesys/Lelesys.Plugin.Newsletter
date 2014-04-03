@@ -61,6 +61,14 @@ class PersonController extends NewsletterManagementController {
 	protected $centralService;
 
 	/**
+	 * EmailLog Service
+	 *
+	 * @Flow\Inject
+	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\EmailLogService
+	 */
+	protected $emailLogService;
+
+	/**
 	 * List of recipients
 	 *
 	 * @return void
@@ -157,6 +165,7 @@ class PersonController extends NewsletterManagementController {
 	 */
 	public function deleteAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
 		try {
+			$this->emailLogService->updateRecipient($person);
 			$this->personService->delete($person);
 			$header = 'Deleted the recipient.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.recipient.delete');

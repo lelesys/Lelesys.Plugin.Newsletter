@@ -101,5 +101,20 @@ class EmailLogService {
 		return $this->emailLogRepository->getRecipientEmail($identifier);
 	}
 
+	/**
+	 * Updates EmailLog recipient
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person Person object
+	 * @return void
+	 */
+	public function updateRecipient(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
+		$email = $person->getPrimaryElectronicAddress()->getIdentifier();
+		$emailLogs = $this->emailLogRepository->findByRecipient($person->getUuid())->toArray();
+		foreach($emailLogs as $emailLog) {
+			$emailLog->setRecipient($email);
+			$emailLog->setRecipientType(\Lelesys\Plugin\Newsletter\Domain\Model\EmailLog::RECIPIENT_TYPE_STATIC);
+			$this->emailLogRepository->update($emailLog);
+		}
+	}
 }
 ?>
