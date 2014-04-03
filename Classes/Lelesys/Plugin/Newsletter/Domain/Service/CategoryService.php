@@ -44,6 +44,14 @@ class CategoryService {
 	protected $personService;
 
 	/**
+	 * Inject PersistenceManagerInterface
+	 *
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+	 */
+	protected $persistenceManager;
+
+	/**
 	 * List of all categories
 	 *
 	 * @return \Lelesys\Plugin\Newsletter\Domain\Model\Category
@@ -82,6 +90,7 @@ class CategoryService {
 		$this->newsletterService->deleteRelatedCategories($category);
 		$this->personService->deleteRelatedCategories($category);
 		$this->categoryRepository->remove($category);
+		$this->persistenceManager->persistAll();
 	}
 
 }

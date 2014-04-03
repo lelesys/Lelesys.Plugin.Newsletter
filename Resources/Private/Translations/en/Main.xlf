@@ -523,6 +523,10 @@
 				<source>Are you sure you want to delete the recipient?</source>
 				<target>Are you sure you want to delete the recipient?</target>
 			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteCategoryAlert" approved="yes">
+				<source>Are you sure you want to delete the category?</source>
+				<target>Are you sure you want to delete the category?</target>
+			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.status" approved="yes">
 				<source>Status</source>
 				<target>Status</target>
