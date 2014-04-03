@@ -69,7 +69,7 @@ TYPO3:
                 - resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/dataTable.css
 
           party:
-            label: Group
+            label: Subscriber Group
             controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Party\PartyController'
             description: 'You can configure group for subcribed users here'
             icon: 'icon-archive'

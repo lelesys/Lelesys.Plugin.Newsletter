@@ -27,7 +27,7 @@
 								<f:link.action action="edit" arguments="{staticList: staticList}" class="neos-btn neos-button pull-right" title="<f:translate id=\"lelesys.plugin.newsletter.editTitle\"></f:translate>">
 									<i class="icon-pencil icon-white"></i>
 								</f:link.action>
-								<f:link.action action="delete" arguments="{staticList: staticList}" class="neos-btn neos-button pull-right" title="<f:translate id=\"lelesys.plugin.newsletter.deleteTitle\"></f:translate>">
+								<f:link.action action="delete" arguments="{staticList: staticList}" class="neos-btn neos-button pull-right" title="<f:translate id=\"lelesys.plugin.newsletter.deleteTitle\"></f:translate>" onclick="return confirm('<f:translate id=\"lelesys.plugin.newsletter.deleteGroupAlert\"></f:translate>')">
 									<i class="icon-trash icon-white"></i>
 								</f:link.action>
 							</td>

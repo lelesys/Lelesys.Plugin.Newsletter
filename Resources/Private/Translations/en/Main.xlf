@@ -280,8 +280,8 @@
 				<target>Create Group</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.groupList" approved="yes">
-				<source>List of group</source>
-				<target>List of group</target>
+				<source>List of groups</source>
+				<target>List of groups</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.lastName" approved="yes">
 				<source>Last Name</source>
@@ -506,6 +506,34 @@
 			<trans-unit id="lelesys.plugin.newsletter.createStaticListTitle" approved="yes">
 				<source>Create static list</source>
 				<target>Create static list</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.recipientList" approved="yes">
+				<source>List of recipients</source>
+				<target>List of recipients</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteNewsletterAlert" approved="yes">
+				<source>Are you sure you want to delete the newsletter?</source>
+				<target>Are you sure you want to delete the newsletter?</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteGroupAlert" approved="yes">
+				<source>Are you sure you want to delete the group?</source>
+				<target>Are you sure you want to delete the group?</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteRecipientAlert" approved="yes">
+				<source>Are you sure you want to delete the recipient?</source>
+				<target>Are you sure you want to delete the recipient?</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.status" approved="yes">
+				<source>Status</source>
+				<target>Status</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.statusActive" approved="yes">
+				<source>Active</source>
+				<target>Active</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.statusInactive" approved="yes">
+				<source>Inactive</source>
+				<target>Inactive</target>
 			</trans-unit>
 		</body>
 	</file>

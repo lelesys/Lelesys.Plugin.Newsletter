@@ -19,6 +19,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Newsletter {
 
+	const STATUS_ACTIVE = 1;
+	const STATUS_INACTIVE = 2;
+
 	/**
 	 * FromName
 	 *
@@ -110,10 +113,17 @@ class Newsletter {
 	protected $priority;
 
 	/**
+	 * The status
+	 *
+	 * @var integer
+	 */
+	protected $status;
+
+	/**
 	 * Attachments
 	 *
 	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Media\Domain\Model\Document>
-	 * @ORM\ManyToMany(cascade={"remove", "detach"})
+	 * @ORM\ManyToMany(cascade={"detach","refresh","remove"})
 	 * @ORM\Column(nullable=true)
 	 */
 	protected $attachments;
@@ -167,6 +177,7 @@ class Newsletter {
 	 * @return void
 	 */
 	public function __construct() {
+		$this->status = TRUE;
 		$this->recipients = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->recipientGroups = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
@@ -546,5 +557,23 @@ class Newsletter {
 		$this->categories->removeElement($category);
 	}
 
+	/**
+	 * Get the Newsletters status
+	 *
+	 * @return integer TheNewsletters status
+	 */
+	public function getStatus() {
+		return $this->status;
+	}
+
+	/**
+	 * Sets this Newsletters status
+	 *
+	 * @param integer $status The Newsletters status
+	 * @return void
+	 */
+	public function setStatus($status) {
+		$this->status = $status;
+	}
 }
 ?>

@@ -7,6 +7,11 @@
 			<legend><f:translate id="lelesys.plugin.newsletter.editNewsletter"></f:translate>&nbsp;{newsletter.subject}</legend>
 			<br />
 			<div class="neos-control-group">
+				<label for="status"><f:translate id="lelesys.plugin.newsletter.status"></f:translate></label>
+				<f:form.select options="{2:'{f:translate(id: \"lelesys.plugin.newsletter.statusInactive\")}', 1:'{f:translate(id: \"lelesys.plugin.newsletter.statusActive\")}'}" property="status" id="status" />
+			</div>
+
+			<div class="neos-control-group">
 				<label for="fromName"><f:translate id="lelesys.plugin.newsletter.senderName"></f:translate></label>
 				<f:form.textfield property="fromName" id="fromName" class="required" />
 			</div>
@@ -102,7 +107,7 @@
 				<div class="neos-control-group">
 					<label class="neos-control-label" for="contentNode"><f:translate id="lelesys.plugin.newsletter.newsletterPage"></f:translate></label>
 					<div class="neos-controls">
-						<f:form.select property="contentNode" options="{contentNode}" optionLabelField="name" prependOptionLabel="Select page"/>
+						<f:form.select class="required" property="contentNode" options="{contentNode}" optionLabelField="name" prependOptionLabel="Select page"/>
 					</div>
 				</div>
 			</f:if>

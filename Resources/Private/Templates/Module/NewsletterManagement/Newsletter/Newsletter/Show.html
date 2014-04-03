@@ -82,14 +82,27 @@
 					<td><f:translate id="lelesys.plugin.newsletter.newsletterPage"></f:translate></td>
 					<td>{contentNode.name}</td>
 				</tr>
-			<f:if condition="{newsletter.categories}">
+				<f:if condition="{newsletter.categories}">
+					<tr>
+						<td><f:translate id="lelesys.plugin.newsletter.category"></f:translate></td>
+					<f:for each="{newsletter.categories}" as="category">
+						<td>{category.title}</td>
+					</f:for>
+					</tr>
+				</f:if>
 				<tr>
-					<td><f:translate id="lelesys.plugin.newsletter.category"></f:translate></td>
-				<f:for each="{newsletter.categories}" as="category">
-					<td>{category.title}</td>
-				</f:for>
+					<td><f:translate id="lelesys.plugin.newsletter.status"></f:translate></td>
+					<td>
+						<f:if condition="{newsletter.status} == 1">
+							<f:then>
+								<f:translate id="lelesys.plugin.newsletter.statusActive"></f:translate>
+							</f:then>
+							<f:else>
+								<f:translate id="lelesys.plugin.newsletter.statusInactive"></f:translate>
+							</f:else>
+						</f:if>
+					</td>
 				</tr>
-			</f:if>
 			</tbody>
 		</table>
 		<f:if condition="{recipientsByGroups}">

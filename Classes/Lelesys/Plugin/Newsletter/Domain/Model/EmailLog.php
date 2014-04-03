@@ -40,7 +40,7 @@ class EmailLog {
 	/**
 	 * The Newsletter
 	 * @var \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter
-	 * @ORM\ManyToOne
+	 * @ORM\ManyToOne(cascade={"detach","refresh","remove"})
 	 */
 	protected $newsletter;
 

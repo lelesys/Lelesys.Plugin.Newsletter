@@ -242,23 +242,20 @@ class NewsletterService {
 	 */
 	public function sendEmail(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
 		$allArrays = $this->sendNewsletterEmailToRecipients($newsletter, $newsletter->getRecipients());
-		$personEmailList = $list = $staticLists = array();
+		$list = $staticLists = array();
 		foreach ($newsletter->getRecipientGroups() as $group) {
 			if ($group instanceof \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party) {
 				$recipeints = $group->getRecipients();
 				$personListArray = $this->sendNewsletterEmailToRecipients($newsletter, $recipeints, $allArrays['list'], $allArrays['personEmailList']);
-				$list = $personListArray['list'];
-				$personEmailList = $personListArray['personEmailList'];
+				$allArrays['list'] = $personListArray['list'];
+				$allArrays['personEmailList'] = $personListArray['personEmailList'];
 			} else {
 				$staticLists = array_merge($staticLists, \TYPO3\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients()));
 			}
 		}
-		if ((count($personEmailList) > 0 && count($list) > 0) || ($allArrays['list'] > 0)) {
-			if (empty($personEmailList) === TRUE) {
-				$groupEmails = array_unique($allArrays['personEmailList']);
-			} else {
-				$groupEmails = array_unique($personEmailList);
-			}
+		if ((empty($allArrays['personEmailList']) === FALSE && empty($allArrays['list']) === FALSE)
+				|| (empty($allArrays['list']) === FALSE)) {
+			$groupEmails = array_unique($allArrays['personEmailList']);
 			$staticEmails = array_unique($staticLists);
 			$finalList = array_merge($groupEmails, $staticEmails);
 			$list = array_unique($finalList);
@@ -286,7 +283,6 @@ class NewsletterService {
 	 * @param array $personEmailList Array of email list
 	 */
 	public function sendNewsletterEmailToRecipients(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, $recipients, $list = array(), $personEmailList = array()) {
-		$recipeintType = '';
 		foreach ($recipients as $recipient) {
 			if ((($this->personService->isUserApproved($recipient) === TRUE) &&
 					($this->isValidCategory($newsletter, $recipient) === TRUE)) ||
