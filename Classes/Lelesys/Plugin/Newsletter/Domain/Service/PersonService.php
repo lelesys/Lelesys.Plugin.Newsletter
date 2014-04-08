@@ -116,6 +116,7 @@ class PersonService {
 				$approved = $user->getPrimaryElectronicAddress()->isApproved();
 				if (($approved === TRUE) && ($code === $newcode)) {
 					$this->emailLogService->updateRecipient($user);
+					$this->delete($user);
 					return 1;
 				} elseif ($code !== $newcode || $approved === FALSE) {
 						// Link not valid

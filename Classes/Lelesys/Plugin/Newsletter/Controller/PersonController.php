@@ -78,7 +78,7 @@ class PersonController extends ActionController {
 			if (($isExistingUser !== NULL) && ($isExistingUser === 1)) {
 				$header = 'This email address has already subscribed!';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.emailExist');
-				$this->addFlashMessage('' . $newPerson->getPrimaryElectronicAddress()->getIdentifier() . $message . '', \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+				$this->addFlashMessage($newPerson->getPrimaryElectronicAddress()->getIdentifier() . $message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
 				$this->redirect("new");
 			} else {
 				$this->personService->create($newPerson);

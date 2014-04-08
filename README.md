@@ -41,7 +41,7 @@ Usage
 
 * this will display form in frontend
 
-* add the plugin content element "Newsletter Subscribtion Confirmation" at site node (the first page of your site) to view confirmation message of newsletter subscribtion.
+* add the plugin content element "Newsletter Subscribtion Confirmation" at site node (the first page of your site) for confirmation of subscribtion  and to view confirmation message of newsletter .
 
 * add the plugin content element "Lelesys Newsletter Node" to the position of your choice.
 
