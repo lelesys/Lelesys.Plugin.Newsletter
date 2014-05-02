@@ -56,7 +56,7 @@ class NewsletterController extends NewsletterManagementController {
 	 * Central Service
 	 *
 	 * @Flow\Inject
-	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\CentralService
+	 * @var \Lelesys\Plugin\Newsletter\Service\CentralService
 	 */
 	protected $centralService;
 
@@ -136,7 +136,7 @@ class NewsletterController extends NewsletterManagementController {
 						}
 				}
 			} else {
-				$header = 'No page selected for newsletter cannot send email.';
+				$header = 'No page selected for newsletter.Can not send email.';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.nopage');
 				$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
 			}
@@ -192,6 +192,8 @@ class NewsletterController extends NewsletterManagementController {
 	 */
 	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, $attachments = array()) {
 		try {
+			$newsletter->setHtmlBody(NULL);
+			$newsletter->setPlainTextBody(NULL);
 			$this->newsletterService->update($newsletter, $attachments);
 			$header = 'Updated newsletter';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.update.newsletter');

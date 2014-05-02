@@ -11,6 +11,11 @@ Lelesys:
         bccAddresses: 'sushant.chari@lelesys.com'
         baseUrl : 'http://demosite.local.com/'
         unSubscribeLink: 'lelesys.plugin.newsletter/person/unsubscribeconfirmation'
+        template:
+          html:
+            templatePathAndFilename: 'resource://Lelesys.Plugin.Newsletter/Private/Templates/Emails/Newsletter.html'
+          txt:
+            templatePathAndFilename: 'resource://Lelesys.Plugin.Newsletter/Private/Templates/Emails/Newsletter.txt'
       flashMessage:
         packageKey: 'Lelesys.Plugin.Newsletter'
       noOfEmails: '100'

@@ -1,10 +1,13 @@
 <?php
-namespace Lelesys\Plugin\Newsletter\Domain\Service;
+namespace Lelesys\Plugin\Newsletter\Service;
 
-/* *
+/*                                                                            *
  * This script belongs to the TYPO3 Flow package "Lelesys.Plugin.Newsletter". *
- *                                                                        *
- *                                                                        */
+ *                                                                            *
+ * It is free software; you can redistribute it and/or modify it under        *
+ * the terms of the GNU Lesser General Public License, either version 3       *
+ * of the License, or (at your option) any later version.                     *
+ *                                                                            */
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Fluid\View\StandaloneView;
@@ -69,16 +72,11 @@ class EmailNotificationService {
 		}
 		$mail->setReplyTo(array($replyEmail => $replyName))
 				->setBcc($bccAddresses)
-				->setCc($ccAddresses);
-		foreach ($recipientAddress as $recipient) {
-			if (isset($recipient[2])) {
-				$mail->setTo(array($recipient[0] => $recipient[2]));
-			} else {
-				$mail->setTo($recipient[0]);
-			}
-			$mail->setBody($recipient[1], 'text/html');
-			$mail->send();
-		}
+				->setCc($ccAddresses)
+				->setTo($recipientAddress)
+				->setBody($message, 'text/html');
+
+		$mail->send();
 	}
 
 	/**
@@ -114,14 +112,18 @@ class EmailNotificationService {
 	/**
 	 * Bulid a email message
 	 *
-	 * @param string $templateName The template filename
 	 * @param array $values The array of values to be assigned to tmeplate
-	 * @param atring $format Format of email
+	 * @param string $format Format of email
+	 * @param string $templateName Template name
 	 * @return string The message
 	 */
-	public function buildEmailMessage($templateName, array $values, $format = 'txt') {
+	public function buildEmailMessage(array $values, $format = 'txt', $templateName = NULL) {
 		$template = new StandaloneView();
-		$template->setTemplatePathAndFilename('resource://Lelesys.Plugin.Newsletter/Private/Templates/Emails/' . $templateName);
+		if ($templateName === NULL) {
+			$template->setTemplatePathAndFilename($this->settings['email']['template'][$format]['templatePathAndFilename']);
+		} else {
+			$template->setTemplatePathAndFilename('resource://Lelesys.Plugin.Newsletter/Private/Templates/Emails/' . $templateName);
+		}
 		$template->assignMultiple($values);
 		$template->setFormat($format);
 		return $template->render();

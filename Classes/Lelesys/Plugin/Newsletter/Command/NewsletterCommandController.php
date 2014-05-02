@@ -27,7 +27,7 @@ class NewsletterCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 * Newsletter Build Service
 	 *
 	 * @Flow\Inject
-	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\NewsletterBuildService
+	 * @var \Lelesys\Plugin\Newsletter\Service\NewsletterBuildService
 	 */
 	protected $newsletterBuildService;
 
@@ -64,31 +64,15 @@ class NewsletterCommandController extends \TYPO3\Flow\Cli\CommandController {
 			}
 		}
 		touch($fileName);
-		$totalMailsCount = $this->emailLogService->findCountOfMailsLogs();
-		$currentTime = new \DateTime();
-		if ($totalMailsCount !== 0) {
-			$emailSentCount = 0;
-			while ($totalMailsCount > 0) {
-				$totalMails = $this->emailLogService->listAllUndeliveredMailsLogs($numberOfEmails, $emailSentCount);
-				foreach ($totalMails as $emailLog) {
-					$this->newsletterBuildService->buildMail($emailLog);
-					$emailLog->setIsSent(1);
-					$emailLog->setTimeSent($currentTime);
-					$this->emailLogService->update($emailLog);
-					$totalMailsCount--;
-					$emailSentCount++;
-				}
-			}
-			if ($emailSentCount === 1) {
-				$this->outputLine('Mail is sent successfully to particular recipient');
-			} else {
-				$this->outputLine('Mails are sent successfully to particular recipients');
-			}
-			unlink($fileName);
+		$emailSentCount = 0;
+		$emailLogs = $this->emailLogService->listAllUndeliveredMailsLogs($numberOfEmails, $emailSentCount);
+		if ($emailLogs->count() !== 0) {
+			$emailSentCount = $this->newsletterBuildService->buildAndSendNewsletter($emailLogs->toArray());
+			$this->outputLine('%d Newsletter(s) sent successfully.', array($emailSentCount));
 		} else {
 			$this->outputLine('There are no any mail to send.');
-			unlink($fileName);
 		}
+		unlink($fileName);
 	}
 
 }

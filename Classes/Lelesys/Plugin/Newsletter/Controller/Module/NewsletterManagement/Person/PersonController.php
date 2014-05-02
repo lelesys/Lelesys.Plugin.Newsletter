@@ -56,7 +56,7 @@ class PersonController extends NewsletterManagementController {
 	 * Central Service
 	 *
 	 * @Flow\Inject
-	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\CentralService
+	 * @var \Lelesys\Plugin\Newsletter\Service\CentralService
 	 */
 	protected $centralService;
 
@@ -107,7 +107,7 @@ class PersonController extends NewsletterManagementController {
 	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson) {
 		try {
 			$isExistingUser = $this->personService->isExistingUser($newPerson);
-			if (($isExistingUser !== NULL) && ($isExistingUser === 1)) {
+			if (($isExistingUser !== NULL) && ($isExistingUser === TRUE)) {
 				$header = 'This email address has already subscribed!';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.emailExist');
 				$this->addFlashMessage('' . $newPerson->getPrimaryElectronicAddress()->getIdentifier() . $message . '', $header , \TYPO3\Flow\Error\Message::SEVERITY_ERROR);

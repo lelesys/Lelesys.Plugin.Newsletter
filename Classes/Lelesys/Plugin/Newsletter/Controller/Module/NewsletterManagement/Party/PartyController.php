@@ -32,7 +32,7 @@ class PartyController extends NewsletterManagementController {
 	 * Central Service
 	 *
 	 * @Flow\Inject
-	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\CentralService
+	 * @var \Lelesys\Plugin\Newsletter\Service\CentralService
 	 */
 	protected $centralService;
 

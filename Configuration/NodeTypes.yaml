@@ -12,7 +12,6 @@
     - 'TYPO3.Neos:Document'
   ui:
     label: 'Lelesys Newsletter Node'
-    group: 'general'
     icon: 'icon-file'
   childNodes:
     main:

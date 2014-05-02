@@ -1,7 +1,7 @@
 <?php
 namespace Lelesys\Plugin\Newsletter\Domain\Repository\Recipient;
 
-/* *
+/*                                                                         *
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -35,7 +35,7 @@ class PersonRepository extends Repository {
 	 * @return array The query result
 	 */
 	public function findAllApprovedUsers() {
-		$query = $this->entityManager->createQuery('SELECT r FROM \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person r JOIN r.primaryElectronicAddress email WHERE email.approved=1')
+		$query = $this->entityManager->createQuery('SELECT r FROM \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person r JOIN r.primaryElectronicAddress email WHERE email.approved=1 AND r.subscribedToNewsletter = 1')
 				->execute();
 		return $query;
 	}
