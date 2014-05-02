@@ -40,7 +40,7 @@ class PersonService {
 	 * EmailNotification Service
 	 *
 	 * @Flow\Inject
-	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\EmailNotificationService
+	 * @var \Lelesys\Plugin\Newsletter\Service\EmailNotificationService
 	 */
 	protected $emailNotificationService;
 
@@ -104,19 +104,25 @@ class PersonService {
 	/**
 	 * Unsubscribe newsletter
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $recipient To unsubcribe
+	 * @param string $recipient To unsubcribe
 	 * @param string $code Code to check the link validity
 	 * @return void
 	 */
 	public function unSubscribe($recipient, $code) {
-		if ($recipient !== NULL && $code !== NULL) {
+		if ($recipient !== NULL
+			&& $code !== NULL) {
 			$user = $this->getUserFromIdentifier($recipient);
 			if ($user !== NULL) {
 				$newcode = sha1($user->getPrimaryElectronicAddress()->getIdentifier() . $user->getUuid());
 				$approved = $user->getPrimaryElectronicAddress()->isApproved();
 				if (($approved === TRUE) && ($code === $newcode)) {
 					$this->emailLogService->updateRecipient($user);
-					$this->delete($user);
+					if (is_subclass_of($user, '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person') === TRUE) {
+						$user->setSubscribedToNewsletter(FALSE);
+						$this->update($user);
+					} else {
+						$this->delete($user);
+					}
 					return 1;
 				} elseif ($code !== $newcode || $approved === FALSE) {
 						// Link not valid
@@ -133,9 +139,15 @@ class PersonService {
 	 * @return boolean
 	 */
 	public function isExistingUser(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson) {
-		$existingUser = $this->personRepository->isExistingUser($newPerson);
-		if (!empty($existingUser)) {
-			return 1;
+		$existingUsers = $this->personRepository->isExistingUser($newPerson);
+		if (!empty($existingUsers)) {
+				// If register user is extending to Newsletter Person then there is possiblity of getting more recoreds
+			/** @var $existingUser /Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person */
+			foreach ($existingUsers as $existingUser) {
+				if (get_class($existingUser) === 'Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person') {
+					return TRUE;
+				}
+			}
 		}
 	}
 
@@ -160,6 +172,7 @@ class PersonService {
 	 * @return void
 	 */
 	public function create(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson) {
+		$newPerson->setSubscribedToNewsletter(TRUE);
 		$this->personRepository->add($newPerson);
 			// To check if the user is subcribed user
 		$code = sha1($newPerson->getPrimaryElectronicAddress()->getIdentifier() . $newPerson->getUuid());
@@ -169,7 +182,7 @@ class PersonService {
 		$recipientAddress = $newPerson->getPrimaryElectronicAddress()->getIdentifier();
 		$recipientName = $newPerson->getName();
 		$subject = $this->settings['email']['subject'];
-		$message = $this->emailNotificationService->buildEmailMessage('SubscribedNotification.html', $values);
+		$message = $this->emailNotificationService->buildEmailMessage($values, 'html', 'SubscribedNotification.html');
 		$this->emailNotificationService->sendMail($subject, $message, $recipientAddress, $recipientName);
 	}
 
@@ -181,17 +194,20 @@ class PersonService {
 	 * @return interger
 	 */
 	public function confirmSubscription($code, $userIdentifier) {
-		if ($userIdentifier !== NULL && $code !== NULL) {
+		if ($userIdentifier !== NULL
+			&& $code !== NULL) {
 			$user = $this->getUserFromIdentifier($userIdentifier);
 			if ($user !== NULL) {
 				$newcode = sha1($user->getPrimaryElectronicAddress()->getIdentifier() . $user->getUuid());
-				if (($user->getPrimaryElectronicAddress()->isApproved() === FALSE) && ($code === $newcode)) {
+				if (($user->getPrimaryElectronicAddress()->isApproved() === FALSE)
+					&& ($code === $newcode)) {
 					$this->emailApprovalByUser($user);
 					return 1;
 				} elseif ($code !== $newcode) {
 						// Link not valid
 					return 0;
-				} elseif (($user->getPrimaryElectronicAddress()->isApproved() === TRUE) && ($code === $newcode)) {
+				} elseif (($user->getPrimaryElectronicAddress()->isApproved() === TRUE)
+					&& ($code === $newcode)) {
 						// already confirmed user
 					return 2;
 				}

@@ -1,5 +1,5 @@
 <?php
-namespace Lelesys\Plugin\Newsletter\Domain\Service;
+namespace Lelesys\Plugin\Newsletter\Service;
 
 /*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
@@ -29,7 +29,7 @@ class NewsletterBuildService {
 	 * Email Service
 	 *
 	 * @Flow\Inject
-	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\EmailNotificationService
+	 * @var \Lelesys\Plugin\Newsletter\Service\EmailNotificationService
 	 */
 	protected $emailNotificationService;
 
@@ -121,6 +121,14 @@ class NewsletterBuildService {
 	protected $objectManager;
 
 	/**
+	 * EmailLog Service
+	 *
+	 * @Flow\Inject
+	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\EmailLogService
+	 */
+	protected $emailLogService;
+
+	/**
 	 * Injects settings
 	 *
 	 * @param array $settings Inject settings
@@ -131,69 +139,13 @@ class NewsletterBuildService {
 	}
 
 	/**
-	 * Building Mail
-	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $emailLog Emaillog object
-	 * @return void
-	 */
-	public function buildMail(\Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $emailLog) {
-		$recipientAddress = array();
-		$baseUrl = $this->settings['email']['baseUrl'];
-		$newsletter = $emailLog->getNewsletter();
-		$fromEmail = $newsletter->getFromEmail();
-		$fromName = $newsletter->getFromName();
-		$subject = $newsletter->getSubject();
-		$priority = $newsletter->getPriority();
-		$characterSet = $newsletter->getCharacterSet();
-		$replyEmail = $newsletter->getReplyToEmail();
-		$replyName = $newsletter->getReplyToName();
-		$newsletterAttachments = $newsletter->getAttachments();
-		$attachments = array();
-		foreach($newsletterAttachments as $newsletterAttachment) {
-			$attachments[$this->resourceManager->getPersistentResourcesStorageBaseUri() . $newsletterAttachment->getResource()->getResourcePointer()->getHash()] = $newsletterAttachment->getTitle();
-		}
-
-		if ($emailLog->getRecipientType() == \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog::RECIPIENT_TYPE_PERSON) {
-			$recipientId = $emailLog->getRecipient();
-			$recipient = $this->personRepository->findByIdentifier($recipientId);
-			if ($recipient->getAcceptsHtml() === TRUE) {
-				$code = sha1($recipient->getPrimaryElectronicAddress()->getIdentifier() . $recipient->getUuid());
-				$contentType['html'] = 'text/html';
-				$message = $this->buildMailContents('Newsletter.html', array('recipientId' => $recipient->getUuid(), 'code' => $code), $newsletter, $contentType);
-
-				$recipientAddress['html'][] = array($recipient->getPrimaryElectronicAddress()->getIdentifier(), $message, $recipient->getName()->getFirstName(),);
-			} else {
-				$code = sha1($recipient->getPrimaryElectronicAddress()->getIdentifier() . $recipient->getUuid());
-				$contentType['text'] = 'text/plain';
-
-				$message = $this->buildMailContents('Newsletter.txt', array('recipientId' => $recipient->getUuid(), 'code' => $code, 'baseUrl' => $baseUrl . $this->settings['email']['unSubscribeLink']), $newsletter, $contentType);
-				$recipientAddress['text'][] = array($recipient->getPrimaryElectronicAddress()->getIdentifier(), $message, $recipient->getName()->getFirstName());
-			}
-		} else {
-			$recipient = $emailLog->getRecipient();
-			$contentType['text'] = 'text/plain';
-
-			$message = $this->buildMailContents('Newsletter.txt', array('recipient' => $recipient), $newsletter, $contentType);
-			$recipientAddress['text'][] = array(trim($recipient), $message);
-		}
-		if (isset($contentType['html'])) {
-			$this->emailNotificationService->sendNewsletterMail($fromEmail, $fromName, $replyEmail, $replyName, $subject, $priority, $characterSet, $attachments, $contentType['html'], $recipientAddress['html']);
-		}
-		if (isset($contentType['text'])) {
-			$this->emailNotificationService->sendNewsletterMail($fromEmail, $fromName, $replyEmail, $replyName, $subject, $priority, $characterSet, $attachments, $contentType['text'], $recipientAddress['text']);
-		}
-	}
-
-	/**
 	 * Bulid a email message
 	 *
-	 * @param string $templateName The template filename
-	 * @param array $values The array of values to be assigned to tmeplate
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter
-	 * @param array $contentType ContentType Text or Html
+	 * @param string $format Format html or txt
 	 * @return string The message
 	 */
-	public function buildMailContents($templateName, array $values, \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, $contentType = array()) {
+	public function buildMailContents(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, $format = 'txt') {
 		$baseUrl = $this->settings['email']['baseUrl'];
 		$nodeData = $this->newsletterService->getContentNode($newsletter->getContentNode());
 		$contextFactory = $this->createContext();
@@ -209,17 +161,7 @@ class NewsletterBuildService {
 		$actionRequest->setControllerPackageKey($newActionRequest->getControllerPackageKey());
 		$actionRequest->setControllerName($newActionRequest->getControllerName());
 		$actionRequest->setControllerActionName($newActionRequest->getControllerActionName());
-
-		foreach ($contentType as $content) {
-			if ($content === 'text/html') {
-				$actionRequest->setFormat('html');
-				$format = 'html';
-			} else {
-				$actionRequest->setFormat('txt');
-				$format = 'txt';
-			}
-		}
-
+		$actionRequest->setFormat($format);
 		$this->securityContext->setRequest($actionRequest);
 		$response = $this->objectManager->get('\TYPO3\Flow\Http\Response');
 		$this->dispatcher->dispatch($actionRequest, $response);
@@ -228,10 +170,90 @@ class NewsletterBuildService {
 		if ($format === 'txt') {
 			$output = strip_tags($output,'<a>');
 		}
-		$values['mailContent'] = $output;
-		return $this->emailNotificationService->buildEmailMessage($templateName, $values, $format);
+
+		return $output;
 	}
 
+	/**
+	 * Build mails and send newsletter to subscriber
+	 *
+	 * @param array $emailLogs An array of EmailLog
+	 * @return integer
+	 */
+	public function buildAndSendNewsletter(array $emailLogs) {
+		$emailCount = 0;
+		/** @var $emailLog \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog */
+		foreach ($emailLogs as $emailLog) {
+			$newsletter = $emailLog->getNewsletter();
+			$fromEmail = $newsletter->getFromEmail();
+			$fromName = $newsletter->getFromName();
+			$subject = $newsletter->getSubject();
+			$priority = $newsletter->getPriority();
+			$characterSet = $newsletter->getCharacterSet();
+			$replyEmail = $newsletter->getReplyToEmail();
+			$replyName = $newsletter->getReplyToName();
+			$newsletterAttachments = $newsletter->getAttachments();
+			$attachments = array();
+			foreach($newsletterAttachments as $newsletterAttachment) {
+				$attachments[$this->resourceManager->getPersistentResourcesStorageBaseUri() . $newsletterAttachment->getResource()->getResourcePointer()->getHash()] = $newsletterAttachment->getTitle();
+			}
+
+			$values = array('newsletter' => $newsletter);
+			if ($emailLog->getRecipientType() === \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog::RECIPIENT_TYPE_PERSON) {
+				$recipientId = $emailLog->getRecipient();
+				$recipient = $this->personRepository->findByIdentifier($recipientId);
+				$code = sha1($recipient->getPrimaryElectronicAddress()->getIdentifier() . $recipient->getUuid());
+				$values['recipientId'] = $recipient->getUuid();
+				$values['code'] = $code;
+				if ($recipient->getAcceptsHtml() === TRUE) {
+					$contentType = 'text/html';
+					if ($newsletter->getHtmlBody() === NULL) {
+						$message = $this->buildMailContents($newsletter, 'html');
+						$newsletter->setHtmlBody($message);
+						$this->newsletterService->update($newsletter);
+					}
+
+					$values['mailContent'] = $newsletter->getHtmlBody();
+					$recipientAddress = array($recipient->getPrimaryElectronicAddress()->getIdentifier() => $recipient->getName()->getFirstName());
+					$messageBody = $this->emailNotificationService->buildEmailMessage($values, 'html');
+				} else {
+					$contentType = 'text/plain';
+					if ($newsletter->getPlainTextBody() === NULL) {
+						$message = $this->buildMailContents($newsletter, 'txt');
+						$newsletter->setPlainTextBody($message);
+						$this->newsletterService->update($newsletter);
+					}
+
+					$values['mailContent'] = $newsletter->getHtmlBody();
+					$messageBody = $this->emailNotificationService->buildEmailMessage($values, 'txt');
+					$recipientAddress = array($recipient->getPrimaryElectronicAddress()->getIdentifier() => $recipient->getName()->getFirstName());
+				}
+			} else {
+				$recipient = $emailLog->getRecipient();
+				$contentType = 'text/plain';
+
+				if ($newsletter->getPlainTextBody() === NULL) {
+					$message = $this->buildMailContents($newsletter, 'txt');
+					$newsletter->setPlainTextBody($message);
+					$this->newsletterService->update($newsletter);
+				}
+
+				$values['recipient'] = $recipient;
+				$values['mailContent'] = $newsletter->getPlainTextBody();
+				$messageBody = $this->emailNotificationService->buildEmailMessage($values, 'txt');
+				$recipientAddress = array(trim($recipient));
+			}
+
+			$this->emailNotificationService->sendNewsletterMail($fromEmail, $fromName, $replyEmail, $replyName, $subject, $priority, $characterSet, $attachments, $contentType, $recipientAddress, $messageBody);
+
+			$emailLog->setIsSent(1);
+			$emailLog->setTimeSent(new \DateTime());
+			$this->emailLogService->update($emailLog);
+			$emailCount++;
+		}
+
+		return $emailCount;
+	}
 
 	/**
 	 * Create Context

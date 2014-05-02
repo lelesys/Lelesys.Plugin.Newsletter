@@ -36,7 +36,7 @@ class NewsletterService {
 	 * Email Service
 	 *
 	 * @Flow\Inject
-	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\EmailNotificationService
+	 * @var \Lelesys\Plugin\Newsletter\Service\EmailNotificationService
 	 */
 	protected $emailNotificationService;
 
@@ -68,7 +68,7 @@ class NewsletterService {
 	 * Newsletter Service
 	 *
 	 * @Flow\Inject
-	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\NewsletterBuildService
+	 * @var \Lelesys\Plugin\Newsletter\Service\NewsletterBuildService
 	 */
 	protected $newsletterBuildService;
 
@@ -225,13 +225,14 @@ class NewsletterService {
 	public function sendTestEmail($adminEmail, \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
 		$subject = $newsletter->getSubject();
 		$fromName = $this->settings['email']['senderName'];
-		$message = $this->newsletterBuildService->buildMailContents('Newsletter.html', array('recipient' => $adminEmail), $newsletter, array('html' => 'text/html'));
+		$message = $this->newsletterBuildService->buildMailContents($newsletter, 'html');
 		$attachments = array();
 		$newsletterAttachments = $newsletter->getAttachments();
 		foreach($newsletterAttachments as $newsletterAttachment) {
 			$attachments[$this->resourceManager->getPersistentResourcesStorageBaseUri() . $newsletterAttachment->getResource()->getResourcePointer()->getHash()] = $newsletterAttachment->getTitle();
 		}
-		$this->emailNotificationService->sendMail($subject, $message, $adminEmail, $fromName, $attachments);
+		$messageBody = $this->emailNotificationService->buildEmailMessage(array('mailContent' => $message), 'html');
+		$this->emailNotificationService->sendMail($subject, $messageBody, $adminEmail, $fromName, $attachments);
 	}
 
 	/**
@@ -253,7 +254,8 @@ class NewsletterService {
 				$staticLists = array_merge($staticLists, \TYPO3\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients()));
 			}
 		}
-		if ((empty($allArrays['personEmailList']) === FALSE && empty($allArrays['list']) === FALSE)
+		if ((empty($allArrays['personEmailList']) === FALSE
+				&& empty($allArrays['list']) === FALSE)
 				|| (empty($allArrays['list']) === FALSE)) {
 			$groupEmails = array_unique($allArrays['personEmailList']);
 			$staticEmails = array_unique($staticLists);
@@ -284,10 +286,12 @@ class NewsletterService {
 	 */
 	public function sendNewsletterEmailToRecipients(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, $recipients, $list = array(), $personEmailList = array()) {
 		foreach ($recipients as $recipient) {
-			if ((($this->personService->isUserApproved($recipient) === TRUE) &&
-					($this->isValidCategory($newsletter, $recipient) === TRUE)) ||
-					(($this->personService->isUserApproved($recipient) === TRUE) &&
-					(count($recipient->getCategories()) === 0))) {
+			if ((($this->personService->isUserApproved($recipient) === TRUE)
+					&& ($this->isValidCategory($newsletter, $recipient) === TRUE)
+					&& $recipient->isSubscribedToNewsletter() === TRUE)
+					|| (($this->personService->isUserApproved($recipient) === TRUE)
+					&& (count($recipient->getCategories()) === 0)
+					&& $recipient->isSubscribedToNewsletter() === TRUE)) {
 				$list[] = $recipient->getUuid();
 				$personEmailList[$recipient->getUuid()] = $recipient->getPrimaryElectronicAddress()->getIdentifier();
 			}

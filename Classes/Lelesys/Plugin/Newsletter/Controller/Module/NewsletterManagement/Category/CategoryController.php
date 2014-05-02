@@ -37,18 +37,10 @@ class CategoryController extends NewsletterManagementController {
 	protected $personService;
 
 	/**
-	 * Category Repository
-	 *
-	 * @Flow\Inject
-	 * @var \Lelesys\Plugin\Newsletter\Domain\Repository\CategoryRepository
-	 */
-	protected $categoryRepository;
-
-	/**
 	 * Central Service
 	 *
 	 * @Flow\Inject
-	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\CentralService
+	 * @var \Lelesys\Plugin\Newsletter\Service\CentralService
 	 */
 	protected $centralService;
 

@@ -48,7 +48,7 @@ class PersonController extends ActionController {
 	 * Central Service
 	 *
 	 * @Flow\Inject
-	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\CentralService
+	 * @var \Lelesys\Plugin\Newsletter\Service\CentralService
 	 */
 	protected $centralService;
 
@@ -75,7 +75,7 @@ class PersonController extends ActionController {
 		try {
 			$baseUri = $this->request->getHttpRequest()->getBaseUri();
 			$isExistingUser = $this->personService->isExistingUser($newPerson);
-			if (($isExistingUser !== NULL) && ($isExistingUser === 1)) {
+			if (($isExistingUser !== NULL) && ($isExistingUser === TRUE)) {
 				$header = 'This email address has already subscribed!';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.emailExist');
 				$this->addFlashMessage($newPerson->getPrimaryElectronicAddress()->getIdentifier() . $message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
@@ -88,7 +88,7 @@ class PersonController extends ActionController {
 				$this->redirect("new");
 			}
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
-			$header = 'Cannot subscribe to newslette at this time!!.';
+			$header = 'Can not subscribe to newsletter at this time!!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.subscribe');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
 			$this->redirect("new");
@@ -162,5 +162,14 @@ class PersonController extends ActionController {
 		$this->redirectToUri($baseUri);
 	}
 
+	/**
+	 * No flash message should be set
+	 *
+	 * @return boolean
+	 * @api
+	 */
+	protected function getErrorFlashMessage() {
+		return FALSE;
+	}
 }
 ?>

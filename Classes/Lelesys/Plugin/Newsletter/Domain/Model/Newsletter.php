@@ -575,5 +575,14 @@ class Newsletter {
 	public function setStatus($status) {
 		$this->status = $status;
 	}
+
+	/**
+	 * Get Persistence_Object_Identifier of Newsletter
+	 *
+	 * @return string
+	 */
+	public function getIdentifier() {
+		return $this->Persistence_Object_Identifier;
+	}
 }
 ?>

@@ -53,12 +53,21 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	protected $categories;
 
 	/**
+	 * Subscribed to newsletter.
+	 *
+	 * @var boolean
+	 * @ORM\Column(nullable=true)
+	 */
+	protected $subscribedToNewsletter;
+
+	/**
 	 * Constructor
 	 *
 	 */
 	public function __construct() {
 		parent::__construct();
 		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->subscribedToNewsletter = FALSE;
 	}
 
 	/**
@@ -156,5 +165,23 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 		$this->categories->removeElement($category);
 	}
 
+	/**
+	 * Is person subscribed to newsletter
+	 *
+	 * @return boolean
+	 */
+	public function isSubscribedToNewsletter() {
+		return $this->subscribedToNewsletter;
+	}
+
+	/**
+	 * Set person subscribed to newsletter
+	 *
+	 * @param boolean $subscribedToNewsletter Subscribed to newsletter
+	 * @return void
+	 */
+	public function setSubscribedToNewsletter($subscribedToNewsletter) {
+		$this->subscribedToNewsletter = $subscribedToNewsletter;
+	}
 }
 ?>

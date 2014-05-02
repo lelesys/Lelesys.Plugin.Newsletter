@@ -1,5 +1,5 @@
 <?php
-namespace Lelesys\Plugin\Newsletter\Domain\Service;
+namespace Lelesys\Plugin\Newsletter\Service;
 
 /*
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
