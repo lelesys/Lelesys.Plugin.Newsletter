@@ -295,10 +295,37 @@ class PersonService {
 	 * @return void
 	 */
 	public function delete(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
-		$this->newsletterService->deleteRelatedRecipients($person);
 		$this->personRepository->remove($person);
 		$this->persistenceManager->persistAll();
 	}
 
+	/**
+	 * Find recipients subscribed to newsletter
+	 *
+	 * @param boolean $subscribedToNewsletter Subscribed to newsletter
+	 * @return mixed
+	 */
+	public function findBySubscribedToNewsletter($subscribedToNewsletter) {
+		return $this->personRepository->findBySubscribedToNewsletter($subscribedToNewsletter);
+	}
+
+	/**
+	 * If Person is subclass of Person from newsletter then set
+	 * subscribedToNewsletter FALSE and update it otherwise delete it
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person
+	 * @return void
+	 */
+	public function deleteRecipient(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
+		$this->newsletterService->deleteRelatedRecipients($person);
+		if (is_subclass_of($person, '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person') === TRUE) {
+			$person->setSubscribedToNewsletter(FALSE);
+			$this->update($person);
+		} else {
+			$this->delete($person);
+		}
+
+		$this->persistenceManager->persistAll();
+	}
 }
 ?>

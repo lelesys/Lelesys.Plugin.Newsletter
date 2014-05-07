@@ -74,7 +74,7 @@ class PersonController extends NewsletterManagementController {
 	 * @return void
 	 */
 	public function indexAction() {
-		$this->view->assign('recipients', $this->personService->listAll());
+		$this->view->assign('recipients', $this->personService->findBySubscribedToNewsletter(TRUE));
 	}
 
 	/**
@@ -166,7 +166,7 @@ class PersonController extends NewsletterManagementController {
 	public function deleteAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
 		try {
 			$this->emailLogService->updateRecipient($person);
-			$this->personService->delete($person);
+			$this->personService->deleteRecipient($person);
 			$header = 'Deleted the recipient.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.recipient.delete');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
