@@ -129,6 +129,9 @@ class NewsletterController extends NewsletterManagementController {
 							$message = $this->centralService->translate('lelesys.plugin.newsletter.noUsers');
 							$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
 						} else {
+							$newsletter->setHtmlBody(NULL);
+							$newsletter->setPlainTextBody(NULL);
+							$this->newsletterService->update($newsletter, array());
 							$this->newsletterService->sendEmail($newsletter);
 							$header = 'Added in Email Log';
 							$message = $this->centralService->translate('lelesys.plugin.newsletter.addedLog');
