@@ -32,8 +32,12 @@
 				<target>Cannot send newsetter at this time!!.</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.sent" approved="yes">
-				<source>Sent successfully</source>
-				<target>Sent successfully</target>
+				<source>Newsletter is sent.</source>
+				<target>Newsletter is sent.</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.noUsers" approved="yes">
+				<source>Newsletter does not have any subscribers</source>
+				<target>Newsletter does not have any subscribers</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.nopage" approved="yes">
 				<source>No page selected for newsletter cannot send email!</source>
@@ -119,10 +123,6 @@
 				<source>Thank you. The confirmation email has been sent to your specified email address.</source>
 				<target>Thank you. The confirmation email has been sent to your specified email address.</target>
 			</trans-unit>
-			<trans-unit id="lelesys.plugin.newsletter.addedLog" approved="yes">
-				<source>Added in email log</source>
-				<target>Added in email log</target>
-			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.user.approved" approved="yes">
 				<source>You have successfully confirmed your subscription to Newsletter.</source>
 				<target>You have successfully confirmed your subscription to Newsletter.</target>
@@ -182,6 +182,10 @@
 			<trans-unit id="lelesys.plugin.newsletter.attachment" approved="yes">
 				<source>Attachment</source>
 				<target>Attachment</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.noAttachments" approved="yes">
+				<source>No attachments</source>
+				<target>No attachments</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.category" approved="yes">
 				<source>Category</source>
@@ -276,8 +280,8 @@
 				<target>Create Group</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.groupList" approved="yes">
-				<source>List of group</source>
-				<target>List of group</target>
+				<source>List of groups</source>
+				<target>List of groups</target>
 			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.lastName" approved="yes">
 				<source>Last Name</source>
@@ -403,6 +407,22 @@
 				<source>Subscriber</source>
 				<target>Subscriber</target>
 			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.pending" approved="yes">
+				<source>Pending</source>
+				<target>Pending</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.sent" approved="yes">
+				<source>Sent successfully</source>
+				<target>Sent successfully</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.addedLog" approved="yes">
+				<source>Added in email log</source>
+				<target>Added in email log</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.testEmailSent" approved="yes">
+				<source>Test Email sent successfully</source>
+				<target>Test Email sent successfully</target>
+			</trans-unit>
 			<trans-unit id="lelesys.plugin.newsletter.recipientEmail" approved="yes">
 				<source>Recipient Email</source>
 				<target>Recipient Email</target>
@@ -411,7 +431,7 @@
 				<source>Please enter valid email address</source>
 				<target>Please enter valid email address</target>
 			</trans-unit>
-			<trans-unit id="lelesys.plugin.newsletter.error.noLog" approved="yes">
+			<trans-unit id="lelesys.plugin.newsletter.noLog" approved="yes">
 				<source>There are no any email logs</source>
 				<target>There are no any email logs</target>
 			</trans-unit>
@@ -434,6 +454,90 @@
 			<trans-unit id="lelesys.plugin.newsletter.confirmation" approved="yes">
 				<source>Newsletter Subscription Confirmation Plugin</source>
 				<target>Newsletter Subscription Confirmation Plugin</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.email.confirmation.status" approved="yes">
+				<source>Status</source>
+				<target>Status</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteAttachmentSuccessful" approved="yes">
+				<source>Deleted attachment</source>
+				<target>Deleted attachment</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteAttachmentFail" approved="yes">
+				<source>Could not delete attachment</source>
+				<target>Could not delete attachment</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteAttachmentAlert" approved="yes">
+				<source>Are you sure you want to delete the attachment?</source>
+				<target>Are you sure you want to delete the attachment?</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteAttachmentTitle" approved="yes">
+				<source>Delete attachment</source>
+				<target>Delete attachment</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.addAttachmentTitle" approved="yes">
+				<source>Add attachment</source>
+				<target>Add attachment</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.back" approved="yes">
+				<source>Back</source>
+				<target>Back</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.view" approved="yes">
+				<source>Click to view</source>
+				<target>Click to view</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.editTitle" approved="yes">
+				<source>Click to edit</source>
+				<target>Click to edit</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteTitle" approved="yes">
+				<source>Click to delete</source>
+				<target>Click to delete</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.createPartyTitle" approved="yes">
+				<source>Create party</source>
+				<target>Create party</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.createAddressTitle" approved="yes">
+				<source>Create address</source>
+				<target>Create address</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.createStaticListTitle" approved="yes">
+				<source>Create static list</source>
+				<target>Create static list</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.recipientList" approved="yes">
+				<source>List of recipients</source>
+				<target>List of recipients</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteNewsletterAlert" approved="yes">
+				<source>Are you sure you want to delete the newsletter?</source>
+				<target>Are you sure you want to delete the newsletter?</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteGroupAlert" approved="yes">
+				<source>Are you sure you want to delete the group?</source>
+				<target>Are you sure you want to delete the group?</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteRecipientAlert" approved="yes">
+				<source>Are you sure you want to delete the recipient?</source>
+				<target>Are you sure you want to delete the recipient?</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.deleteCategoryAlert" approved="yes">
+				<source>Are you sure you want to delete the category?</source>
+				<target>Are you sure you want to delete the category?</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.status" approved="yes">
+				<source>Status</source>
+				<target>Status</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.statusActive" approved="yes">
+				<source>Active</source>
+				<target>Active</target>
+			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.statusInactive" approved="yes">
+				<source>Inactive</source>
+				<target>Inactive</target>
 			</trans-unit>
 		</body>
 	</file>
