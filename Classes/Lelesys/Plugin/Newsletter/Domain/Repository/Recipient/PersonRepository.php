@@ -49,7 +49,7 @@ class PersonRepository extends Repository {
 	public function getRecipientsByCategory(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
 		$query = $this->createQuery();
 		return $query->matching(
-								$query->contains('categories', $category)
+								$query->contains('newsletterCategories', $category)
 						)
 						->execute();
 	}
