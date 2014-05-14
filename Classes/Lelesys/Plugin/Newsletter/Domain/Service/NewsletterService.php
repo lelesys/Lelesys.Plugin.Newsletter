@@ -290,7 +290,7 @@ class NewsletterService {
 					&& ($this->isValidCategory($newsletter, $recipient) === TRUE)
 					&& $recipient->isSubscribedToNewsletter() === TRUE)
 					|| (($this->personService->isUserApproved($recipient) === TRUE)
-					&& (count($recipient->getCategories()) === 0)
+					&& (count($recipient->getNewsletterCategories()) === 0)
 					&& $recipient->isSubscribedToNewsletter() === TRUE)) {
 				$list[] = $recipient->getUuid();
 				$personEmailList[$recipient->getUuid()] = $recipient->getPrimaryElectronicAddress()->getIdentifier();

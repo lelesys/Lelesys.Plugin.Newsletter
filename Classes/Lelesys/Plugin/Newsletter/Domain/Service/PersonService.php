@@ -283,7 +283,7 @@ class PersonService {
 	public function deleteRelatedCategories(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
 		$recipients = $this->personRepository->getRecipientsByCategory($category);
 		foreach ($recipients as $recipient) {
-			$recipient->removeCategories($category);
+			$recipient->removeNewsletterCategories($category);
 			$this->personRepository->update($recipient);
 		}
 	}

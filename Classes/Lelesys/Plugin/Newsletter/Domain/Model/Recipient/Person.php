@@ -50,7 +50,7 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	 * @ORM\ManyToMany(cascade={"persist", "detach"})
 	 * @ORM\Column(nullable=true)
 	 */
-	protected $categories;
+	protected $newsletterCategories;
 
 	/**
 	 * Subscribed to newsletter.
@@ -66,7 +66,7 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->newsletterCategories = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->subscribedToNewsletter = FALSE;
 	}
 
@@ -128,22 +128,22 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	}
 
 	/**
-	 * Get Categories
+	 * Get Newsletter Categories
 	 *
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
-	public function getCategories() {
-		return $this->categories;
+	public function getNewsletterCategories() {
+		return $this->newsletterCategories;
 	}
 
 	/**
-	 * Sets Categories
+	 * Sets Newsletter Categories
 	 *
-	 * @param \Doctrine\Common\Collections\Collection $categories
+	 * @param \Doctrine\Common\Collections\Collection $newsletterCategories
 	 * @return void
 	 */
-	public function setCategories(\Doctrine\Common\Collections\Collection $categories) {
-		$this->categories = $categories;
+	public function setNewsletterCategories(\Doctrine\Common\Collections\Collection $newsletterCategories) {
+		$this->newsletterCategories = $newsletterCategories;
 	}
 
 	/**
@@ -156,13 +156,13 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	}
 
 	/**
-	 * Removes a Recipients Category
+	 * Removes a Recipients Newsletter Category
 	 *
-	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Recipient Category
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $newsletterCategories Recipient Category
 	 * @return void
 	 */
-	public function removeCategories(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
-		$this->categories->removeElement($category);
+	public function removeNewsletterCategories(\Lelesys\Plugin\Newsletter\Domain\Model\Category $newsletterCategories) {
+		$this->newsletterCategories->removeElement($newsletterCategories);
 	}
 
 	/**
