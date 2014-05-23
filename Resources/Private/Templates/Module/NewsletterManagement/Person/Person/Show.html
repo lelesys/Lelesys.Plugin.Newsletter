@@ -51,11 +51,11 @@
 			</f:if>
 			</tr>
 			<tr>
-			<f:if condition="{person.categories}">
+			<f:if condition="{person.newsletterCategories}">
 				<f:then>
 					<td><f:translate id="lelesys.plugin.newsletter.categories"></f:translate></td>
 					<td>
-					<f:for each="{person.categories}" as="category">
+					<f:for each="{person.newsletterCategories}" as="category">
 						<p>{category.title}</p>
 					</f:for>
 					</td>
