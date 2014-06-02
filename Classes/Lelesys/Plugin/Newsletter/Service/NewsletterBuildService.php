@@ -224,7 +224,7 @@ class NewsletterBuildService {
 						$this->newsletterService->update($newsletter);
 					}
 
-					$values['mailContent'] = $newsletter->getHtmlBody();
+					$values['mailContent'] = $newsletter->getPlainTextBody();
 					$messageBody = $this->emailNotificationService->buildEmailMessage($values, 'txt');
 					$recipientAddress = array($recipient->getPrimaryElectronicAddress()->getIdentifier() => $recipient->getName()->getFirstName());
 				}
