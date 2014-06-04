@@ -327,7 +327,7 @@ class NewsletterService {
 	 */
 	public function isValidCategory(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $recipient) {
 		foreach ($newsletter->getCategories() as $newsletterCategory) {
-			if (in_array($newsletterCategory, $recipient->getCategories()->toArray())) {
+			if (in_array($newsletterCategory, $recipient->getNewsletterCategories()->toArray())) {
 				return TRUE;
 			}
 		}
