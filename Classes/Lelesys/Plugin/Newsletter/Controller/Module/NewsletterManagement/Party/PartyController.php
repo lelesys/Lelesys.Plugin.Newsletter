@@ -37,6 +37,14 @@ class PartyController extends NewsletterManagementController {
 	protected $centralService;
 
 	/**
+	 * Person Service
+	 *
+	 * @Flow\Inject
+	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\PersonService
+	 */
+	protected $personService;
+
+	/**
 	 * List of all parties
 	 *
 	 * @return void
@@ -61,7 +69,7 @@ class PartyController extends NewsletterManagementController {
 	 * @return void
 	 */
 	public function newAction() {
-
+		$this->view->assign('recipients', $this->personService->listAllApproved());
 	}
 
 	/**
@@ -92,6 +100,7 @@ class PartyController extends NewsletterManagementController {
 	 */
 	public function editAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party) {
 		$this->view->assign('party', $party);
+		$this->view->assign('recipients', $this->personService->listAllApproved());
 	}
 
 	/**

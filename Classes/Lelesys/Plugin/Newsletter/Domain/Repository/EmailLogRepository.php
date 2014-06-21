@@ -18,6 +18,7 @@ use TYPO3\Flow\Persistence\Repository;
  * @Flow\Scope("singleton")
  */
 class EmailLogRepository extends \TYPO3\Flow\Persistence\Doctrine\Repository {
+	protected $defaultOrderings = array('timeCreated' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_DESCENDING);
 
 	/**
 	 * Finds recipient email address

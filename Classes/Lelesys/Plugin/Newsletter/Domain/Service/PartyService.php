@@ -28,6 +28,14 @@ class PartyService {
 	protected $partyRepository;
 
 	/**
+	 * Person Repository
+	 *
+	 * @Flow\Inject
+	 * @var \Lelesys\Plugin\Newsletter\Domain\Repository\Recipient\PersonRepository
+	 */
+	protected $personRepository;
+
+	/**
 	 * Newsletter Service
 	 *
 	 * @Flow\Inject
@@ -42,6 +50,14 @@ class PartyService {
 	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
 	 */
 	protected $persistenceManager;
+
+	/**
+	 * Person Service
+	 *
+	 * @Flow\Inject
+	 * @var \Lelesys\Plugin\Newsletter\Domain\Service\PersonService
+	 */
+	protected $personService;
 
 	/**
 	 * List of all group parties
@@ -60,6 +76,11 @@ class PartyService {
 	 */
 	public function create(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $newParty) {
 		$this->partyRepository->add($newParty);
+		foreach ($newParty->getRecipients() as $recipient) {
+			$recipientObject = $this->persistenceManager->getObjectByIdentifier($recipient->getUuid(), '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person');
+			$recipientObject->addGroup($newParty);
+			$this->personRepository->update($recipientObject);
+		}
 	}
 
 	/**
@@ -69,7 +90,12 @@ class PartyService {
 	 * @return void
 	 */
 	public function update(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party) {
-		$this->partyRepository->update($party);
+		$this->personService->findByRecipientsByGruops($party);
+		foreach ($party->getRecipients() as $recipient) {
+			$recipientObject = $this->persistenceManager->getObjectByIdentifier($recipient->getUuid(), '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person');
+			$recipientObject->addGroup($party);
+			$this->personRepository->update($recipientObject);
+		}
 	}
 
 	/**

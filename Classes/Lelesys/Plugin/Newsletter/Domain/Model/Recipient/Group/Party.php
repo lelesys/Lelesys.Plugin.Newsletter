@@ -55,5 +55,26 @@ class Party extends \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\AbstractGr
 		return $this->Persistence_Object_Identifier;
 	}
 
+	/**
+	 * Add recipient
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $recipient Recipient
+	 * @return void
+	 */
+	public function addRecipient(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $recipient) {
+		$this->recipient->add($recipient);
+	}
+
+	/**
+	 * Remove recipient
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $recipient Recipient
+	 * @return void
+	 */
+	public function removeRecipient(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $recipient) {
+		$this->recipients->removeElement($recipient);
+	}
+
+
 }
 ?>

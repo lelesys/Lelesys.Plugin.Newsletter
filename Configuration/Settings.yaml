@@ -2,6 +2,9 @@
 Lelesys:
   Plugin:
     Newsletter:
+      recipient:
+        static:
+          mailFormat: 'txt'
       email:
         subject: 'Confirm Subscription'
         replyTo: 'gauri.shirodkar@lelesys.com'

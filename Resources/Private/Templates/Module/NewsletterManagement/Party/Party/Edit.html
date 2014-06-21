@@ -10,6 +10,14 @@
 				<f:form.textfield property="title" id="title" class="required" />
 			</div>
 		</div>
+		<f:if condition="{recipients}">
+			<div class="neos-control-group">
+				<label class="neos-control-label" for="recipients"><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></label>
+				<div class="neos-controls">
+					<f:form.select options="{recipients}" optionLabelField="name" property="recipients" id="recipients" multiple="true" value="{party.recipients}"></f:form.select>
+				</div>
+			</div>
+		</f:if>
 		<div class="neos-form-actions neos-footer">
 			<f:link.action action="index" class="neos-btn neos-button"><f:translate id="lelesys.plugin.newsletter.cancel"></f:translate></f:link.action>
 			<div class="pull-right">

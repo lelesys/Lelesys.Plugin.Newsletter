@@ -242,7 +242,13 @@ class NewsletterService {
 	 * @return void
 	 */
 	public function sendEmail(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
-		$allArrays = $this->sendNewsletterEmailToRecipients($newsletter, $newsletter->getRecipients());
+		$allArrays['list'] = $allArrays['personEmailList'] = array();
+		$categoryRecipients = $this->personService->findByRecipientsByCategories($newsletter);
+		if($categoryRecipients) {
+			$allArrays = $this->sendNewsletterEmailToRecipients($newsletter, $categoryRecipients);
+		}
+
+		$allArrays = $this->sendNewsletterEmailToRecipients($newsletter, $newsletter->getRecipients(), $allArrays['list'], $allArrays['personEmailList']);
 		$list = $staticLists = array();
 		foreach ($newsletter->getRecipientGroups() as $group) {
 			if ($group instanceof \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party) {
@@ -254,6 +260,7 @@ class NewsletterService {
 				$staticLists = array_merge($staticLists, \TYPO3\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients()));
 			}
 		}
+
 		if ((empty($allArrays['personEmailList']) === FALSE
 				&& empty($allArrays['list']) === FALSE)
 				|| (empty($allArrays['list']) === FALSE)) {
@@ -287,7 +294,6 @@ class NewsletterService {
 	public function sendNewsletterEmailToRecipients(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, $recipients, $list = array(), $personEmailList = array()) {
 		foreach ($recipients as $recipient) {
 			if ((($this->personService->isUserApproved($recipient) === TRUE)
-					&& ($this->isValidCategory($newsletter, $recipient) === TRUE)
 					&& $recipient->isSubscribedToNewsletter() === TRUE)
 					|| (($this->personService->isUserApproved($recipient) === TRUE)
 					&& (count($recipient->getNewsletterCategories()) === 0)
@@ -434,7 +440,7 @@ class NewsletterService {
 	public function deleteRelatedRecipients(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
 		$newsletters = $this->newsletterRepository->getNewslettersByRecipient($person);
 		foreach ($newsletters as $newsletter) {
-			$newsletter->removeRecipients($person);
+			$newsletter->removeRecipient($person);
 			$this->newsletterRepository->update($newsletter);
 		}
 	}

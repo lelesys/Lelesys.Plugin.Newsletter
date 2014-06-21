@@ -327,5 +327,66 @@ class PersonService {
 
 		$this->persistenceManager->persistAll();
 	}
+
+	/**
+	 * Find groups
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party Party object
+	 * @return void
+	 */
+	public function findByRecipientsByGruops(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party) {
+		$recipients = $this->personRepository->getRecipientsByRecipientGroup($party);
+		foreach ($recipients as $recipient) {
+			$recipient->removeGroup($party);
+			$this->personRepository->update($recipient);
+		}
+	}
+
+	/**
+	 * Find groups
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter The newsletter
+	 * @return void
+	 */
+	public function findByRecipientsByCategories(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
+		$categories = $newsletter->getCategories();
+		$recipientTotal = array();
+		foreach ($categories as $category) {
+			$recipientList = count($this->personRepository->getRecipientsByNewsletterCategories($category));
+			if($recipientList > 0) {
+				$allRecipients = $this->personRepository->getRecipientsByNewsletterCategories($category);
+				foreach ($allRecipients as $recipientId) {
+					$recipientTotal[] = $recipientId;
+				}
+			}
+		}
+		return $recipientTotal;
+	}
+
+
+	/**
+	 * Gets all approved recipients
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category
+	 * @return void
+	 */
+	public function listAllSelectedCategory($category) {
+		return $this->personRepository->findAllSelectedUsers($category);
+	}
+
+	/**
+	 * Gets all approved recipients
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category
+	 * @return void
+	 */
+	public function listAllSelectedCategoryUsers($category) {
+		$recipients = $this->personRepository->findAllSelectedUsers($category);
+		foreach ($recipients as $recipient) {
+			$recipient->removeNewsletterCategories($category);
+			$this->personRepository->update($recipient);
+		}
+	}
+
 }
 ?>

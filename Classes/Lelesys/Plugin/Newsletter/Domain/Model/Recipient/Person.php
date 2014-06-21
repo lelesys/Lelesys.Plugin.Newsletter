@@ -67,6 +67,7 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	public function __construct() {
 		parent::__construct();
 		$this->newsletterCategories = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->groups = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->subscribedToNewsletter = FALSE;
 	}
 
@@ -182,6 +183,36 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	 */
 	public function setSubscribedToNewsletter($subscribedToNewsletter) {
 		$this->subscribedToNewsletter = $subscribedToNewsletter;
+	}
+
+	/**
+	 * Add group
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $group
+	 * @return void
+	 */
+	public function addGroup(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $group) {
+		$this->groups->add($group);
+	}
+
+	/**
+	 * Remove group
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $group
+	 * @return void
+	 */
+	public function removeGroup(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $group) {
+		$this->groups->removeElement($group);
+	}
+
+	/**
+	 * Add Recipient Newsletter Category
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $newsletterCategory Recipient Category
+	 * @return void
+	 */
+	public function addNewsletterCategory(\Lelesys\Plugin\Newsletter\Domain\Model\Category $newsletterCategory) {
+		$this->newsletterCategories->add($newsletterCategory);
 	}
 }
 ?>
