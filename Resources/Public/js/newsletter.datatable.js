@@ -7,5 +7,9 @@ jQuery(document).ready(function($) {
 			oTable.fnFilter(this.value, oTable.oApi._fnVisibleToColumnIndex(
 					oTable.fnSettings(), $("thead input").index(this)));
 		});
+
+		oTable = jQuery('#newsletter-dataTable').dataTable({
+			"aaSorting": []
+		});
 	}
 });

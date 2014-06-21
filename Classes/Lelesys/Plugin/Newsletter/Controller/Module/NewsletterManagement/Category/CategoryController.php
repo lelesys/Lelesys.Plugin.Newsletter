@@ -67,7 +67,7 @@ class CategoryController extends NewsletterManagementController {
 	 * @return void
 	 */
 	public function newAction() {
-
+		$this->view->assign('recipients', $this->personService->listAllApproved());
 	}
 
 	/**
@@ -94,11 +94,12 @@ class CategoryController extends NewsletterManagementController {
 	 * Creates new newsletter category
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory Newsletter category
+	 * @param array $recipients Recipients
 	 * @return void
 	 */
-	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory) {
+	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory, $recipients) {
 		try {
-			$this->categoryService->create($newCategory);
+			$this->categoryService->create($newCategory, $recipients);
 			$header = 'Created a new category.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.add.category');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
@@ -118,17 +119,21 @@ class CategoryController extends NewsletterManagementController {
 	 */
 	public function editAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
 		$this->view->assign('category', $category);
+		$this->view->assign('recipients', $this->personService->listAllApproved());
+		$recipients = $this->personService->listAllSelectedCategory($category);
+		$this->view->assign('selectedRecipients', $recipients);
 	}
 
 	/**
 	 * Update newsletter category
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category
+	 * @param array $recipients Recipients
 	 * @return void
 	 */
-	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
+	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category, $recipients) {
 		try {
-			$this->categoryService->update($category);
+			$this->categoryService->update($category, $recipients);
 			$header = 'Updated the category.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.update.category');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);

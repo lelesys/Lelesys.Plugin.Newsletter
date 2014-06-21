@@ -54,5 +54,42 @@ class PersonRepository extends Repository {
 						->execute();
 	}
 
+	/**
+	 * All recipients by given recipient group
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\AbstractGroup $recipientGroup Recipient Group
+	 * @return array The query result
+	 */
+	public function getRecipientsByRecipientGroup(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\AbstractGroup $recipientGroup) {
+		$query = $this->entityManager->createQuery('SELECT n FROM \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person n JOIN n.groups r WHERE r.Persistence_Object_Identifier=\'' . $recipientGroup->getUuid() . '\'')
+				->execute();
+		return $query;
+	}
+
+	/**
+	 * All recipients by given recipient group
+	 *
+	 * @param $recipient recipients
+	 * @return array The query result
+	 */
+	public function getRecipientsByNewsletterCategories($recipient) {
+		$query = $this->entityManager->createQuery('SELECT n FROM \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person n JOIN n.newsletterCategories r WHERE r.Persistence_Object_Identifier=\'' . $recipient->getUuid() . '\'')
+				->execute();
+		return $query;
+	}
+
+
+	/**
+	 * All recipients by given newsletter category
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category
+	 * @return array The query result
+	 */
+	public function findAllSelectedUsers(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
+		$query = $this->entityManager->createQuery('SELECT n FROM \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person n JOIN n.newsletterCategories r WHERE r.Persistence_Object_Identifier=\'' . $category->getUuid() . '\'')
+				->execute();
+		return $query;
+	}
+
 }
 ?>

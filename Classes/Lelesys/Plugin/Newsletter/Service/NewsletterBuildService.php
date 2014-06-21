@@ -1,4 +1,5 @@
 <?php
+
 namespace Lelesys\Plugin\Newsletter\Service;
 
 /*
@@ -23,7 +24,6 @@ use TYPO3\Flow\Http\Request as Request;
  * @Flow\Scope("singleton")
  */
 class NewsletterBuildService {
-
 
 	/**
 	 * Email Service
@@ -168,7 +168,7 @@ class NewsletterBuildService {
 		$response->makeStandardsCompliant($httpRequest);
 		$output = $response->getContent();
 		if ($format === 'txt') {
-			$output = strip_tags($output,'<a>');
+			$output = strip_tags($output, '<a>');
 		}
 
 		return $output;
@@ -194,7 +194,7 @@ class NewsletterBuildService {
 			$replyName = $newsletter->getReplyToName();
 			$newsletterAttachments = $newsletter->getAttachments();
 			$attachments = array();
-			foreach($newsletterAttachments as $newsletterAttachment) {
+			foreach ($newsletterAttachments as $newsletterAttachment) {
 				$attachments[$this->resourceManager->getPersistentResourcesStorageBaseUri() . $newsletterAttachment->getResource()->getResourcePointer()->getHash()] = $newsletterAttachment->getTitle();
 			}
 
@@ -230,17 +230,21 @@ class NewsletterBuildService {
 				}
 			} else {
 				$recipient = $emailLog->getRecipient();
-				$contentType = 'text/plain';
+				if ($this->settings['recipient']['static']['mailFormat'] === 'html') {
+					$contentType = 'text/html';
+				} else {
+					$contentType = 'text/plain';
+				}
 
 				if ($newsletter->getPlainTextBody() === NULL) {
-					$message = $this->buildMailContents($newsletter, 'txt');
+					$message = $this->buildMailContents($newsletter, $this->settings['recipient']['static']['mailFormat']);
 					$newsletter->setPlainTextBody($message);
 					$this->newsletterService->update($newsletter);
 				}
 
 				$values['recipient'] = $recipient;
 				$values['mailContent'] = $newsletter->getPlainTextBody();
-				$messageBody = $this->emailNotificationService->buildEmailMessage($values, 'txt');
+				$messageBody = $this->emailNotificationService->buildEmailMessage($values, $this->settings['recipient']['static']['mailFormat']);
 				$recipientAddress = array(trim($recipient));
 			}
 
@@ -269,4 +273,5 @@ class NewsletterBuildService {
 	}
 
 }
+
 ?>

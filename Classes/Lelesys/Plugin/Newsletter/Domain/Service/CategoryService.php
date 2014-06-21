@@ -1,4 +1,5 @@
 <?php
+
 namespace Lelesys\Plugin\Newsletter\Domain\Service;
 
 /*
@@ -52,6 +53,14 @@ class CategoryService {
 	protected $persistenceManager;
 
 	/**
+	 * Person Repository
+	 *
+	 * @Flow\Inject
+	 * @var \Lelesys\Plugin\Newsletter\Domain\Repository\Recipient\PersonRepository
+	 */
+	protected $personRepository;
+
+	/**
 	 * List of all categories
 	 *
 	 * @return \Lelesys\Plugin\Newsletter\Domain\Model\Category
@@ -64,19 +73,36 @@ class CategoryService {
 	 * Adds new category
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory Newsletter category
+	 * @param array $recipients Array of recipients
 	 * @return void
 	 */
-	public function create(\Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory) {
+	public function create(\Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory, $recipients = NULL) {
 		$this->categoryRepository->add($newCategory);
+		if ($recipients) {
+			foreach ($recipients as $recipient) {
+				$recipientObject = $this->persistenceManager->getObjectByIdentifier($recipient, '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person');
+				$recipientObject->addNewsletterCategory($newCategory);
+				$this->personRepository->update($recipientObject);
+			}
+		}
 	}
 
 	/**
 	 * Updates category
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Category $category Newsletter category
+	 * @param array $recipients Array of recipients
 	 * @return void
 	 */
-	public function update(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
+	public function update(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category, $recipients = NULL) {
+		$this->personService->listAllSelectedCategoryUsers($category);
+		if ($recipients) {
+			foreach ($recipients as $recipient) {
+				$recipientObject = $this->persistenceManager->getObjectByIdentifier($recipient, '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person');
+				$recipientObject->addNewsletterCategory($category);
+				$this->personRepository->update($recipientObject);
+			}
+		}
 		$this->categoryRepository->update($category);
 	}
 
@@ -94,4 +120,5 @@ class CategoryService {
 	}
 
 }
+
 ?>
