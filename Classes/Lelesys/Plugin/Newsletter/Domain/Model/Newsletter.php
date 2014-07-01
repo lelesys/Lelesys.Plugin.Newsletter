@@ -533,7 +533,7 @@ class Newsletter {
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person Person object
 	 * @return void
 	 */
-	public function removeRecipients(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
+	public function removeRecipient(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
 		$this->recipients->removeElement($person);
 	}
 

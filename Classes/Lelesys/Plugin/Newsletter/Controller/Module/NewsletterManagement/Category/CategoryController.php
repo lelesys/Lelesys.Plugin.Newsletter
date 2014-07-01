@@ -97,7 +97,7 @@ class CategoryController extends NewsletterManagementController {
 	 * @param array $recipients Recipients
 	 * @return void
 	 */
-	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory, $recipients) {
+	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory, $recipients = NULL) {
 		try {
 			$this->categoryService->create($newCategory, $recipients);
 			$header = 'Created a new category.';
@@ -131,7 +131,7 @@ class CategoryController extends NewsletterManagementController {
 	 * @param array $recipients Recipients
 	 * @return void
 	 */
-	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category, $recipients) {
+	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category, $recipients = NULL) {
 		try {
 			$this->categoryService->update($category, $recipients);
 			$header = 'Updated the category.';

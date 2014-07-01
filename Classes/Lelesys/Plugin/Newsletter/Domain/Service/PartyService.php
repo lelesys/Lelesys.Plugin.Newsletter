@@ -1,4 +1,5 @@
 <?php
+
 namespace Lelesys\Plugin\Newsletter\Domain\Service;
 
 /* *
@@ -76,10 +77,12 @@ class PartyService {
 	 */
 	public function create(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $newParty) {
 		$this->partyRepository->add($newParty);
-		foreach ($newParty->getRecipients() as $recipient) {
-			$recipientObject = $this->persistenceManager->getObjectByIdentifier($recipient->getUuid(), '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person');
-			$recipientObject->addGroup($newParty);
-			$this->personRepository->update($recipientObject);
+		if ($newParty->getRecipients()) {
+			foreach ($newParty->getRecipients() as $recipient) {
+				$recipientObject = $this->persistenceManager->getObjectByIdentifier($recipient->getUuid(), '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person');
+				$recipientObject->addGroup($newParty);
+				$this->personRepository->update($recipientObject);
+			}
 		}
 	}
 
@@ -91,11 +94,14 @@ class PartyService {
 	 */
 	public function update(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party) {
 		$this->personService->findByRecipientsByGruops($party);
-		foreach ($party->getRecipients() as $recipient) {
-			$recipientObject = $this->persistenceManager->getObjectByIdentifier($recipient->getUuid(), '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person');
-			$recipientObject->addGroup($party);
-			$this->personRepository->update($recipientObject);
+		if ($party->getRecipients()) {
+			foreach ($party->getRecipients() as $recipient) {
+				$recipientObject = $this->persistenceManager->getObjectByIdentifier($recipient->getUuid(), '\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person');
+				$recipientObject->addGroup($party);
+				$this->personRepository->update($recipientObject);
+			}
 		}
+		$this->partyRepository->update($party);
 	}
 
 	/**
@@ -111,4 +117,5 @@ class PartyService {
 	}
 
 }
+
 ?>
