@@ -116,5 +116,26 @@ class EmailLogService {
 			$this->emailLogRepository->update($emailLog);
 		}
 	}
+
+	 /**
+	 * Get all email logs by newsletter
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter
+	 * @return \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog Email log
+	 */
+	public function getAllEmailLogsByNewsletter($newsletter) {
+		return $this->emailLogRepository->getAllEmailLogsByNewsletter($newsletter);
+	}
+
+	/**
+	 * Deletes the email log
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $emailLog
+	 * @return void
+	 */
+	public function delete(\Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $emailLog) {
+		$this->emailLogRepository->remove($emailLog);
+	}
+
 }
 ?>

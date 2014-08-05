@@ -150,7 +150,7 @@ class NewsletterBuildService {
 		$nodeData = $this->newsletterService->getContentNode($newsletter->getContentNode());
 		$contextFactory = $this->createContext();
 		$node = new Node($nodeData, $contextFactory);
-		$nodeIdentifier = $node->getIdentifier();
+		$nodeIdentifier = $node->getPath();
 		$routesConfiguration = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_ROUTES);
 		$this->router->setRoutesConfiguration($routesConfiguration);
 		$uri = new \TYPO3\Flow\Http\Uri($baseUrl);

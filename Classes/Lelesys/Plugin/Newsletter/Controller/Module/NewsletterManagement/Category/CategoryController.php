@@ -97,9 +97,9 @@ class CategoryController extends NewsletterManagementController {
 	 * @param array $recipients Recipients
 	 * @return void
 	 */
-	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory, $recipients = NULL) {
+	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory, $recipients = array()) {
 		try {
-			$this->categoryService->create($newCategory, $recipients);
+			$this->categoryService->create($newCategory, $recipients['reciver']);
 			$header = 'Created a new category.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.add.category');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
@@ -131,9 +131,9 @@ class CategoryController extends NewsletterManagementController {
 	 * @param array $recipients Recipients
 	 * @return void
 	 */
-	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category, $recipients = NULL) {
+	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category, $recipients = array()) {
 		try {
-			$this->categoryService->update($category, $recipients);
+			$this->categoryService->update($category, $recipients['reciver']);
 			$header = 'Updated the category.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.update.category');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);

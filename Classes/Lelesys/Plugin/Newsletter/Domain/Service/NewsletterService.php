@@ -428,6 +428,17 @@ class NewsletterService {
 	 * @return void
 	 */
 	public function delete(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
+		$newsletterEmailLogs = $this->emailLogService->getAllEmailLogsByNewsletter($newsletter);
+		foreach ($newsletterEmailLogs as $emailLog) {
+			$this->emailLogService->delete($emailLog);
+		}
+		$attachments = $newsletter->getAttachments();
+		foreach ($attachments as $attachment) {
+			$newsletter->removeAttachment($attachment);
+			$this->update($newsletter);
+			$this->assetRepository->remove($attachment);
+			$this->persistenceManager->persistAll();
+		}
 		$this->newsletterRepository->remove($newsletter);
 		$this->persistenceManager->persistAll();
 	}
