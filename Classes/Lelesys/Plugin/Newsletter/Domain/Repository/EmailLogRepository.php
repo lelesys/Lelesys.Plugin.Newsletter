@@ -67,5 +67,18 @@ class EmailLogRepository extends \TYPO3\Flow\Persistence\Doctrine\Repository {
 						->execute()->count();
 	}
 
+	/**
+	 * Get all Email Logs by newsletter
+	 *
+	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter
+	 * @return \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog Email log
+	 */
+	public function getAllEmailLogsByNewsletter($newsletter) {
+		$result = $this->entityManager->createQuery('SELECT el FROM \Lelesys\Plugin\Newsletter\Domain\Model\EmailLog el WHERE el.newsletter =:newsletter')
+				->setHydrationMode(\Doctrine\ORM\AbstractQuery::HYDRATE_OBJECT)
+				->execute(array('newsletter' => $newsletter));
+		return $result;
+	}
+
 }
 ?>

@@ -123,7 +123,7 @@ class Newsletter {
 	 * Attachments
 	 *
 	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Media\Domain\Model\Document>
-	 * @ORM\ManyToMany(cascade={"detach","refresh","remove"})
+	 * @ORM\ManyToMany(cascade={"detach"})
 	 * @ORM\Column(nullable=true)
 	 */
 	protected $attachments;
