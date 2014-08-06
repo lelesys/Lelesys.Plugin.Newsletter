@@ -99,7 +99,11 @@ class CategoryController extends NewsletterManagementController {
 	 */
 	public function createAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $newCategory, $recipients = array()) {
 		try {
-			$this->categoryService->create($newCategory, $recipients['reciver']);
+			if (isset($recipients['reciver']) === TRUE) {
+				$this->categoryService->create($newCategory, $recipients['reciver']);
+			} else {
+				$this->categoryService->create($newCategory);
+			}
 			$header = 'Created a new category.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.add.category');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
@@ -133,7 +137,11 @@ class CategoryController extends NewsletterManagementController {
 	 */
 	public function updateAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category, $recipients = array()) {
 		try {
-			$this->categoryService->update($category, $recipients['reciver']);
+			if (isset($recipients['reciver']) === TRUE) {
+				$this->categoryService->update($category, $recipients['reciver']);
+			} else {
+				$this->categoryService->update($category);
+			}
 			$header = 'Updated the category.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.update.category');
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
