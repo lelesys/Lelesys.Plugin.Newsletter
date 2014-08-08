@@ -8,10 +8,10 @@ Warning: This plugin is experimental.
 Quick start
 -----------
 
-* include the plugin's TypoScript definitions to your own one's (located in, for example, `Packages/Sites/Your.Site/Resources/Private/TypoScripts/Library/ContentElements.ts2`) with:
+* Include the plugin's TypoScript definitions to your own one's (located in, for example, `Packages/Sites/Your.Site/Resources/Private/TypoScripts/Library/ContentElements.ts2`) with:
 
 ```
-include: resource://Lelesys.Plugin.Newsletter/Private/TypoScripts/Library/NodeTypes.ts2
+include: resource://Lelesys.Plugin.Newsletter/Private/TypoScript/Root.ts2
 ```
 
 
@@ -35,6 +35,12 @@ include: resource://Lelesys.Plugin.Newsletter/Private/TypoScripts/Library/NodeTy
             packageKey: 'Lelesys.Plugin.Newsletter'
 ```
 
+* Create required database tables by running doctrine migrate command:
+
+```
+./flow doctrine:migrate
+```
+
 Usage
 -----
 * add the plugin content element "Newsletter Subscription Form" to the position of your choice.
@@ -46,6 +52,6 @@ Usage
 * add the plugin content element "Lelesys Newsletter Node" to the position of your choice.
 
 * this will display content element with plus icon to create new newsletter node.
-The new node will be created under the page. Enter the text to be sent in the newsletter email
-
+The new node will be created under the page. Enter the text to be sent in the newsletter emai
+l
 * All role Lelesys.Plugin.Newsletter:NewsletterAdmin so that administrator can see all backend modules related to newsletter.
