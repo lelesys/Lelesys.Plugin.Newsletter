@@ -182,7 +182,7 @@ class PersonService {
 		$recipientAddress = $newPerson->getPrimaryElectronicAddress()->getIdentifier();
 		$recipientName = $newPerson->getName();
 		$subject = $this->settings['email']['subject'];
-		$message = $this->emailNotificationService->buildEmailMessage($values, 'html', 'SubscribedNotification.html');
+		$message = $this->emailNotificationService->buildEmailMessage($values, 'html', $this->settings['email']['template']['confirmation']['templatePathAndFilename']);
 		$this->emailNotificationService->sendMail($subject, $message, $recipientAddress, $recipientName);
 	}
 
