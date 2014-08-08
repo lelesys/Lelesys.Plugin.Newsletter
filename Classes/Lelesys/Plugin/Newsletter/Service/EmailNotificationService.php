@@ -122,7 +122,7 @@ class EmailNotificationService {
 		if ($templateName === NULL) {
 			$template->setTemplatePathAndFilename($this->settings['email']['template'][$format]['templatePathAndFilename']);
 		} else {
-			$template->setTemplatePathAndFilename('resource://Lelesys.Plugin.Newsletter/Private/Templates/Emails/' . $templateName);
+			$template->setTemplatePathAndFilename($templateName);
 		}
 		$template->assignMultiple($values);
 		$template->setFormat($format);

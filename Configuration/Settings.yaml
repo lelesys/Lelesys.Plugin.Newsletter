@@ -19,6 +19,8 @@ Lelesys:
             templatePathAndFilename: 'resource://Lelesys.Plugin.Newsletter/Private/Templates/Emails/Newsletter.html'
           txt:
             templatePathAndFilename: 'resource://Lelesys.Plugin.Newsletter/Private/Templates/Emails/Newsletter.txt'
+          confirmation:
+            templatePathAndFilename: 'resource://Lelesys.Plugin.Newsletter/Private/Templates/Emails/SubscribedNotification.html'
       flashMessage:
         packageKey: 'Lelesys.Plugin.Newsletter'
       noOfEmails: '100'
