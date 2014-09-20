@@ -169,9 +169,10 @@ class PersonService {
 	 * Adds new recipient
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson Person object
+	 * @param string $currentLocale Current locale
 	 * @return void
 	 */
-	public function create(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson) {
+	public function create(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson, $currentLocale = NULL) {
 		$newPerson->setSubscribedToNewsletter(TRUE);
 		$this->personRepository->add($newPerson);
 			// To check if the user is subcribed user
@@ -182,7 +183,11 @@ class PersonService {
 		$recipientAddress = $newPerson->getPrimaryElectronicAddress()->getIdentifier();
 		$recipientName = $newPerson->getName();
 		$subject = $this->settings['email']['subject'];
-		$message = $this->emailNotificationService->buildEmailMessage($values, 'html', $this->settings['email']['template']['confirmation']['templatePathAndFilename']);
+		if (isset($this->settings['email']['template']['confirmation'][$currentLocale]) === TRUE) {
+			$message = $this->emailNotificationService->buildEmailMessage($values, 'html', $this->settings['email']['template']['confirmation'][$currentLocale]['templatePathAndFilename']);
+		} else {
+			$message = $this->emailNotificationService->buildEmailMessage($values, 'html', $this->settings['email']['template']['confirmation']['templatePathAndFilename']);
+		}
 		$this->emailNotificationService->sendMail($subject, $message, $recipientAddress, $recipientName);
 	}
 

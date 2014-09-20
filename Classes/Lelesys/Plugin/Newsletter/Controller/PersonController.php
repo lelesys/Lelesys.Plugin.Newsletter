@@ -53,6 +53,14 @@ class PersonController extends ActionController {
 	protected $centralService;
 
 	/**
+	 * The configuration content dimension preset source
+	 *
+	 * @Flow\Inject
+	 * @var \TYPO3\Neos\Domain\Service\ConfigurationContentDimensionPresetSource
+	 */
+	protected $configurationContentDimensionPresetSource;
+
+	/**
 	 * New recipient
 	 *
 	 * @return void
@@ -75,13 +83,16 @@ class PersonController extends ActionController {
 		try {
 			$baseUri = $this->request->getHttpRequest()->getBaseUri();
 			$isExistingUser = $this->personService->isExistingUser($newPerson);
+			$pluginNode = $this->request->getInternalArgument('__node');
+			$dimensions = $pluginNode->getContext()->getDimensions();
+			$currentLocale = $this->configurationContentDimensionPresetSource->findPresetByDimensionValues('locales', $dimensions['locales']);
 			if (($isExistingUser !== NULL) && ($isExistingUser === TRUE)) {
 				$header = 'This email address has already subscribed!';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.emailExist');
 				$this->addFlashMessage($newPerson->getPrimaryElectronicAddress()->getIdentifier() . $message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
 				$this->redirect("new");
 			} else {
-				$this->personService->create($newPerson);
+				$this->personService->create($newPerson, $currentLocale['identifier']);
 				$header = 'Thank you for subscribing to our newsletter.';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.subscribed');
 				$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
