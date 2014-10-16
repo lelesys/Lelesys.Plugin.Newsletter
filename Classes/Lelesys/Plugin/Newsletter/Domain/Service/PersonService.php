@@ -182,7 +182,12 @@ class PersonService {
 		$recipientAddress = $newPerson->getPrimaryElectronicAddress()->getIdentifier();
 		$recipientName = $newPerson->getName();
 		$subject = $this->settings['email']['subject'];
-		$message = $this->emailNotificationService->buildEmailMessage($values, 'html', 'SubscribedNotification.html');
+		if (isset($this->settings['email']['template']['confirmation']['templatePathAndFilename'])) {
+			$templatePath = $this->settings['email']['template']['confirmation']['templatePathAndFilename'];
+		} else {
+			$templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/Emails/SubscribedNotification.html';
+		}
+		$message = $this->emailNotificationService->buildEmailMessage($values, 'html', $templatePath);
 		$this->emailNotificationService->sendMail($subject, $message, $recipientAddress, $recipientName);
 	}
 
