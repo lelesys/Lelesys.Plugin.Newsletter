@@ -1,7 +1,8 @@
 <?php
+
 namespace Lelesys\Plugin\Newsletter\Domain\Service;
 
-/*                                                                         *
+/* *
  * This script belongs to the package "Lelesys.Plugin.Newsletter".         *
  *                                                                         *
  * It is free software; you can redistribute it and/or modify it under     *
@@ -109,8 +110,7 @@ class PersonService {
 	 * @return void
 	 */
 	public function unSubscribe($recipient, $code) {
-		if ($recipient !== NULL
-			&& $code !== NULL) {
+		if ($recipient !== NULL && $code !== NULL) {
 			$user = $this->getUserFromIdentifier($recipient);
 			if ($user !== NULL) {
 				$newcode = sha1($user->getPrimaryElectronicAddress()->getIdentifier() . $user->getUuid());
@@ -121,11 +121,11 @@ class PersonService {
 						$user->setSubscribedToNewsletter(FALSE);
 						$this->update($user);
 					} else {
-						$this->delete($user);
+						$this->deleteRecipient($user);
 					}
 					return 1;
 				} elseif ($code !== $newcode || $approved === FALSE) {
-						// Link not valid
+					// Link not valid
 					return 0;
 				}
 			}
@@ -141,7 +141,7 @@ class PersonService {
 	public function isExistingUser(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson) {
 		$existingUsers = $this->personRepository->isExistingUser($newPerson);
 		if (!empty($existingUsers)) {
-				// If register user is extending to Newsletter Person then there is possiblity of getting more recoreds
+			// If register user is extending to Newsletter Person then there is possiblity of getting more recoreds
 			/** @var $existingUser /Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person */
 			foreach ($existingUsers as $existingUser) {
 				if (get_class($existingUser) === 'Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person') {
@@ -175,7 +175,7 @@ class PersonService {
 	public function create(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $newPerson, $currentLocale = NULL) {
 		$newPerson->setSubscribedToNewsletter(TRUE);
 		$this->personRepository->add($newPerson);
-			// To check if the user is subcribed user
+		// To check if the user is subcribed user
 		$code = sha1($newPerson->getPrimaryElectronicAddress()->getIdentifier() . $newPerson->getUuid());
 		$baseUrl = $this->bootstrap->getActiveRequestHandler()->getHttpRequest()->getBaseUri();
 		$values = array('url' => $baseUrl, 'code' => $code, 'user' => $newPerson);
@@ -199,21 +199,18 @@ class PersonService {
 	 * @return interger
 	 */
 	public function confirmSubscription($code, $userIdentifier) {
-		if ($userIdentifier !== NULL
-			&& $code !== NULL) {
+		if ($userIdentifier !== NULL && $code !== NULL) {
 			$user = $this->getUserFromIdentifier($userIdentifier);
 			if ($user !== NULL) {
 				$newcode = sha1($user->getPrimaryElectronicAddress()->getIdentifier() . $user->getUuid());
-				if (($user->getPrimaryElectronicAddress()->isApproved() === FALSE)
-					&& ($code === $newcode)) {
+				if (($user->getPrimaryElectronicAddress()->isApproved() === FALSE) && ($code === $newcode)) {
 					$this->emailApprovalByUser($user);
 					return 1;
 				} elseif ($code !== $newcode) {
-						// Link not valid
+					// Link not valid
 					return 0;
-				} elseif (($user->getPrimaryElectronicAddress()->isApproved() === TRUE)
-					&& ($code === $newcode)) {
-						// already confirmed user
+				} elseif (($user->getPrimaryElectronicAddress()->isApproved() === TRUE) && ($code === $newcode)) {
+					// already confirmed user
 					return 2;
 				}
 			}
@@ -277,6 +274,7 @@ class PersonService {
 	 */
 	public function update(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $person) {
 		$this->personRepository->update($person);
+		$this->persistenceManager->persistAll();
 	}
 
 	/**
@@ -358,7 +356,7 @@ class PersonService {
 		$recipientTotal = array();
 		foreach ($categories as $category) {
 			$recipientList = count($this->personRepository->getRecipientsByNewsletterCategories($category));
-			if($recipientList > 0) {
+			if ($recipientList > 0) {
 				$allRecipients = $this->personRepository->getRecipientsByNewsletterCategories($category);
 				foreach ($allRecipients as $recipientId) {
 					$recipientTotal[] = $recipientId;
@@ -367,7 +365,6 @@ class PersonService {
 		}
 		return $recipientTotal;
 	}
-
 
 	/**
 	 * Gets all approved recipients

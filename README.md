@@ -52,6 +52,10 @@ Usage
 * add the plugin content element "Lelesys Newsletter Node" to the position of your choice.
 
 * this will display content element with plus icon to create new newsletter node.
-The new node will be created under the page. Enter the text to be sent in the newsletter emai
-l
+The new node will be created under the page. Enter the text to be sent in the newsletter email
 * All role Lelesys.Plugin.Newsletter:NewsletterAdmin so that administrator can see all backend modules related to newsletter.
+
+***Note:-**
+	*	Configure cron for command './flow newsletter:sendout' of newsletter plugin
+		-The command './flow newsletter:sendout' will fire through cron 
+		 It will send news letters to subscribers
