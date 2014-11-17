@@ -158,9 +158,9 @@ class NewsletterBuildService {
 		$actionRequest = $httpRequest->createActionRequest();
 		$actionRequest->setArgument('node', $nodeIdentifier);
 		$newActionRequest = $this->router->route($httpRequest);
-		$actionRequest->setControllerPackageKey($newActionRequest->getControllerPackageKey());
-		$actionRequest->setControllerName($newActionRequest->getControllerName());
-		$actionRequest->setControllerActionName($newActionRequest->getControllerActionName());
+		$actionRequest->setControllerPackageKey($newActionRequest['@package']);
+		$actionRequest->setControllerName($newActionRequest['@controller']);
+		$actionRequest->setControllerActionName($newActionRequest['@action']);
 		$actionRequest->setFormat($format);
 		$this->securityContext->setRequest($actionRequest);
 		$response = $this->objectManager->get('\TYPO3\Flow\Http\Response');

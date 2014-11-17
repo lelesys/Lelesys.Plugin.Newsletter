@@ -11,7 +11,7 @@
 		}
 	],
 	"require": {
-		"typo3/neos": "1.1.*",
+		"typo3/neos": "1.2.*",
 		"typo3/swiftmailer": "4.1.5"
 	},
 	"autoload": {

@@ -114,6 +114,7 @@ class EmailLogService {
 			$emailLog->setRecipient($email);
 			$emailLog->setRecipientType(\Lelesys\Plugin\Newsletter\Domain\Model\EmailLog::RECIPIENT_TYPE_STATIC);
 			$this->emailLogRepository->update($emailLog);
+			$this->persistenceManager->persistAll();
 		}
 	}
 
