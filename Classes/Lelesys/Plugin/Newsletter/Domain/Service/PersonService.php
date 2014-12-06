@@ -121,7 +121,7 @@ class PersonService {
 						$user->setSubscribedToNewsletter(FALSE);
 						$this->update($user);
 					} else {
-						$this->delete($user);
+						$this->deleteRecipient($user);
 					}
 					return 1;
 				} elseif ($code !== $newcode || $approved === FALSE) {
