@@ -205,6 +205,7 @@ class NewsletterBuildService {
 				$code = sha1($recipient->getPrimaryElectronicAddress()->getIdentifier() . $recipient->getUuid());
 				$values['recipientId'] = $recipient->getUuid();
 				$values['code'] = $code;
+				$values['recipient'] = $recipient;
 				if ($recipient->getAcceptsHtml() === TRUE) {
 					$contentType = 'text/html';
 					if ($newsletter->getHtmlBody() === NULL) {
