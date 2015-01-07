@@ -305,7 +305,7 @@ class PersonService {
 	/**
 	 * Find recipients subscribed to newsletter
 	 *
-	 * @param boolean $subscribedToNewsletter Subscribed to newsletter
+	 * @param string $subscribedToNewsletter Subscribed to newsletter
 	 * @return mixed
 	 */
 	public function findBySubscribedToNewsletter($subscribedToNewsletter) {

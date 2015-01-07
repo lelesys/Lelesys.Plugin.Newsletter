@@ -69,10 +69,18 @@ class PartyController extends NewsletterManagementController {
 	 * @return void
 	 */
 	public function newAction() {
-		$this->view->assign('recipients', $this->personService->listAllApproved());
+
 	}
 
 	/**
+	 * initialise create
+	 */
+	public function initializeCreateAction() {
+		$this->arguments['newParty']->getPropertyMappingConfiguration()->allowProperties('recipients');
+		$this->arguments['newParty']->getPropertyMappingConfiguration()->forProperty('recipients')->allowAllProperties();
+	}
+
+		/**
 	 * Creates a new group party
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $newParty Party object
@@ -100,9 +108,16 @@ class PartyController extends NewsletterManagementController {
 	 */
 	public function editAction(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party $party) {
 		$this->view->assign('party', $party);
-		$this->view->assign('recipients', $this->personService->listAllApproved());
+		$this->view->assign('selectedRecipients', $party->getRecipients());
 	}
 
+	/**
+	 * initialise update
+	 */
+	public function initializeUpdateAction() {
+		$this->arguments['party']->getPropertyMappingConfiguration()->allowProperties('recipients');
+		$this->arguments['party']->getPropertyMappingConfiguration()->forProperty('recipients')->allowAllProperties();
+	}
 	/**
 	 * Updates group party
 	 *

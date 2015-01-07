@@ -1,6 +1,11 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
 <f:layout name="DefaultBackend" />
 
 <f:section name="Content">
+	<script type="text/javascript">
+		var recipientUrl = '{neos:link.module(path: "newslettermanagement/person", action: "findrecipientbyname")}';
+		var inputName = 'moduleArguments[party][recipients][]';
+	</script>
 	<f:form action="update" object="{party}" objectName="party" id="party">
 		<div class="neos-content neos-container-fluid">
 			<legend>{party.title}</legend>
@@ -10,14 +15,20 @@
 				<f:form.textfield property="title" id="title" class="required" />
 			</div>
 		</div>
-		<f:if condition="{recipients}">
-			<div class="neos-control-group">
-				<label class="neos-control-label" for="recipients"><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></label>
-				<div class="neos-controls">
-					<f:form.select options="{recipients}" optionLabelField="name" property="recipients" id="recipients" multiple="true" value="{party.recipients}"></f:form.select>
-				</div>
+		<div class="neos-control-group">
+			<label class="neos-control-label" for="recipients"><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></label>
+			<div class="neos-controls">
+				<input id="category-recipient">
 			</div>
-		</f:if>
+		</div>
+		<div class="ui-widget">
+			<label class="neos-control-label" for="recipients"><f:translate id="lelesys.plugin.newsletter.newsletterRecipients"></f:translate></label>
+			<div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content">
+				<f:for each="{selectedRecipients}" as="recipient">
+					<div>{recipient.name.fullName}<span class="icon-trash icon-white remove-recipient"></span><input id="{recipient -> f:format.identifier()}" type="hidden" name="moduleArguments[party][recipients][]" value="{recipient -> f:format.identifier()}" /></div>
+				</f:for>
+			</div>
+		</div>
 		<div class="neos-form-actions neos-footer">
 			<f:link.action action="index" class="neos-btn neos-button"><f:translate id="lelesys.plugin.newsletter.cancel"></f:translate></f:link.action>
 			<div class="pull-right">

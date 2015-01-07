@@ -1,3 +1,4 @@
+{namespace s=Lelesys\Plugin\Newsletter\ViewHelpers}
 <f:layout name="DefaultBackend" />
 <f:section name="Content">
 	<div class="row neos-content neos-container-fluid">
@@ -6,25 +7,31 @@
 		<br />
 		<f:if condition="{recipients}">
 			<f:then>
-				<table id="newsletter-dataTable" class="neos-table">
+				<f:form action="index" name="search-recipient" class="newsletter-control-left">
+					<f:form.textfield id="recipient-search-text" name="search" value="{search}"></f:form.textfield>
+					<f:form.submit id="recipient-search-submit" name="recipient-search-submit" value="Search" class="neos-button"></f:form.submit>
+				</f:form>
+				<f:form action="index" name="search-recipient" class="newsletter-control-right">
+					<f:form.select id="recipient-show" name="recipientCount" options="{10:10, 50:50, 100:100}" value="{recipientCount}"></f:form.select>
+				</f:form>
+				<div class="clearfix"></div>
+				<s:backendSort objects="{recipients}" as="sortedRecipient">
+				<table class="neos-table">
 					<thead>
 						<tr>
-							<th><f:translate id="lelesys.plugin.newsletter.name"></f:translate></th>
-							<th>Email confirmation status</th>
+							<th><f:link.action action="index" class="sort-header-underline" addQueryString="true" arguments="{sort: 'name', direction: sorting.oppositeDirection}"><f:translate id="lelesys.plugin.newsletter.name"></f:translate></f:link.action></th>
+							<th><f:link.action action="index" class="sort-header-underline" addQueryString="true" arguments="{sort: 'primaryElectronicAddress.identifier', direction: sorting.oppositeDirection}">Email</f:link.action></th>
 							<th><f:translate id="lelesys.plugin.newsletter.groups"></f:translate></th>
 							<th><f:translate id="lelesys.plugin.newsletter.categories"></f:translate></th>
+							<th><f:link.action action="index" class="sort-header-underline" addQueryString="true" arguments="{sort: 'primaryElectronicAddress.approved', direction: sorting.oppositeDirection}">status</f:link.action></th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-					<f:for each="{recipients}" as="person">
+					<f:widget.paginate objects="{sortedRecipient}" as="paginatedRecipients" configuration="{itemsPerPage: recipientCount, insertAbove: 0, insertBelow: 1, maximumNumberOfLinks: 10}">
+					<f:for each="{paginatedRecipients}" as="person">
 						<tr><td><f:link.action action="show" arguments="{person: person}">{person.name}</f:link.action></td>
-							<td>
-							<f:if condition="{person.primaryElectronicAddress.approved} != 1">
-								<f:then><span class="neos-badge neos-badge-important">Pending</span></f:then>
-								<f:else><span class="neos-badge neos-badge-success">Approved</span></f:else>
-							</f:if>
-							</td>
+						<td>{person.primaryElectronicAddress.identifier}</td>
 							<td>
 								<ul>
 									<f:for each="{person.groups}" as="group">
@@ -40,20 +47,28 @@
 								</ul>
 							</td>
 							<td>
-								<f:link.action action="show" arguments="{person: person}" class="neos-btn neos-button pull-right" title="<f:translate id=\"lelesys.plugin.newsletter.view\"></f:translate>">
-										<i class="icon-info-sign icon-white"></i>
+							<f:if condition="{person.primaryElectronicAddress.approved} != 1">
+								<f:then><span class="neos-badge neos-badge-important">Pending</span></f:then>
+								<f:else><span class="neos-badge neos-badge-success">Approved</span></f:else>
+							</f:if>
+							</td>
+							<td>
+							<f:link.action action="show" arguments="{person: person}" class="neos-btn neos-button pull-right" title="<f:translate id=\"lelesys.plugin.newsletter.view\"></f:translate>">
+								<i class="icon-info-sign icon-white"></i>
 								</f:link.action>
-								<f:link.action action="edit" arguments="{person: person}" class="neos-btn neos-button pull-right" title="<f:translate id=\"lelesys.plugin.newsletter.editTitle\"></f:translate>">
-									<i class="icon-pencil icon-white"></i>
+							<f:link.action action="edit" arguments="{person: person}" class="neos-btn neos-button pull-right" title="<f:translate id=\"lelesys.plugin.newsletter.editTitle\"></f:translate>">
+								<i class="icon-pencil icon-white"></i>
 								</f:link.action>
-								<f:link.action action="delete" arguments="{person: person}" class="neos-btn neos-button pull-right" title="<f:translate id=\"lelesys.plugin.newsletter.deleteTitle\"></f:translate>" onclick="return confirm('<f:translate id=\"lelesys.plugin.newsletter.deleteRecipientAlert\"></f:translate>')">
-									<i class="icon-trash icon-white"></i>
+							<f:link.action action="delete" arguments="{person: person}" class="neos-btn neos-button pull-right" title="<f:translate id=\"lelesys.plugin.newsletter.deleteTitle\"></f:translate>" onclick="return confirm('<f:translate id=\"lelesys.plugin.newsletter.deleteRecipientAlert\"></f:translate>')">
+								<i class="icon-trash icon-white"></i>
 								</f:link.action>
 							</td>
 						</tr>
 					</f:for>
+					</f:widget.paginate>
 					</tbody>
 				</table>
+				</s:backendSort>
 			</f:then>
 			<f:else>
 				<p><f:translate id="lelesys.plugin.newsletter.noRecipient"></f:translate></p>
