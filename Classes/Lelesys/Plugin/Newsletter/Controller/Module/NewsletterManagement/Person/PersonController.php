@@ -74,7 +74,18 @@ class PersonController extends NewsletterManagementController {
 	 * @return void
 	 */
 	public function indexAction() {
-		$this->view->assign('recipients', $this->personService->findBySubscribedToNewsletter(TRUE));
+		$params = $this->request->getArguments();
+		$search = '';
+		$count = 10;
+		if($this->request->hasArgument('recipient-search-submit')) {
+			$search = $this->request->getArgument('search');
+		}
+		if($this->request->hasArgument('recipientCount')) {
+			$count = $this->request->getArgument('recipientCount');
+		}
+		$this->view->assign('recipientCount', $count);
+		$this->view->assign('search', $search);
+		$this->view->assign('recipients', $this->personService->findBySubscribedToNewsletter($search));
 	}
 
 	/**
@@ -176,6 +187,26 @@ class PersonController extends NewsletterManagementController {
 			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
+	}
+
+	/**
+	 * Find recipient
+	 *
+	 * @return void
+	 */
+	public function findRecipientByNameAction() {
+		$param = $this->request->getHttpRequest()->getArguments();
+		$terms = $param['term'];
+		$result = $this->personService->findBySubscribedToNewsletter($terms);
+		$returnArray = array();
+		foreach($result as $recipient) {
+			$a = array();
+			$a['id'] = $recipient->getUuid();
+			$a['label'] = $recipient->getName()->getFullName();
+			$a['value'] = $recipient->getName()->getFullName();
+			$returnArray[] = $a;
+		}
+		echo json_encode($returnArray);exit();
 	}
 
 }

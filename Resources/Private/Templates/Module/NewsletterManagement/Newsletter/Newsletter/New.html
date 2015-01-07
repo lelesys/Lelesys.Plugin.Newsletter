@@ -1,6 +1,11 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
 <f:layout name="DefaultBackend" />
 
 <f:section name="Content">
+	<script type="text/javascript">
+		var recipientUrl = '{neos:link.module(path: "newslettermanagement/person", action: "findrecipientbyname")}';
+		var inputName = 'moduleArguments[newNewsletter][recipients][]';
+	</script>
 	<f:form action="create" objectName="newNewsletter" object="{newNewsletter}" id="newNewsletter" enctype="multipart/form-data">
 		<div class="row neos-content neos-container-fluid">
 			<legend><f:translate id="lelesys.plugin.newsletter.newsletterMgmt"></f:translate></legend>
@@ -61,14 +66,14 @@
 				<div class="neos-control-group">
 					<label class="neos-control-label" for="encoding"><f:translate id="lelesys.plugin.newsletter.encode"></f:translate></label>
 					<div class="neos-controls">
-						<f:form.select options="{utf8: 'utf8'}" property="encoding"></f:form.select>
+						<f:form.select options="{utf-8: 'utf-8'}" property="encoding"></f:form.select>
 					</div>
 				</div>
 
 				<div class="neos-control-group">
 					<label class="neos-control-label" for="characterSet"><f:translate id="lelesys.plugin.newsletter.characterSet"></f:translate></label>
 					<div class="neos-controls">
-						<f:form.select options="{utf8: 'utf8'}" property="characterSet"></f:form.select>
+						<f:form.select options="{utf-8: 'utf-8'}" property="characterSet"></f:form.select>
 					</div>
 				</div>
 
@@ -95,14 +100,17 @@
 						</div>
 					</div>
 				</f:if>
-				<f:if condition="{recipients}">
-					<div class="neos-control-group">
-						<label class="neos-control-label" for="recipients"><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></label>
-						<div class="neos-controls">
-							<f:form.select options="{recipients}" optionLabelField="name" property="recipients" id="recipients" multiple="true"></f:form.select>
-						</div>
+				<div class="neos-control-group">
+					<label class="neos-control-label" for="recipients"><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></label>
+					<div class="neos-controls">
+						<input id="category-recipient">
 					</div>
-				</f:if>
+				</div>
+				<div class="ui-widget">
+					<label class="neos-control-label" for="recipients"><f:translate id="lelesys.plugin.newsletter.newsletterRecipients"></f:translate></label>
+					<div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content">
+					</div>
+				</div>
 				<f:if condition="{contentNode}">
 					<f:then>
 						<div class="neos-control-group">
