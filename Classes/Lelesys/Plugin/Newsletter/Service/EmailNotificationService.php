@@ -57,8 +57,12 @@ class EmailNotificationService {
 	 * @return void
 	 */
 	public function sendNewsletterMail($fromEmail, $fromName, $replyEmail, $replyName, $subject, $priority = NULL, $characterSet = NULL, $attachments = NULL, $contentType = NULL, $recipientAddress, $message = NULL, $bccAddresses = array(), $ccAddresses = array()) {
-		$bccAddresses = $this->settings['email']['bccAddresses'];
-		$ccAddresses = $this->settings['email']['ccAddresses'];
+		if(isset($this->settings['email']['ccAddresses']) && $this->settings['email']['ccAddresses'] != '') {
+			$ccAddresses = $this->settings['email']['ccAddresses'];
+		}
+		if(isset($this->settings['email']['bccAddresses']) && $this->settings['email']['bccAddresses'] != '') {
+			$bccAddresses = $this->settings['email']['bccAddresses'];
+		}
 		$mail = new Message();
 		$mail->setFrom(array($fromEmail => $fromName))
 				->setSubject($subject)

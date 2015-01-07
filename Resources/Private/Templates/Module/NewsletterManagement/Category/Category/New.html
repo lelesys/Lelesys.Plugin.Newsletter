@@ -1,6 +1,11 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
 <f:layout name="DefaultBackend" />
 
 <f:section name="Content">
+	<script type="text/javascript">
+		var recipientUrl = '{neos:link.module(path: "newslettermanagement/person", action: "findrecipientbyname")}';
+		var inputName = 'moduleArguments[recipients][reciver][]';
+	</script>
 	<f:form action="create" objectName="newCategory" enctype="multipart/form-data" id="newsletterCategory" arguments="{recipients: recipient}">
 		<div class="row neos-content neos-container-fluid">
 			<f:render partial="Module\FlashMessage" arguments="{severityName: flashmessage}" />
@@ -12,14 +17,20 @@
 					<f:form.textfield property="title" id="title" class="required"/>
 				</div>
 			</div>
-			<f:if condition="{recipients}">
-				<div class="neos-control-group">
+			<div class="neos-control-group">
 					<label class="neos-control-label" for="recipients"><f:translate id="lelesys.plugin.newsletter.recipients"></f:translate></label>
 					<div class="neos-controls">
-						<f:form.select options="{recipients}" optionLabelField="name" name="recipients[reciver]" id="recipients" multiple="true"></f:form.select>
+						<input id="category-recipient">
 					</div>
+			</div>
+			<div class="ui-widget">
+				<label class="neos-control-label" for="recipients"><f:translate id="lelesys.plugin.newsletter.newsletterRecipients"></f:translate></label>
+				<div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content">
+					<f:for each="{selectedRecipients}" as="recipient">
+						<div>{recipient.name.fullName}<span class="icon-trash icon-white remove-recipient"></span><input id="{recipient -> f:format.identifier()}" type="hidden" name="moduleArguments[recipients][reciver][]" value="{recipient -> f:format.identifier()}" /></div>
+					</f:for>
 				</div>
-			</f:if>
+			</div>
 		</div>
 		<div class="neos-form-actions neos-footer">
 			<f:link.action action="index" class="neos-btn neos-button"><f:translate id="lelesys.plugin.newsletter.cancel"></f:translate></f:link.action>

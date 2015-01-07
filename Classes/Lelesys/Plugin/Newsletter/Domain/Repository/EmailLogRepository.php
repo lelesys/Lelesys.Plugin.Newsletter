@@ -42,14 +42,16 @@ class EmailLogRepository extends \TYPO3\Flow\Persistence\Doctrine\Repository {
 	 */
 	public function findAllUndeliveredMailsLogs($limit, $offset) {
 		$query = $this->createQuery();
-		return $query->matching(
+		$query->matching(
 								$query->logicalOr(
 										$query->equals('isFailed', '1'), $query->equals('isSent', '0')
 								)
-						)
-						->setLimit($limit)
-						->setOffset($offset)
-						->execute();
+						);
+		if($limit != 0) {
+			$query->setLimit($limit);
+			$query->setOffset($offset);
+		}
+		return $query->execute();
 	}
 
 	/**

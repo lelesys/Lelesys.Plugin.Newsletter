@@ -49,8 +49,10 @@ TYPO3:
             additionalResources:
               javaScripts:
                 - resource://Lelesys.Plugin.Newsletter/Public/js/jquery.dataTables.min.js
+                - resource://Lelesys.Plugin.Newsletter/Public/js/backend/jquery-ui.js
               styleSheets:
                 - resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/dataTable.css
+                - resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/jquery-ui.css
 
           category:
             label: Newsletter Category
@@ -62,6 +64,11 @@ TYPO3:
               index:
                 label: 'Newsletter category list'
                 title: 'See of category newsletter categories'
+            additionalResources:
+              javaScripts:
+                - resource://Lelesys.Plugin.Newsletter/Public/js/backend/jquery-ui.js
+              styleSheets:
+                - resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/jquery-ui.css
           person:
             label: Recipients
             controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Person\PersonController'
@@ -88,6 +95,11 @@ TYPO3:
               index:
                 label: 'Group List'
                 title: 'See list of group'
+            additionalResources:
+              javaScripts:
+                - resource://Lelesys.Plugin.Newsletter/Public/js/backend/jquery-ui.js
+              styleSheets:
+                - resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/jquery-ui.css
           email:
             label: Queue
             controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\EmailLog\EmailLogController'

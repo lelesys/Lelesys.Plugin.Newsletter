@@ -91,5 +91,26 @@ class PersonRepository extends Repository {
 		return $query;
 	}
 
+	/**
+	 * Find all subscribed user with search
+	 *
+	 * @param string $keyword Searched string
+	 * @return array The query result
+	 */
+	public function findBySubscribedToNewsletter($keyword) {
+		$query = new \TYPO3\Flow\Persistence\Doctrine\Query($this->objectType);
+		$queryBuilder = \TYPO3\Flow\Reflection\ObjectAccess::getProperty($query, 'queryBuilder', TRUE);
+		$queryBuilder->resetDQLParts();
+		$queryBuilder->select('p')
+				->from('\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person', 'p')
+				->where('p.subscribedToNewsletter = 1');
+		if($keyword != '') {
+			$queryBuilder->innerJoin('p.name', 'pn')
+						 ->innerJoin('p.primaryElectronicAddress', 'pe')
+						 ->andWhere('pn.firstName like \'%' . $keyword . '%\' OR pn.lastName like \'%' . $keyword . '%\' OR pn.fullName like \'%' . $keyword . '%\'');
+		}
+		return $query->execute();
+	}
+
 }
 ?>

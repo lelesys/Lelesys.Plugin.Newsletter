@@ -98,7 +98,6 @@ class NewsletterController extends NewsletterManagementController {
 		$this->view->assign('contentNode', $this->newsletterService->getAllNewsletterChildNodes());
 		$this->view->assign('recipientGroups', $this->abstractGroupService->listAll());
 		$this->view->assign('categories', $this->categoryService->listAll());
-		$this->view->assign('recipients', $this->personService->listAllApproved());
 	}
 
 	/**
@@ -154,6 +153,14 @@ class NewsletterController extends NewsletterManagementController {
 	}
 
 	/**
+	 * initialise create
+	 */
+	public function initializeCreateAction() {
+		$this->arguments['newNewsletter']->getPropertyMappingConfiguration()->allowProperties('recipients');
+		$this->arguments['newNewsletter']->getPropertyMappingConfiguration()->forProperty('recipients')->allowAllProperties();
+	}
+
+	/**
 	 * Creates a new newsletter
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newNewsletter Newsletter object
@@ -184,8 +191,16 @@ class NewsletterController extends NewsletterManagementController {
 		$this->view->assign('categories', $this->categoryService->listAll());
 		$this->view->assign('recipientGroups', $this->abstractGroupService->listAll());
 		$this->view->assign('contentNode', $this->newsletterService->getAllNewsletterChildNodes());
-		$this->view->assign('recipients', $this->personService->listAllApproved());
+		$this->view->assign('selectedRecipients', $newsletter->getRecipients());
 		$this->view->assign('newsletter', $newsletter);
+	}
+
+	/**
+	 * initialise update
+	 */
+	public function initializeUpdateAction() {
+		$this->arguments['newsletter']->getPropertyMappingConfiguration()->allowProperties('recipients');
+		$this->arguments['newsletter']->getPropertyMappingConfiguration()->forProperty('recipients')->allowAllProperties();
 	}
 
 	/**

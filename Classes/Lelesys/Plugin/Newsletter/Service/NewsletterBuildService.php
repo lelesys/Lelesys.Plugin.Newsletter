@@ -158,9 +158,9 @@ class NewsletterBuildService {
 		$actionRequest = $httpRequest->createActionRequest();
 		$actionRequest->setArgument('node', $nodeIdentifier);
 		$newActionRequest = $this->router->route($httpRequest);
-		$actionRequest->setControllerPackageKey($newActionRequest['@package']);
-		$actionRequest->setControllerName($newActionRequest['@controller']);
-		$actionRequest->setControllerActionName($newActionRequest['@action']);
+		$actionRequest->setControllerPackageKey($newActionRequest->getControllerPackageKey());
+		$actionRequest->setControllerName($newActionRequest->getControllerName());
+		$actionRequest->setControllerActionName($newActionRequest->getControllerActionName());
 		$actionRequest->setFormat($format);
 		$this->securityContext->setRequest($actionRequest);
 		$response = $this->objectManager->get('\TYPO3\Flow\Http\Response');
@@ -205,6 +205,7 @@ class NewsletterBuildService {
 				$code = sha1($recipient->getPrimaryElectronicAddress()->getIdentifier() . $recipient->getUuid());
 				$values['recipientId'] = $recipient->getUuid();
 				$values['code'] = $code;
+				$values['recipient'] = $recipient;
 				if ($recipient->getAcceptsHtml() === TRUE) {
 					$contentType = 'text/html';
 					if ($newsletter->getHtmlBody() === NULL) {
