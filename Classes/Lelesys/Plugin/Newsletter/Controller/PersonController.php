@@ -85,7 +85,7 @@ class PersonController extends ActionController {
 			$isExistingUser = $this->personService->isExistingUser($newPerson);
 			$pluginNode = $this->request->getInternalArgument('__node');
 			$dimensions = $pluginNode->getContext()->getDimensions();
-			$currentLocale = $this->configurationContentDimensionPresetSource->findPresetByDimensionValues('locales', $dimensions['locales']);
+			$currentLocale = $this->configurationContentDimensionPresetSource->findPresetByDimensionValues('language', $dimensions['language']);
 			if (($isExistingUser !== NULL) && ($isExistingUser === TRUE)) {
 				$header = 'This email address has already subscribed!';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.emailExist');

@@ -34,7 +34,7 @@ class EmailLogController extends NewsletterManagementController {
 	 * @return void
 	 */
 	public function indexAction() {
-		$this->view->assign('emailLogs', $this->emailLogService->listAll());
+		$this->view->assign('emailLogs', $this->emailLogService->listAllUndeliveredMailsLogs(0,0));
 	}
 
 	/**

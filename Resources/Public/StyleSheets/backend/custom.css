@@ -22,3 +22,54 @@ select[multiple]{
 .attachment {
 	float: left;
 }
+.newsletter-control-left {
+	float: left
+}
+.newsletter-control-right {
+	float: right
+}
+#pagination {
+    text-align: center;
+    margin: 20px
+}
+#pagination a, .pagination strong {
+    background: #00b5ff;
+    display: inline-block;
+    margin-right: 3px;
+    padding: 4px 12px;
+    text-decoration: none;
+	line-height: 1.5em;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+#pagination a:hover {
+    background-color: #BEBEBE;
+    color: #fff;
+}
+#pagination a:active {
+	background: rgba(190, 190, 190, 0.75);
+}
+#pagination strong {
+    color: #fff;
+    background-color: #00b5ff;
+}
+.ui-widget div{
+	clear: both;
+}
+.ui-widget .remove-recipient {
+	float: right;
+}
+#log {
+	height: 200px;
+	width: 300px;
+	overflow: auto;
+	padding: 3px;
+}
+.ui-autocomplete-loading  {
+	background-image: url("/_Resources/Static/Packages/Lelesys.Plugin.Newsletter/Images/Icons/ui-anim_basic_16x16.gif");
+	background-repeat: no-repeat;
+	background-position-x: 185px;
+	background-position-y: 9px;
+}

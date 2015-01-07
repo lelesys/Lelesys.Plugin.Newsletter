@@ -69,6 +69,11 @@ jQuery(document).ready(function() {
 		});
 		jQuery(inputVal).insertAfter('.attachments:last');
 	});
+
+	jQuery("#recipient-show").change(function() {
+		$(this).closest('form').trigger('submit');
+	});
+
 });
 
 var notEmptyValidation = function(selector, message) {

@@ -67,7 +67,7 @@ class CategoryController extends NewsletterManagementController {
 	 * @return void
 	 */
 	public function newAction() {
-		$this->view->assign('recipients', $this->personService->listAllApproved());
+
 	}
 
 	/**
@@ -123,7 +123,6 @@ class CategoryController extends NewsletterManagementController {
 	 */
 	public function editAction(\Lelesys\Plugin\Newsletter\Domain\Model\Category $category) {
 		$this->view->assign('category', $category);
-		$this->view->assign('recipients', $this->personService->listAllApproved());
 		$recipients = $this->personService->listAllSelectedCategory($category);
 		$this->view->assign('selectedRecipients', $recipients);
 	}
