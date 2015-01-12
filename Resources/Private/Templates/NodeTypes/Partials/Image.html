@@ -16,7 +16,7 @@
 										 }" allowUpScaling="{allowUpScaling}" />
 						</f:then>
 						<f:else>
-							<img src="<baseUrl:BaseUrl></baseUrl:BaseUrl>{f:uri.resource(resource: image.resource)}" caption="" />
+							<img src="{f:uri.resource(resource: image.resource)}" caption="" />
 						</f:else>
 					</f:security.ifAccess>
 
