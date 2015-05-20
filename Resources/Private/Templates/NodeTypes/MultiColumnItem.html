@@ -1,5 +1,5 @@
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
-<f:security.ifAccess resource="TYPO3_Neos_Backend_GeneralAccess">
+<f:security.ifAccess privilegeTarget="TYPO3.Neos:Backend.GeneralAccess">
 	<f:then>
 		<div{attributes -> f:format.raw()}>
 			{columnContent -> f:format.raw()}
