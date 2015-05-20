@@ -3,7 +3,7 @@
 <f:section name="Title"></f:section>
 
 <f:section name="Content">
-	<f:security.ifAccess resource="TYPO3_Neos_Backend_GeneralAccess">
+	<f:security.ifAccess privilegeTarget="TYPO3.Neos:Backend.GeneralAccess">
 		<f:then>
 			<div class="alert alert-success">
 				<p><f:translate id="lelesys.plugin.newsletter.confirmation">Newsletter Subscription Confirmation Plugin</f:translate></p>
