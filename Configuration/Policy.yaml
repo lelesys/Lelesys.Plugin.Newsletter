@@ -59,9 +59,6 @@ roles:
         privilegeTarget: Lelesys_Plugin_Newsletter_Frontend
         permission: GRANT
       -
-        privilegeTarget: Lelesys_Plugin_Newsletter_Person_Frontend
-        permission: GRANT
-      -
         privilegeTarget: Lelesys_Plugin_Newsletter_AbstractGroup_Frontend
         permission: GRANT
       -
