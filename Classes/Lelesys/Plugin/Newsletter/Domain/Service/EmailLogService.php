@@ -89,6 +89,7 @@ class EmailLogService {
 	 */
 	public function update(\Lelesys\Plugin\Newsletter\Domain\Model\EmailLog $emailLog) {
 		$this->emailLogRepository->update($emailLog);
+		$this->persistenceManager->persistAll();
 	}
 
 	/**
