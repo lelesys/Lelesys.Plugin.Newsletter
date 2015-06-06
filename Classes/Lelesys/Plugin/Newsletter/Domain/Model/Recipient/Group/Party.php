@@ -62,7 +62,7 @@ class Party extends \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\AbstractGr
 	 * @return void
 	 */
 	public function addRecipient(\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person $recipient) {
-		$this->recipient->add($recipient);
+		$this->recipients->add($recipient);
 	}
 
 	/**
