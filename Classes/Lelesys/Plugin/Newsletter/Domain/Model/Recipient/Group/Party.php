@@ -27,6 +27,12 @@ class Party extends \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\AbstractGr
 	 */
 	protected $recipients;
 
+
+	public function __construct() {
+		parent::__construct();
+		$this->recipients = new \Doctrine\Common\Collections\ArrayCollection();
+	}
+
 	/**
 	 * Gets recipients
 	 *
