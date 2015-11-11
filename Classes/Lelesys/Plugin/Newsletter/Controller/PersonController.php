@@ -85,6 +85,11 @@ class PersonController extends ActionController {
 			$isExistingUser = $this->personService->isExistingUser($newPerson);
 			$pluginNode = $this->request->getInternalArgument('__node');
 			$dimensions = $pluginNode->getContext()->getDimensions();
+			if (!isset($dimensions['language'])) {
+				$currentLocale = array('identifier' => NULL);
+			} else {
+				$currentLocale = $this->configurationContentDimensionPresetSource->findPresetByDimensionValues('language', $dimensions['language']);
+			}
 			$currentLocale = $this->configurationContentDimensionPresetSource->findPresetByDimensionValues('language', $dimensions['language']);
 			if (($isExistingUser !== NULL) && ($isExistingUser === TRUE)) {
 				$header = 'This email address has already subscribed!';
