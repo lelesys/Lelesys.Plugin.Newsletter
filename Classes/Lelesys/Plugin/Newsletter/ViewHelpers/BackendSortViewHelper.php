@@ -18,6 +18,10 @@ class BackendSortViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHel
 	 * @var boolean
 	 */
 	protected $escapeOutput = FALSE;
+	/**
+	 * @var boolean
+	 */
+	protected $escapeChildren = FALSE;
 
 	/**
 	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
