@@ -13,6 +13,11 @@ use TYPO3\Flow\Annotations as Flow;
  * @Flow\scope("prototype")
  */
 class BackendSortViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+	
+	/**
+	 * @var boolean
+	 */
+	protected $escapeOutput = FALSE;
 
 	/**
 	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
