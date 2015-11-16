@@ -32,6 +32,11 @@ class BackendSortViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHel
 	protected $queryBuilder;
 
 	/**
+	 * @var boolean
+	 */
+	protected $escapeOutput = FALSE;
+
+	/**
 	 *
 	 * @param mixed $objects
 	 * @param string $as
