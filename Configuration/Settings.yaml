@@ -7,11 +7,13 @@ Lelesys:
           mailFormat: 'txt'
       email:
         subject: 'Confirm Subscription'
-        replyTo: 'gauri.shirodkar@lelesys.com'
-        senderEmail: 'info@lelesys.com'
-        senderName: 'Lelesys'
-        ccAddresses: 'sushant.chari@lelesys.com'
-        bccAddresses: 'sushant.chari@lelesys.com'
+        replyTo: ''
+        senderEmail: 'no-reply@yourdomain'
+        senderName: 'Your Orgazisation name'
+        # These are optional. You can add your email addresses as per requirement
+        ccAddresses: ''
+        bccAddresses: ''
+        # Base url of your site
         baseUrl : 'http://demosite.local.com/'
         unSubscribeLink: 'lelesys.plugin.newsletter/person/unsubscribeconfirmation'
         template:
