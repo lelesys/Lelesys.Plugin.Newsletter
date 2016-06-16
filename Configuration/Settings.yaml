@@ -7,6 +7,7 @@ Lelesys:
           mailFormat: 'txt'
       email:
         subject: 'Confirm Subscription'
+        # You can add your email address as per requirement
         replyTo: ''
         senderEmail: 'no-reply@yourdomain'
         senderName: 'Your Organization name'

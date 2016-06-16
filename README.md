@@ -25,6 +25,7 @@ include: resource://Lelesys.Plugin.Newsletter/Private/TypoScript/Root.ts2
 		  email:
 			admin: ' '
 			subject: 'Confirm Subscription'
+			# You can add your email address as per requirement
 			replyTo: ' '
 			senderEmail: 'no-reply@yourdomain'
 			senderName: 'Your Organization name'
