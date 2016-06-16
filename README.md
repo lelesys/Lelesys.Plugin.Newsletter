@@ -23,7 +23,7 @@ include: resource://Lelesys.Plugin.Newsletter/Private/TypoScript/Root.ts2
 	  Plugin:
 		Newsletter:
 		  email:
-			admin: 'info@lelesys.com'
+			admin: 'no-reply@yourdomain'
 			subject: 'Confirm Subscription'
 			# You can add your email address as per requirement
 			replyTo: ''
