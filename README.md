@@ -23,13 +23,15 @@ include: resource://Lelesys.Plugin.Newsletter/Private/TypoScript/Root.ts2
 	  Plugin:
 		Newsletter:
 		  email:
-			admin: 'info@lelesys.com'
+			admin: 'no-reply@yourdomain'
 			subject: 'Confirm Subscription'
-			replyTo: 'gauri.shirodkar@lelesys.com'
-			senderEmail: 'info@lelesys.com'
-			senderName: 'Lelesys'
-			ccAddresses: 'sushant.chari@lelesys.com'
-			bccAddresses: 'sushant.chari@lelesys.com'
+			# You can add your email address as per requirement
+			replyTo: ''
+			senderEmail: 'no-reply@yourdomain'
+			senderName: 'Your Organization name'
+			# These are optional. You can add your email addresses as per requirement
+			ccAddresses: ''
+			bccAddresses: ''
 			baseUrl : 'Base url of your site(e.g. http://demosite.local.com')
           flashMessage:
             packageKey: 'Lelesys.Plugin.Newsletter'
@@ -57,5 +59,5 @@ The new node will be created under the page. Enter the text to be sent in the ne
 
 ***Note:-**
 	*	Configure cron for command './flow newsletter:sendout' of newsletter plugin
-		-The command './flow newsletter:sendout' will fire through cron 
+		-The command './flow newsletter:sendout' will fire through cron
 		 It will send news letters to subscribers
