@@ -23,15 +23,15 @@ include: resource://Lelesys.Plugin.Newsletter/Private/TypoScript/Root.ts2
 	  Plugin:
 		Newsletter:
 		  email:
-			admin: ' '
+			admin: 'no-reply@yourdomain'
 			subject: 'Confirm Subscription'
 			# You can add your email address as per requirement
 			replyTo: ' '
 			senderEmail: 'no-reply@yourdomain'
 			senderName: 'Your Organization name'
 			# These are optional. You can add your email addresses as per requirement
-			ccAddresses: ' '
-			bccAddresses: ' '
+			ccAddresses: ''
+			bccAddresses: ''
 			baseUrl : 'Base url of your site(e.g. http://demosite.local.com')
           flashMessage:
             packageKey: 'Lelesys.Plugin.Newsletter'
