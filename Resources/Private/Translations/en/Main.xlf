@@ -539,6 +539,10 @@
 				<source>Inactive</source>
 				<target>Inactive</target>
 			</trans-unit>
+			<trans-unit id="lelesys.plugin.newsletter.sendToAll" approved="yes">
+				<source>Send to all subscribed users</source>
+				<target>Send to all subscribed users</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

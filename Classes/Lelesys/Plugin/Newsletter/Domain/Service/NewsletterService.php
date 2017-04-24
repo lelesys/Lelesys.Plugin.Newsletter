@@ -243,21 +243,26 @@ class NewsletterService {
 	 */
 	public function sendEmail(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter) {
 		$allArrays['list'] = $allArrays['personEmailList'] = array();
-		$categoryRecipients = $this->personService->findByRecipientsByCategories($newsletter);
-		if($categoryRecipients) {
-			$allArrays = $this->sendNewsletterEmailToRecipients($newsletter, $categoryRecipients);
-		}
-
-		$allArrays = $this->sendNewsletterEmailToRecipients($newsletter, $newsletter->getRecipients(), $allArrays['list'], $allArrays['personEmailList']);
 		$list = $staticLists = array();
-		foreach ($newsletter->getRecipientGroups() as $group) {
-			if ($group instanceof \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party) {
-				$recipeints = $group->getRecipients();
-				$personListArray = $this->sendNewsletterEmailToRecipients($newsletter, $recipeints, $allArrays['list'], $allArrays['personEmailList']);
-				$allArrays['list'] = $personListArray['list'];
-				$allArrays['personEmailList'] = $personListArray['personEmailList'];
-			} else {
-				$staticLists = array_merge($staticLists, \TYPO3\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients()));
+		// send to all subscribed users and ignore the categories or recipient group selection for this newsletter
+		if ($newsletter->getSendToAll()) {
+			$allArrays = $this->sendNewsletterEmailToRecipients($newsletter, $this->personService->listAllApproved());
+		} else {
+			$categoryRecipients = $this->personService->findByRecipientsByCategories($newsletter);
+			if($categoryRecipients) {
+				$allArrays = $this->sendNewsletterEmailToRecipients($newsletter, $categoryRecipients);
+			}
+
+			$allArrays = $this->sendNewsletterEmailToRecipients($newsletter, $newsletter->getRecipients(), $allArrays['list'], $allArrays['personEmailList']);
+			foreach ($newsletter->getRecipientGroups() as $group) {
+				if ($group instanceof \Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party) {
+					$recipeints = $group->getRecipients();
+					$personListArray = $this->sendNewsletterEmailToRecipients($newsletter, $recipeints, $allArrays['list'], $allArrays['personEmailList']);
+					$allArrays['list'] = $personListArray['list'];
+					$allArrays['personEmailList'] = $personListArray['personEmailList'];
+				} else {
+					$staticLists = array_merge($staticLists, \TYPO3\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients()));
+				}
 			}
 		}
 
