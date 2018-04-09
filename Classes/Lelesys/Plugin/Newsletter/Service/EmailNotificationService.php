@@ -11,7 +11,7 @@ namespace Lelesys\Plugin\Newsletter\Service;
 
 use Neos\Flow\Annotations as Flow;
 use TYPO3\Fluid\View\StandaloneView;
-use TYPO3\SwiftMailer\Message;
+use Neos\SwiftMailer\Message;
 
 /**
  * Service to send Newsletter mails
