@@ -1,5 +1,5 @@
 # Newsletter Subscribtion plugin
-prototype(Lelesys.Plugin.Newsletter:Subscribtion) < prototype(TYPO3.Neos:Plugin)
+prototype(Lelesys.Plugin.Newsletter:Subscribtion) < prototype(Neos.Neos:Plugin)
 prototype(Lelesys.Plugin.Newsletter:Subscribtion) {
 	package = 'Lelesys.Plugin.Newsletter'
 	controller = 'Person'
@@ -7,7 +7,7 @@ prototype(Lelesys.Plugin.Newsletter:Subscribtion) {
 }
 
 # Newsletter Subscribtion Confirmation plugin
-prototype(Lelesys.Plugin.Newsletter:SubscribtionConfirmation) < prototype(TYPO3.Neos:Plugin)
+prototype(Lelesys.Plugin.Newsletter:SubscribtionConfirmation) < prototype(Neos.Neos:Plugin)
 prototype(Lelesys.Plugin.Newsletter:SubscribtionConfirmation) {
 	package = 'Lelesys.Plugin.Newsletter'
 	controller = 'Person'
@@ -15,13 +15,13 @@ prototype(Lelesys.Plugin.Newsletter:SubscribtionConfirmation) {
 }
 
 # For Html format request
-prototype(Lelesys.Plugin.Newsletter:NewsletterHtml) < prototype(TYPO3.Neos:Page)
+prototype(Lelesys.Plugin.Newsletter:NewsletterHtml) < prototype(Neos.Neos:Page)
 prototype(Lelesys.Plugin.Newsletter:NewsletterHtml) {
 	body {
 		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/Newsletter/Newsletter.html'
 		sectionName = 'body'
 		content {
-			main = TYPO3.Neos:PrimaryContent
+			main = Neos.Neos:PrimaryContent
 			main {
 				nodePath = 'main'
 			}
@@ -30,7 +30,7 @@ prototype(Lelesys.Plugin.Newsletter:NewsletterHtml) {
 
 	# optimize html output for newsletters
 
-	prototype(TYPO3.Neos:ContentCollection)  {
+	prototype(Neos.Neos:ContentCollection)  {
 		attributes.class >
 	}
 	prototype(Neos.NodeTypes:Image) {
@@ -73,14 +73,14 @@ prototype(Lelesys.Plugin.Newsletter:NewsletterPlainText) {
 		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/Newsletter/Newsletter.txt'
 		sectionName = 'body'
 		content {
-			main = TYPO3.Neos:PrimaryContent
+			main = Neos.Neos:PrimaryContent
 			main {
 				nodePath = 'main'
 			}
 		}
 	}
 
-	prototype(TYPO3.Neos:ContentCollection)  {
+	prototype(Neos.Neos:ContentCollection)  {
 		attributes.class >
 	}
 
