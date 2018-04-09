@@ -1,22 +1,27 @@
 {
-	"name": "lelesys/plugin-newsletter",
-	"description": "Newsletter plugin for TYPO3 Neos.",
-	"license": "GPL-3.0-or-later",
-	"type": "neos-plugin",
-	"authors": [
-		{
-			"name": "Lelesys Infotech Pvt Ltd, India",
-			"email": "typo3neos@lelesys.com",
-			"homepage": "http://www.lelesys.com"
-		}
-	],
-	"require": {
-		"neos/neos": "^3.3",
-		"neos/swiftmailer": "~6.0"
-	},
-	"autoload": {
-		"psr-0": {
-			"Lelesys\\Plugin\\Newsletter": "Classes"
-		}
-	}
+    "name": "lelesys/plugin-newsletter",
+    "description": "Newsletter plugin for TYPO3 Neos.",
+    "license": "GPL-3.0-or-later",
+    "type": "neos-plugin",
+    "authors": [
+        {
+            "name": "Lelesys Infotech Pvt Ltd, India",
+            "email": "typo3neos@lelesys.com",
+            "homepage": "http://www.lelesys.com"
+        }
+    ],
+    "require": {
+        "neos/neos": "^3.3",
+        "neos/swiftmailer": "~6.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Lelesys\\Plugin\\Newsletter": "Classes"
+        }
+    },
+    "extra": {
+        "applied-flow-migrations": [
+            "TYPO3.FLOW3-201201261636"
+        ]
+    }
 }
