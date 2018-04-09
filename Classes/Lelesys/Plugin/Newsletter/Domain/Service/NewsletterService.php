@@ -76,7 +76,7 @@ class NewsletterService {
 	 * ResourceManager
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Resource\ResourceManager
+	 * @var \TYPO3\Flow\ResourceManagement\ResourceManager
 	 */
 	protected $resourceManager;
 
@@ -392,7 +392,7 @@ class NewsletterService {
 		if (empty($attachments) === FALSE) {
 			foreach ($attachments as $attachment) {
 				if (!empty($attachment['name'])) {
-					$resource = $this->propertyMapper->convert($attachment, 'TYPO3\Flow\Resource\Resource');
+					$resource = $this->propertyMapper->convert($attachment, 'TYPO3\Flow\ResourceManagement\PersistentResource');
 					$file = new \TYPO3\Media\Domain\Model\Document($resource);
 					$file->setTitle($attachment['name']);
 					$this->assetRepository->add($file);

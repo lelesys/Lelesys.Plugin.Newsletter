@@ -61,7 +61,7 @@ class NewsletterBuildService {
 	 * ResourceManager
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Resource\ResourceManager
+	 * @var \TYPO3\Flow\ResourceManagement\ResourceManager
 	 */
 	protected $resourceManager;
 
