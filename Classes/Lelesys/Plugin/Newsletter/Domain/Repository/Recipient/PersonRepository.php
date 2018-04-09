@@ -99,7 +99,7 @@ class PersonRepository extends Repository {
 	 */
 	public function findBySubscribedToNewsletter($keyword) {
 		$query = new \Neos\Flow\Persistence\Doctrine\Query($this->objectType);
-		$queryBuilder = \Neos\Flow\Reflection\ObjectAccess::getProperty($query, 'queryBuilder', TRUE);
+		$queryBuilder = \Neos\Utility\ObjectAccess::getProperty($query, 'queryBuilder', TRUE);
 		$queryBuilder->resetDQLParts();
 		$queryBuilder->select('p')
 				->from('\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person', 'p')

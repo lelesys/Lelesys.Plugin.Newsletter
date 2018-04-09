@@ -200,7 +200,7 @@ class NewsletterService {
 				$receipientsByGroupParty[] = array($group->getTitle(), $group->getRecipients());
 			} else {
 				$recipientList = array();
-				$staticList = \Neos\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients());
+				$staticList = \Neos\Utility\Arrays::trimExplode(',', $group->getRecipients());
 				foreach ($staticList as $recipient) {
 					$recipientList[] = $recipient;
 				}
@@ -261,7 +261,7 @@ class NewsletterService {
 					$allArrays['list'] = $personListArray['list'];
 					$allArrays['personEmailList'] = $personListArray['personEmailList'];
 				} else {
-					$staticLists = array_merge($staticLists, \Neos\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients()));
+					$staticLists = array_merge($staticLists, \Neos\Utility\Arrays::trimExplode(',', $group->getRecipients()));
 				}
 			}
 		}

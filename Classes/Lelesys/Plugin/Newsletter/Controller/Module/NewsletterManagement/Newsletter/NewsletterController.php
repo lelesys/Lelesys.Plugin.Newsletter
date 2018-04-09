@@ -114,7 +114,7 @@ class NewsletterController extends NewsletterManagementController {
 					$this->newsletterService->sendTestEmail($adminEmail, $newsletter);
 					$header = 'Test email sent';
 					$message = $this->centralService->translate('lelesys.plugin.newsletter.testEmailSent');
-					$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_OK);
+					$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 				} else {
 					$recipientGroups = $newsletter->getRecipientGroups();
 					$count = 0;
@@ -127,7 +127,7 @@ class NewsletterController extends NewsletterManagementController {
 					if ((($count < 1) && (count($newsletter->getRecipients()) < 1 ) && count($categoryRecipients) < 1) && !$newsletter->getSendToAll()) {
 							$header = 'Newsletter does not have any subscribers';
 							$message = $this->centralService->translate('lelesys.plugin.newsletter.noUsers');
-							$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_ERROR);
+							$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 						}
 						else {
 							$newsletter->setHtmlBody(NULL);
@@ -136,18 +136,18 @@ class NewsletterController extends NewsletterManagementController {
 							$this->newsletterService->sendEmail($newsletter);
 							$header = 'Added in Email Log';
 							$message = $this->centralService->translate('lelesys.plugin.newsletter.addedLog');
-							$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_OK);
+							$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 						}
 				}
 			} else {
 				$header = 'No page selected for newsletter.Can not send email.';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.nopage');
-				$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_ERROR);
+				$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 			}
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Cannot send newsetter at this time!!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.sendEmail');
-			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
 	}
@@ -172,11 +172,11 @@ class NewsletterController extends NewsletterManagementController {
 			$this->newsletterService->create($newNewsletter, $attachments);
 			$header = 'Created a new newsletter';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.add.newsletter');
-			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_OK);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Cannot create newsletter at this time!!';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.addNewsletter');
-			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
 	}
@@ -217,11 +217,11 @@ class NewsletterController extends NewsletterManagementController {
 			$this->newsletterService->update($newsletter, $attachments);
 			$header = 'Updated newsletter';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.update.newsletter');
-			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_OK);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Cannot update newsletter at this time!!';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.updateNewsletter');
-			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
 	}
@@ -237,11 +237,11 @@ class NewsletterController extends NewsletterManagementController {
 			$this->newsletterService->delete($newsletter);
 			$header = 'Deleted newsletter.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.delete.newsletter');
-			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_OK);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Cannot delete newsletter at this time!!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.deleteNewsletter');
-			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
 	}
@@ -258,11 +258,11 @@ class NewsletterController extends NewsletterManagementController {
 			$this->newsletterService->deleteAttachment($newsletter, $attachment);
 			$header = 'Deleted attachment';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.deleteAttachmentSuccessful');
-			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_OK);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Could not delete attachment';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.deleteAttachmentFail');
-			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('edit', '', '', array('newsletter' => $newsletter));
 	}
