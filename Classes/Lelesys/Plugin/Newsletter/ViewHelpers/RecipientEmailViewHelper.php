@@ -12,7 +12,7 @@ use Neos\Flow\Annotations as Flow;
  *
  * @Flow\scope("prototype")
  */
-class RecipientEmailViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class RecipientEmailViewHelper extends \Neos\FluidAdaptor\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * EmailLog Service

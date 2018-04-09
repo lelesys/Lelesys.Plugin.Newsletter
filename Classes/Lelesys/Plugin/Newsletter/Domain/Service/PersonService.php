@@ -12,7 +12,7 @@ namespace Lelesys\Plugin\Newsletter\Domain\Service;
 
 use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person;
-use \TYPO3\Fluid\View\StandaloneView;
+use \Neos\FluidAdaptor\View\StandaloneView;
 
 /**
  * The Person Service

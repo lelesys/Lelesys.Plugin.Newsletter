@@ -10,7 +10,7 @@ namespace Lelesys\Plugin\Newsletter\Service;
  *                                                                            */
 
 use Neos\Flow\Annotations as Flow;
-use TYPO3\Fluid\View\StandaloneView;
+use Neos\FluidAdaptor\View\StandaloneView;
 use Neos\SwiftMailer\Message;
 
 /**

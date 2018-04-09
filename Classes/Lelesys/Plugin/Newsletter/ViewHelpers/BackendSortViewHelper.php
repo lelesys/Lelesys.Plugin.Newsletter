@@ -12,7 +12,7 @@ use Neos\Flow\Annotations as Flow;
  * A view helper for sorting query result
  * @Flow\scope("prototype")
  */
-class BackendSortViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class BackendSortViewHelper extends \Neos\FluidAdaptor\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * @var \Neos\Flow\Configuration\ConfigurationManager

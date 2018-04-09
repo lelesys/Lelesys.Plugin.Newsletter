@@ -8,7 +8,7 @@ use Neos\Flow\Annotations as Flow;
  *
  * @Flow\scope("prototype")
  */
-class BaseUrlViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class BaseUrlViewHelper extends \Neos\FluidAdaptor\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Settings

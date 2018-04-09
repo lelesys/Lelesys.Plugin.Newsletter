@@ -14,7 +14,7 @@ use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\Newsletter;
 use Neos\ContentRepository\Domain\Model\NodeTemplate;
 use Neos\ContentRepository\Domain\Model\PersistentNodeInterface;
-use TYPO3\Fluid\View\StandaloneView;
+use Neos\FluidAdaptor\View\StandaloneView;
 use Neos\ContentRepository\Domain\Model\Node;
 use Neos\Flow\Http\Request as Request;
 
