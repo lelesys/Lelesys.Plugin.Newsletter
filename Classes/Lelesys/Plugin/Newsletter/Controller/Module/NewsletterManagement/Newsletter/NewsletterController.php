@@ -91,7 +91,7 @@ class NewsletterController extends NewsletterManagementController {
 	/**
 	 * New newsletter
 	 *
-	 * @param \TYPO3\TYPO3CR\Domain\Model\Node $currentNode Current Node
+	 * @param \Neos\ContentRepository\Domain\Model\Node $currentNode Current Node
 	 * @return void
 	 */
 	public function newAction() {

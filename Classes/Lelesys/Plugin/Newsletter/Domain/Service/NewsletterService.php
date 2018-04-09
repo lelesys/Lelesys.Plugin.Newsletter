@@ -11,10 +11,10 @@ namespace Lelesys\Plugin\Newsletter\Domain\Service;
 
 use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\Newsletter;
-use TYPO3\TYPO3CR\Domain\Model\NodeTemplate;
-use TYPO3\TYPO3CR\Domain\Model\PersistentNodeInterface;
+use Neos\ContentRepository\Domain\Model\NodeTemplate;
+use Neos\ContentRepository\Domain\Model\PersistentNodeInterface;
 use TYPO3\Fluid\View\StandaloneView;
-use TYPO3\TYPO3CR\Domain\Model\Node;
+use Neos\ContentRepository\Domain\Model\Node;
 use Neos\Flow\Http\Request as Request;
 
 /**
@@ -52,7 +52,7 @@ class NewsletterService {
 	 * NodeData Repository
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\TYPO3CR\Domain\Repository\NodeDataRepository
+	 * @var \Neos\ContentRepository\Domain\Repository\NodeDataRepository
 	 */
 	protected $nodeDataRepository;
 
@@ -115,7 +115,7 @@ class NewsletterService {
 	 * Contextfactory
 	 *
 	 * @Flow\Inject
-	 * @var TYPO3\TYPO3CR\Domain\Service\ContextFactoryInterface
+	 * @var Neos\ContentRepository\Domain\Service\ContextFactoryInterface
 	 */
 	protected $contextFactory;
 
@@ -347,7 +347,7 @@ class NewsletterService {
 	/**
 	 * Gets all newsletter childnodes
 	 *
-	 * @return \TYPO3\TYPO3CR\Domain\Model\NodeData $nodes
+	 * @return \Neos\ContentRepository\Domain\Model\NodeData $nodes
 	 */
 	public function getNewsletterChildNodes() {
 		$nodes = $this->nodeDataRepository->findByNodeType('Lelesys.Plugin.Newsletter:Newsletter')->toArray();
@@ -363,7 +363,7 @@ class NewsletterService {
 	/**
 	 * Get all newsletter childnodes
 	 *
-	 * @return \TYPO3\TYPO3CR\Domain\Model\NodeData $nodes
+	 * @return \Neos\ContentRepository\Domain\Model\NodeData $nodes
 	 */
 	public function getAllNewsletterChildNodes() {
 		$nodes = $this->nodeDataRepository->findByNodeType('Lelesys.Plugin.Newsletter:Newsletter')->toArray();
@@ -507,7 +507,7 @@ class NewsletterService {
 	 * Gets all content node
 	 *
 	 * @param string $contentNode Node identifier
-	 * @return \TYPO3\TYPO3CR\Domain\Model\NodeData $newsletterNode
+	 * @return \Neos\ContentRepository\Domain\Model\NodeData $newsletterNode
 	 */
 	public function getContentNode($contentNode = NULL) {
 		if ($contentNode !== NULL) {

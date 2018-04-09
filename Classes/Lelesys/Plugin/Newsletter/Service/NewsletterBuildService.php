@@ -12,10 +12,10 @@ namespace Lelesys\Plugin\Newsletter\Service;
 
 use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\Newsletter;
-use TYPO3\TYPO3CR\Domain\Model\NodeTemplate;
-use TYPO3\TYPO3CR\Domain\Model\PersistentNodeInterface;
+use Neos\ContentRepository\Domain\Model\NodeTemplate;
+use Neos\ContentRepository\Domain\Model\PersistentNodeInterface;
 use TYPO3\Fluid\View\StandaloneView;
-use TYPO3\TYPO3CR\Domain\Model\Node;
+use Neos\ContentRepository\Domain\Model\Node;
 use Neos\Flow\Http\Request as Request;
 
 /**
@@ -45,7 +45,7 @@ class NewsletterBuildService {
 	 * NodeData Repository
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\TYPO3CR\Domain\Repository\NodeDataRepository
+	 * @var \Neos\ContentRepository\Domain\Repository\NodeDataRepository
 	 */
 	protected $nodeDataRepository;
 
@@ -76,7 +76,7 @@ class NewsletterBuildService {
 	 * Contextfactory
 	 *
 	 * @Flow\Inject
-	 * @var TYPO3\TYPO3CR\Domain\Service\ContextFactoryInterface
+	 * @var Neos\ContentRepository\Domain\Service\ContextFactoryInterface
 	 */
 	protected $contextFactory;
 
@@ -263,7 +263,7 @@ class NewsletterBuildService {
 	/**
 	 * Create Context
 	 *
-	 * @return \TYPO3\TYPO3CR\Domain\Service\ContextInterface
+	 * @return \Neos\ContentRepository\Domain\Service\ContextInterface
 	 */
 	public function createContext() {
 		return $this->contextFactory->create(array(
