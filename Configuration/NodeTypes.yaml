@@ -2,22 +2,22 @@
 
 'Lelesys.Plugin.Newsletter:Subscribtion':
   superTypes:
-    'TYPO3.Neos:Plugin': true
+    'Neos.Neos:Plugin': true
   ui:
     label: 'Newsletter Subscription Form'
     group: plugins
 'Lelesys.Plugin.Newsletter:Newsletter':
   superTypes:
-    'TYPO3.Neos:Document': true
+    'Neos.Neos:Document': true
   ui:
     label: 'Lelesys Newsletter Node'
     icon: icon-file
   childNodes:
     main:
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
 'Lelesys.Plugin.Newsletter:SubscribtionConfirmation':
   superTypes:
-    'TYPO3.Neos:Plugin': true
+    'Neos.Neos:Plugin': true
   ui:
     label: 'Newsletter Subscribtion Confirmation'
     group: plugins

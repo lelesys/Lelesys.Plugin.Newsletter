@@ -25,7 +25,7 @@ Lelesys:
       flashMessage:
         packageKey: Lelesys.Plugin.Newsletter
       noOfEmails: '100'
-TYPO3:
+Neos:
   Neos:
     modules:
       newslettermanagement:

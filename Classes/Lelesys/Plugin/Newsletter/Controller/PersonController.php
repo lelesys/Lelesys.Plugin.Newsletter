@@ -56,7 +56,7 @@ class PersonController extends ActionController {
 	 * The configuration content dimension preset source
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Neos\Domain\Service\ConfigurationContentDimensionPresetSource
+	 * @var \Neos\Neos\Domain\Service\ConfigurationContentDimensionPresetSource
 	 */
 	protected $configurationContentDimensionPresetSource;
 

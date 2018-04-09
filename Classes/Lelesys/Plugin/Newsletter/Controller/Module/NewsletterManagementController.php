@@ -16,7 +16,7 @@ use Neos\Flow\Annotations as Flow;
  *
  * @Flow\Scope("singleton")
  */
-class NewsletterManagementController extends \TYPO3\Neos\Controller\Module\AbstractModuleController {
+class NewsletterManagementController extends \Neos\Neos\Controller\Module\AbstractModuleController {
 
 }
 ?>
