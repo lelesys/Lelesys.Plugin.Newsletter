@@ -66,9 +66,9 @@ root.newsletterHtml {
 }
 
 # For txt format request
-prototype(Lelesys.Plugin.Newsletter:NewsletterPlainText) < prototype(TYPO3.TypoScript:Array)
+prototype(Lelesys.Plugin.Newsletter:NewsletterPlainText) < prototype(Neos.Fusion:Array)
 prototype(Lelesys.Plugin.Newsletter:NewsletterPlainText) {
-	body = TYPO3.TypoScript:Template
+	body = Neos.Fusion:Template
 	body {
 		templatePath = 'resource://Lelesys.Plugin.Newsletter/Private/Templates/Newsletter/Newsletter.txt'
 		sectionName = 'body'
