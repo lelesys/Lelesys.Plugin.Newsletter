@@ -124,7 +124,7 @@ class NewsletterController extends NewsletterManagementController {
 					}
 					$categoryRecipients = $this->personService->findByRecipientsByCategories($newsletter);
 					$count += count($categoryRecipients);
-					if (($count < 1) && (count($newsletter->getRecipients()) < 1 ) && count($categoryRecipients) < 1) {
+					if ((($count < 1) && (count($newsletter->getRecipients()) < 1 ) && count($categoryRecipients) < 1) && !$newsletter->getSendToAll()) {
 							$header = 'Newsletter does not have any subscribers';
 							$message = $this->centralService->translate('lelesys.plugin.newsletter.noUsers');
 							$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);

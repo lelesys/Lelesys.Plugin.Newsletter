@@ -172,6 +172,11 @@ class Newsletter {
 	protected $recipients;
 
 	/**
+	 * @var boolean
+	 */
+	protected $sendToAll;
+
+	/**
 	 * Constructor
 	 *
 	 * @return void
@@ -182,6 +187,7 @@ class Newsletter {
 		$this->recipientGroups = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->attachments = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->sendToAll = false;
 	}
 
 	/**
@@ -574,6 +580,20 @@ class Newsletter {
 	 */
 	public function setStatus($status) {
 		$this->status = $status;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getSendToAll() {
+		return $this->sendToAll;
+	}
+
+	/**
+	 * @param bool $sendToAll
+	 */
+	public function setSendToAll($sendToAll) {
+		$this->sendToAll = $sendToAll;
 	}
 
 	/**

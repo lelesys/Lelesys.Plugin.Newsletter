@@ -84,6 +84,12 @@
 					</div>
 					<span><f:link.external uri="javascript:void(0)" class="add-more" title="<f:translate id=\"lelesys.plugin.newsletter.addAttachmentTitle\"></f:translate>"><i class="icon-plus"/></i></f:link.external></span>
 				</div>
+				<div class="neos-control-group">
+					<label class="neos-control-label" for="sendToAll"><f:translate id="lelesys.plugin.newsletter.sendToAll"></f:translate></label>
+					<div class="neos-controls">
+						<f:form.checkbox property="sendToAll" value="1" id="sendToAll" />
+					</div>
+				</div>
 				<f:if condition="{categories}">
 					<div class="neos-control-group">
 						<label class="neos-control-label" for="categories"><f:translate id="lelesys.plugin.newsletter.category"></f:translate></label>

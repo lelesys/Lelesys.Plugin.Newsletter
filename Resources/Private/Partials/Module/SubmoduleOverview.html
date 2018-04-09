@@ -3,7 +3,7 @@
 	<f:for each="{moduleConfiguration.submodules}" key="submoduleIdentifier" as="submoduleConfiguration">
 		<f:if condition="{submoduleConfiguration.resource}">
 			<f:then>
-				<f:security.ifAccess resource="{submoduleConfiguration.resource}">
+				 <f:security.ifAccess privilegeTarget="{submoduleConfiguration.resource}">
 					<f:render section="submodule" arguments="{_all}" />
 				</f:security.ifAccess>
 			</f:then>
