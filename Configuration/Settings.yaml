@@ -1,22 +1,20 @@
 # Newsletter plugin sender email configuration
+
 Lelesys:
   Plugin:
     Newsletter:
       recipient:
         static:
-          mailFormat: 'txt'
+          mailFormat: txt
       email:
         subject: 'Confirm Subscription'
-        # You can add your email address as per requirement
         replyTo: ''
-        senderEmail: 'no-reply@yourdomain'
+        senderEmail: no-reply@yourdomain
         senderName: 'Your Organization name'
-        # These are optional. You can add your email addresses as per requirement
         ccAddresses: ''
         bccAddresses: ''
-        # Base url of your site
-        baseUrl : 'http://demosite.local.com/'
-        unSubscribeLink: 'lelesys.plugin.newsletter/person/unsubscribeconfirmation'
+        baseUrl: 'http://demosite.local.com/'
+        unSubscribeLink: lelesys.plugin.newsletter/person/unsubscribeconfirmation
         template:
           html:
             templatePathAndFilename: 'resource://Lelesys.Plugin.Newsletter/Private/Templates/Emails/Newsletter.html'
@@ -25,112 +23,105 @@ Lelesys:
           confirmation:
             templatePathAndFilename: 'resource://Lelesys.Plugin.Newsletter/Private/Templates/Emails/SubscribedNotification.html'
       flashMessage:
-        packageKey: 'Lelesys.Plugin.Newsletter'
+        packageKey: Lelesys.Plugin.Newsletter
       noOfEmails: '100'
-
-# Backend modules configuration
 TYPO3:
   Neos:
     modules:
       newslettermanagement:
         label: 'Newsletter Management'
-        controller: '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagementController'
+        controller: \Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagementController
         description: 'You can configure newsletter here'
-        icon: 'icon-briefcase'
-        resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement'
+        icon: icon-briefcase
         submodules:
           newsletter:
             label: Newsletter
-            controller: 'Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Newsletter\NewsletterController'
+            controller: Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Newsletter\NewsletterController
             description: 'You can configure newsletter here.'
-            icon: 'icon-archive'
-            resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Newsletter'
+            icon: icon-archive
             actions:
               index:
                 label: 'Newsletter list'
                 title: 'Newsletter list'
             additionalResources:
               javaScripts:
-                - resource://Lelesys.Plugin.Newsletter/Public/js/jquery.dataTables.min.js
-                - resource://Lelesys.Plugin.Newsletter/Public/js/backend/jquery-ui.js
+                - 'resource://Lelesys.Plugin.Newsletter/Public/js/jquery.dataTables.min.js'
+                - 'resource://Lelesys.Plugin.Newsletter/Public/js/backend/jquery-ui.js'
               styleSheets:
-                - resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/dataTable.css
-                - resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/jquery-ui.css
-
+                - 'resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/dataTable.css'
+                - 'resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/jquery-ui.css'
+            privilegeTarget: Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Newsletter
           category:
-            label: Newsletter Category
-            controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Category\CategoryController'
+            label: 'Newsletter Category'
+            controller: \Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Category\CategoryController
             description: 'You can configure newsletter categories here.'
-            icon: 'icon-archive'
-            resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Category'
+            icon: icon-archive
             actions:
               index:
                 label: 'Newsletter category list'
                 title: 'See of category newsletter categories'
             additionalResources:
               javaScripts:
-                - resource://Lelesys.Plugin.Newsletter/Public/js/backend/jquery-ui.js
+                - 'resource://Lelesys.Plugin.Newsletter/Public/js/backend/jquery-ui.js'
               styleSheets:
-                - resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/jquery-ui.css
+                - 'resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/jquery-ui.css'
+            privilegeTarget: Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Category
           person:
             label: Recipients
-            controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Person\PersonController'
+            controller: \Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Person\PersonController
             description: 'You can configure recipients here.'
-            icon: 'icon-archive'
-            resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Person'
+            icon: icon-archive
             actions:
               index:
                 label: 'Recipient List'
                 title: 'See list of recipients'
             additionalResources:
               javaScripts:
-                - resource://Lelesys.Plugin.Newsletter/Public/js/jquery.dataTables.min.js
+                - 'resource://Lelesys.Plugin.Newsletter/Public/js/jquery.dataTables.min.js'
               styleSheets:
-                - resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/dataTable.css
-
+                - 'resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/dataTable.css'
+            privilegeTarget: Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Person
           party:
-            label: Subscriber Group
-            controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Party\PartyController'
+            label: 'Subscriber Group'
+            controller: \Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Party\PartyController
             description: 'You can configure group for subcribed users here'
-            icon: 'icon-archive'
-            resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Party'
+            icon: icon-archive
             actions:
               index:
                 label: 'Group List'
                 title: 'See list of group'
             additionalResources:
               javaScripts:
-                - resource://Lelesys.Plugin.Newsletter/Public/js/backend/jquery-ui.js
+                - 'resource://Lelesys.Plugin.Newsletter/Public/js/backend/jquery-ui.js'
               styleSheets:
-                - resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/jquery-ui.css
+                - 'resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/jquery-ui.css'
+            privilegeTarget: Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Party
           email:
             label: Queue
-            controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\EmailLog\EmailLogController'
+            controller: \Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\EmailLog\EmailLogController
             description: 'Email Queue'
-            icon: 'icon-archive'
-            resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Email'
+            icon: icon-archive
             actions:
               index:
                 label: 'Email Queue'
                 title: 'Email Queue'
             additionalResources:
               javaScripts:
-                - resource://Lelesys.Plugin.Newsletter/Public/js/jquery.dataTables.min.js
+                - 'resource://Lelesys.Plugin.Newsletter/Public/js/jquery.dataTables.min.js'
               styleSheets:
-                - resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/dataTable.css
-
+                - 'resource://Lelesys.Plugin.Newsletter/Public/StyleSheets/backend/dataTable.css'
+            privilegeTarget: Lelesys_Plugin_Newsletter_Module_NewsletterManagement_Email
           staticlist:
             label: Static
-            controller:  '\Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\StaticList\StaticListController'
+            controller: \Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\StaticList\StaticListController
             description: 'Create recipients statically'
-            icon: 'icon-archive'
-            resource: 'Lelesys_Plugin_Newsletter_Module_NewsletterManagement_StaticList'
+            icon: icon-archive
             actions:
               index:
                 label: 'Static List'
                 title: 'Static List'
-
+            privilegeTarget: Lelesys_Plugin_Newsletter_Module_NewsletterManagement_StaticList
+        privilegeTarget: Lelesys_Plugin_Newsletter_Module_NewsletterManagement
     typoScript:
-      # autoInclude TS2 for Lelesys.Plugin.Newsletter :
       autoInclude:
-        'Lelesys.Plugin.Newsletter': TRUE
+        Lelesys.Plugin.Newsletter: true
