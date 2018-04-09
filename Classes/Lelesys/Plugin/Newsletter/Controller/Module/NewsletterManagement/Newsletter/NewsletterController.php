@@ -250,10 +250,10 @@ class NewsletterController extends NewsletterManagementController {
 	 * Delete newsletter attachment
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
-	 * @param \TYPO3\Media\Domain\Model\Document $attachment
+	 * @param \Neos\Media\Domain\Model\Document $attachment
 	 * @return void
 	 */
-	public function deleteAttachmentAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, \TYPO3\Media\Domain\Model\Document $attachment) {
+	public function deleteAttachmentAction(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, \Neos\Media\Domain\Model\Document $attachment) {
 		try {
 			$this->newsletterService->deleteAttachment($newsletter, $attachment);
 			$header = 'Deleted attachment';

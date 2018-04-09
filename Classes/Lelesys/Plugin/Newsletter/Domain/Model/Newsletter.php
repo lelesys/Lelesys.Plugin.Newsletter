@@ -122,7 +122,7 @@ class Newsletter {
 	/**
 	 * Attachments
 	 *
-	 * @var \Doctrine\Common\Collections\Collection<\TYPO3\Media\Domain\Model\Document>
+	 * @var \Doctrine\Common\Collections\Collection<\Neos\Media\Domain\Model\Document>
 	 * @ORM\ManyToMany(cascade={"detach"})
 	 * @ORM\Column(nullable=true)
 	 */
@@ -421,20 +421,20 @@ class Newsletter {
 	/**
 	 * Adds Attachments
 	 *
-	 * @param \TYPO3\Media\Domain\Model\Document $attachment Attachments
+	 * @param \Neos\Media\Domain\Model\Document $attachment Attachments
 	 * @return void
 	 */
-	public function addAttachment(\TYPO3\Media\Domain\Model\Document $attachment) {
+	public function addAttachment(\Neos\Media\Domain\Model\Document $attachment) {
 		$this->attachments->add($attachment);
 	}
 
 	/**
 	 * Removes Attachments
 	 *
-	 * @param \TYPO3\Media\Domain\Model\Document $attachment Attachments
+	 * @param \Neos\Media\Domain\Model\Document $attachment Attachments
 	 * @return void
 	 */
-	public function removeAttachment(\TYPO3\Media\Domain\Model\Document $attachment) {
+	public function removeAttachment(\Neos\Media\Domain\Model\Document $attachment) {
 		$this->attachments->removeElement($attachment);
 	}
 

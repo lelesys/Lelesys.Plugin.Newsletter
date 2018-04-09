@@ -100,7 +100,7 @@ class NewsletterService {
 	 * Asset repository
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Media\Domain\Repository\AssetRepository
+	 * @var \Neos\Media\Domain\Repository\AssetRepository
 	 */
 	protected $assetRepository;
 
@@ -393,7 +393,7 @@ class NewsletterService {
 			foreach ($attachments as $attachment) {
 				if (!empty($attachment['name'])) {
 					$resource = $this->propertyMapper->convert($attachment, 'Neos\Flow\ResourceManagement\PersistentResource');
-					$file = new \TYPO3\Media\Domain\Model\Document($resource);
+					$file = new \Neos\Media\Domain\Model\Document($resource);
 					$file->setTitle($attachment['name']);
 					$this->assetRepository->add($file);
 					$newNewsletter->addAttachment($file);
@@ -520,10 +520,10 @@ class NewsletterService {
 	 * Delete attachments of the newsletter
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
-	 * @param \TYPO3\Media\Domain\Model\Document $attachment Attachment object
+	 * @param \Neos\Media\Domain\Model\Document $attachment Attachment object
 	 * @return void
 	 */
-	public function deleteAttachment(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, \TYPO3\Media\Domain\Model\Document $attachment) {
+	public function deleteAttachment(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, \Neos\Media\Domain\Model\Document $attachment) {
 		$newsletter->removeAttachment($attachment);
 		$this->update($newsletter);
 		$this->assetRepository->remove($attachment);
