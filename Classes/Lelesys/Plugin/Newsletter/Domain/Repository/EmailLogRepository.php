@@ -27,7 +27,7 @@ class EmailLogRepository extends \Neos\Flow\Persistence\Doctrine\Repository {
 	 * @return array
 	 */
 	public function getRecipientEmail($identifier) {
-		$dql = 'SELECT pe.identifier FROM \TYPO3\Party\Domain\Model\Person p inner join p.primaryElectronicAddress pe where p.Persistence_Object_Identifier= \'' . $identifier . '\'';
+		$dql = 'SELECT pe.identifier FROM \Neos\Party\Domain\Model\Person p inner join p.primaryElectronicAddress pe where p.Persistence_Object_Identifier= \'' . $identifier . '\'';
 		$query = $this->entityManager->createQuery($dql);
 		return $query->execute();
 	}

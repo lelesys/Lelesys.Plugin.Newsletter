@@ -221,7 +221,7 @@ class PersonService {
 	 * Get the user object from given identifier
 	 *
 	 * @param string $userIdentifier User identifier
-	 * @return \TYPO3\Party\Domain\Model\Person
+	 * @return \Neos\Party\Domain\Model\Person
 	 */
 	public function getUserFromIdentifier($userIdentifier) {
 		return $this->personRepository->findByIdentifier($userIdentifier);
@@ -240,7 +240,7 @@ class PersonService {
 	/**
 	 * Email approval by user
 	 *
-	 * @param \TYPO3\Party\Domain\Model\Person $user User
+	 * @param \Neos\Party\Domain\Model\Person $user User
 	 * @return void
 	 */
 	public function emailApprovalByUser($user) {
@@ -253,7 +253,7 @@ class PersonService {
 	 * Send Email
 	 *
 	 * @param string $url
-	 * @param \TYPO3\Party\Domain\Model\Person $user User
+	 * @param \Neos\Party\Domain\Model\Person $user User
 	 * @param string $template Template name
 	 * @param string $subject Email subject
 	 * @return void
