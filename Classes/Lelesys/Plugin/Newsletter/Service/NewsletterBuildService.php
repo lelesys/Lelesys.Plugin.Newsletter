@@ -10,13 +10,13 @@ namespace Lelesys\Plugin\Newsletter\Service;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\Newsletter;
 use TYPO3\TYPO3CR\Domain\Model\NodeTemplate;
 use TYPO3\TYPO3CR\Domain\Model\PersistentNodeInterface;
 use TYPO3\Fluid\View\StandaloneView;
 use TYPO3\TYPO3CR\Domain\Model\Node;
-use TYPO3\Flow\Http\Request as Request;
+use Neos\Flow\Http\Request as Request;
 
 /**
  * Newsletter Build Service
@@ -61,7 +61,7 @@ class NewsletterBuildService {
 	 * ResourceManager
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\ResourceManagement\ResourceManager
+	 * @var \Neos\Flow\ResourceManagement\ResourceManager
 	 */
 	protected $resourceManager;
 
@@ -84,7 +84,7 @@ class NewsletterBuildService {
 	 * Inject ConfigurationManager
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
+	 * @var \Neos\Flow\Configuration\ConfigurationManager
 	 */
 	protected $configurationManager;
 
@@ -92,7 +92,7 @@ class NewsletterBuildService {
 	 * Inject RouterInterface
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Mvc\Routing\RouterInterface
+	 * @var \Neos\Flow\Mvc\Routing\RouterInterface
 	 */
 	protected $router;
 
@@ -100,7 +100,7 @@ class NewsletterBuildService {
 	 * Inject Dispatcher
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Mvc\Dispatcher
+	 * @var \Neos\Flow\Mvc\Dispatcher
 	 */
 	protected $dispatcher;
 
@@ -108,7 +108,7 @@ class NewsletterBuildService {
 	 * The security conntext
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Security\Context
+	 * @var \Neos\Flow\Security\Context
 	 */
 	protected $securityContext;
 
@@ -116,7 +116,7 @@ class NewsletterBuildService {
 	 * Inject ObjectManagerInterface
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\ObjectManagement\ObjectManagerInterface
+	 * @var \Neos\Flow\ObjectManagement\ObjectManagerInterface
 	 */
 	protected $objectManager;
 
@@ -151,9 +151,9 @@ class NewsletterBuildService {
 		$contextFactory = $this->createContext();
 		$node = new Node($nodeData, $contextFactory);
 		$nodeIdentifier = $node->getPath();
-		$routesConfiguration = $this->configurationManager->getConfiguration(\TYPO3\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_ROUTES);
+		$routesConfiguration = $this->configurationManager->getConfiguration(\Neos\Flow\Configuration\ConfigurationManager::CONFIGURATION_TYPE_ROUTES);
 		$this->router->setRoutesConfiguration($routesConfiguration);
-		$uri = new \TYPO3\Flow\Http\Uri($baseUrl);
+		$uri = new \Neos\Flow\Http\Uri($baseUrl);
 		$httpRequest = Request::create($uri);
 		$actionRequest = $httpRequest->createActionRequest();
 		$actionRequest->setArgument('node', $nodeIdentifier);
@@ -163,7 +163,7 @@ class NewsletterBuildService {
 		$actionRequest->setControllerActionName($newActionRequest['@action']);
 		$actionRequest->setFormat($format);
 		$this->securityContext->setRequest($actionRequest);
-		$response = $this->objectManager->get('\TYPO3\Flow\Http\Response');
+		$response = $this->objectManager->get('\Neos\Flow\Http\Response');
 		$this->dispatcher->dispatch($actionRequest, $response);
 		$response->makeStandardsCompliant($httpRequest);
 		$output = $response->getContent();

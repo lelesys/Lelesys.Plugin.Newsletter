@@ -9,7 +9,7 @@ namespace Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Email
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagementController;
 use Lelesys\Plugin\Newsletter\Domain\Model\EmailLog;
 

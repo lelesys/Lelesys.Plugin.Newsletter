@@ -9,7 +9,7 @@ namespace Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Perso
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagementController;
 use Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person;
 
@@ -121,17 +121,17 @@ class PersonController extends NewsletterManagementController {
 			if (($isExistingUser !== NULL) && ($isExistingUser === TRUE)) {
 				$header = 'This email address has already subscribed!';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.emailExist');
-				$this->addFlashMessage('' . $newPerson->getPrimaryElectronicAddress()->getIdentifier() . $message . '', $header , \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+				$this->addFlashMessage('' . $newPerson->getPrimaryElectronicAddress()->getIdentifier() . $message . '', $header , \Neos\Flow\Error\Message::SEVERITY_ERROR);
 			} else {
 				$this->personService->create($newPerson);
 				$header = 'Created a new recipient.';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.add.recipient');
-				$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+				$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_OK);
 			}
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Cannot create recipient at this time!!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.addRecipient');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
 	}
@@ -159,11 +159,11 @@ class PersonController extends NewsletterManagementController {
 			$this->personService->update($person);
 			$header = 'Updated the recipient info.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.update.recipient');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_OK);
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Cannot update recipient at this time!!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.updateRecipient');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
 	}
@@ -180,11 +180,11 @@ class PersonController extends NewsletterManagementController {
 			$this->personService->deleteRecipient($person);
 			$header = 'Deleted the recipient.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.recipient.delete');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_OK);
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Cannot deleted recipient at this time!!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.deleteRecipient');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
 	}

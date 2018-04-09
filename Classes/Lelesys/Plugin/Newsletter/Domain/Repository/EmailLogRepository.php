@@ -9,16 +9,16 @@ namespace Lelesys\Plugin\Newsletter\Domain\Repository;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Repository;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\Repository;
 
 /**
  * The EmailLog Repository
  *
  * @Flow\Scope("singleton")
  */
-class EmailLogRepository extends \TYPO3\Flow\Persistence\Doctrine\Repository {
-	protected $defaultOrderings = array('timeCreated' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_DESCENDING);
+class EmailLogRepository extends \Neos\Flow\Persistence\Doctrine\Repository {
+	protected $defaultOrderings = array('timeCreated' => \Neos\Flow\Persistence\QueryInterface::ORDER_DESCENDING);
 
 	/**
 	 * Finds recipient email address
@@ -38,7 +38,7 @@ class EmailLogRepository extends \TYPO3\Flow\Persistence\Doctrine\Repository {
 	 *
 	 * @param integer $limit Limit of emails
 	 * @param integer $offset Offset of emails
-	 * @return TYPO3\Flow\Persistence\QueryResultInterface The query result
+	 * @return Neos\Flow\Persistence\QueryResultInterface The query result
 	 */
 	public function findAllUndeliveredMailsLogs($limit, $offset) {
 		$query = $this->createQuery();

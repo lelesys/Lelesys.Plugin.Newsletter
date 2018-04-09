@@ -1,7 +1,7 @@
 # Policy configuration for Lelesys.Plugin.Newsletter package
 
 privilegeTargets:
-  'TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+  'Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
 
     Lelesys.Plugin.Newsletter:NewsletterController:
       matcher: method(Lelesys\Plugin\Newsletter\Controller\NewsletterController->createNewsletterAction())
@@ -65,7 +65,7 @@ roles:
         privilegeTarget: Lelesys_Plugin_Newsletter_AbstractGroup_Frontend
         permission: GRANT
 
-  'TYPO3.Flow:Everybody':
+  'Neos.Flow:Everybody':
     privileges:
       -
         privilegeTarget: Lelesys_Plugin_Newsletter_Person_Frontend

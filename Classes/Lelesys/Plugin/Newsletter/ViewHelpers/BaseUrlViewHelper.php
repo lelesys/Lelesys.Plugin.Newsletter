@@ -1,7 +1,7 @@
 <?php
 namespace Lelesys\Plugin\Newsletter\ViewHelpers;
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * A view helper to display Base Url

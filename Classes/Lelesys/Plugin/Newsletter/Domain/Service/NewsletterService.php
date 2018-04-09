@@ -9,13 +9,13 @@ namespace Lelesys\Plugin\Newsletter\Domain\Service;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\Newsletter;
 use TYPO3\TYPO3CR\Domain\Model\NodeTemplate;
 use TYPO3\TYPO3CR\Domain\Model\PersistentNodeInterface;
 use TYPO3\Fluid\View\StandaloneView;
 use TYPO3\TYPO3CR\Domain\Model\Node;
-use TYPO3\Flow\Http\Request as Request;
+use Neos\Flow\Http\Request as Request;
 
 /**
  * Newsletter Service
@@ -76,7 +76,7 @@ class NewsletterService {
 	 * ResourceManager
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\ResourceManagement\ResourceManager
+	 * @var \Neos\Flow\ResourceManagement\ResourceManager
 	 */
 	protected $resourceManager;
 
@@ -84,7 +84,7 @@ class NewsletterService {
 	 * Inject PersistenceManagerInterface
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+	 * @var \Neos\Flow\Persistence\PersistenceManagerInterface
 	 */
 	protected $persistenceManager;
 
@@ -92,7 +92,7 @@ class NewsletterService {
 	 * Injection for property mapper
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Property\PropertyMapper
+	 * @var \Neos\Flow\Property\PropertyMapper
 	 */
 	protected $propertyMapper;
 
@@ -123,7 +123,7 @@ class NewsletterService {
 	 * Inject ConfigurationManager
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
+	 * @var \Neos\Flow\Configuration\ConfigurationManager
 	 */
 	protected $configurationManager;
 
@@ -131,7 +131,7 @@ class NewsletterService {
 	 * Inject RouterInterface
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Mvc\Routing\RouterInterface
+	 * @var \Neos\Flow\Mvc\Routing\RouterInterface
 	 */
 	protected $router;
 
@@ -139,14 +139,14 @@ class NewsletterService {
 	 * Inject dispatcher
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Mvc\Dispatcher
+	 * @var \Neos\Flow\Mvc\Dispatcher
 	 */
 	protected $dispatcher;
 
 	/**
 	 * The security conntext
 	 *
-	 * @var \TYPO3\Flow\Security\Context
+	 * @var \Neos\Flow\Security\Context
 	 * @Flow\Inject
 	 */
 	protected $securityContext;
@@ -154,7 +154,7 @@ class NewsletterService {
 	/**
 	 * Inject ObjectManagerInterface
 	 *
-	 * @var \TYPO3\Flow\ObjectManagement\ObjectManagerInterface
+	 * @var \Neos\Flow\ObjectManagement\ObjectManagerInterface
 	 * @Flow\Inject
 	 */
 	protected $objectManager;
@@ -200,7 +200,7 @@ class NewsletterService {
 				$receipientsByGroupParty[] = array($group->getTitle(), $group->getRecipients());
 			} else {
 				$recipientList = array();
-				$staticList = \TYPO3\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients());
+				$staticList = \Neos\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients());
 				foreach ($staticList as $recipient) {
 					$recipientList[] = $recipient;
 				}
@@ -261,7 +261,7 @@ class NewsletterService {
 					$allArrays['list'] = $personListArray['list'];
 					$allArrays['personEmailList'] = $personListArray['personEmailList'];
 				} else {
-					$staticLists = array_merge($staticLists, \TYPO3\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients()));
+					$staticLists = array_merge($staticLists, \Neos\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients()));
 				}
 			}
 		}
@@ -392,7 +392,7 @@ class NewsletterService {
 		if (empty($attachments) === FALSE) {
 			foreach ($attachments as $attachment) {
 				if (!empty($attachment['name'])) {
-					$resource = $this->propertyMapper->convert($attachment, 'TYPO3\Flow\ResourceManagement\PersistentResource');
+					$resource = $this->propertyMapper->convert($attachment, 'Neos\Flow\ResourceManagement\PersistentResource');
 					$file = new \TYPO3\Media\Domain\Model\Document($resource);
 					$file->setTitle($attachment['name']);
 					$this->assetRepository->add($file);

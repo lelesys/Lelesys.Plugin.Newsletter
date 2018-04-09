@@ -9,8 +9,8 @@ namespace Lelesys\Plugin\Newsletter\Domain\Repository\Recipient;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Doctrine\Repository;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\Doctrine\Repository;
 
 /**
  * @Flow\Scope("singleton")
@@ -98,8 +98,8 @@ class PersonRepository extends Repository {
 	 * @return array The query result
 	 */
 	public function findBySubscribedToNewsletter($keyword) {
-		$query = new \TYPO3\Flow\Persistence\Doctrine\Query($this->objectType);
-		$queryBuilder = \TYPO3\Flow\Reflection\ObjectAccess::getProperty($query, 'queryBuilder', TRUE);
+		$query = new \Neos\Flow\Persistence\Doctrine\Query($this->objectType);
+		$queryBuilder = \Neos\Flow\Reflection\ObjectAccess::getProperty($query, 'queryBuilder', TRUE);
 		$queryBuilder->resetDQLParts();
 		$queryBuilder->select('p')
 				->from('\Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person', 'p')

@@ -9,9 +9,9 @@ namespace Lelesys\Plugin\Newsletter\Controller;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
-use TYPO3\Flow\Mvc\Routing\UriBuilder;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Mvc\Controller\ActionController;
+use Neos\Flow\Mvc\Routing\UriBuilder;
 
 /**
  * A Newsletter Controller

@@ -6,14 +6,14 @@ namespace Lelesys\Plugin\Newsletter\Command;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * A NewsLetter mail Sendout Command Controller
  *
  * @Flow\Scope("singleton")
  */
-class NewsletterCommandController extends \TYPO3\Flow\Cli\CommandController {
+class NewsletterCommandController extends \Neos\Flow\Cli\CommandController {
 
 	/**
 	 * EmailLog Service

@@ -9,7 +9,7 @@ namespace Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Categ
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagementController;
 use Lelesys\Plugin\Newsletter\Domain\Model\Category;
 
@@ -106,11 +106,11 @@ class CategoryController extends NewsletterManagementController {
 			}
 			$header = 'Created a new category.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.add.category');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_OK);
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Cannot create category at this time!!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.addCategory');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
 	}
@@ -143,11 +143,11 @@ class CategoryController extends NewsletterManagementController {
 			}
 			$header = 'Updated the category.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.update.category');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_OK);
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Cannot update category at this time!!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.updatecategory');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
 	}
@@ -163,11 +163,11 @@ class CategoryController extends NewsletterManagementController {
 			$this->categoryService->delete($category);
 			$header = 'Deleted the category';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.category.delete');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_OK);
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Cannot delete category at this time!!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.deletecategory');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Flow\Error\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
 	}

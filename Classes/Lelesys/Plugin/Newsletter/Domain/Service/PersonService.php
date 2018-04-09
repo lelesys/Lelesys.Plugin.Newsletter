@@ -10,7 +10,7 @@ namespace Lelesys\Plugin\Newsletter\Domain\Service;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person;
 use \TYPO3\Fluid\View\StandaloneView;
 
@@ -56,7 +56,7 @@ class PersonService {
 	/**
 	 * Bootstrap
 	 *
-	 * @var \TYPO3\Flow\Core\Bootstrap
+	 * @var \Neos\Flow\Core\Bootstrap
 	 * @Flow\Inject
 	 */
 	protected $bootstrap;
@@ -65,7 +65,7 @@ class PersonService {
 	 * Inject email service
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Persistence\Doctrine\PersistenceManager
+	 * @var \Neos\Flow\Persistence\Doctrine\PersistenceManager
 	 */
 	protected $persistenceManager;
 

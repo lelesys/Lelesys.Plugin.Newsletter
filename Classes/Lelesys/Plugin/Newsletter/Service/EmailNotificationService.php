@@ -9,7 +9,7 @@ namespace Lelesys\Plugin\Newsletter\Service;
  * of the License, or (at your option) any later version.                     *
  *                                                                            */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use TYPO3\Fluid\View\StandaloneView;
 use TYPO3\SwiftMailer\Message;
 

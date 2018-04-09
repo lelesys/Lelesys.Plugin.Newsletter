@@ -9,7 +9,7 @@ namespace Lelesys\Plugin\Newsletter\Service;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Central Service
@@ -39,7 +39,7 @@ class CentralService {
 	 * Inject translator
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\I18n\Translator
+	 * @var \Neos\Flow\I18n\Translator
 	 */
 	protected $translator;
 
