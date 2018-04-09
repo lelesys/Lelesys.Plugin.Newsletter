@@ -122,6 +122,6 @@ Neos:
                 title: 'Static List'
             privilegeTarget: Lelesys_Plugin_Newsletter_Module_NewsletterManagement_StaticList
         privilegeTarget: Lelesys_Plugin_Newsletter_Module_NewsletterManagement
-    typoScript:
+    fusion:
       autoInclude:
         Lelesys.Plugin.Newsletter: true
