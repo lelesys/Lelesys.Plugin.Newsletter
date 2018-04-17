@@ -155,9 +155,11 @@ class NewsletterBuildService {
 		$this->router->setRoutesConfiguration($routesConfiguration);
 		$uri = new \Neos\Flow\Http\Uri($baseUrl);
 		$httpRequest = Request::create($uri);
-		$actionRequest = $httpRequest->createActionRequest();
+        $parameters = \Neos\Flow\Mvc\Routing\Dto\RouteParameters::createEmpty();
+		$routeContext = new \Neos\Flow\Mvc\Routing\Dto\RouteContext($httpRequest, $parameters);
+		$actionRequest = new \Neos\Flow\Mvc\ActionRequest($httpRequest);
 		$actionRequest->setArgument('node', $nodeIdentifier);
-		$newActionRequest = $this->router->route($httpRequest);
+		$newActionRequest = $this->router->route($routeContext);
 		$actionRequest->setControllerPackageKey($newActionRequest['@package']);
 		$actionRequest->setControllerName($newActionRequest['@controller']);
 		$actionRequest->setControllerActionName($newActionRequest['@action']);
@@ -195,7 +197,7 @@ class NewsletterBuildService {
 			$newsletterAttachments = $newsletter->getAttachments();
 			$attachments = array();
 			foreach ($newsletterAttachments as $newsletterAttachment) {
-				$attachments[$this->resourceManager->getPersistentResourcesStorageBaseUri() . $newsletterAttachment->getResource()->getResourcePointer()->getHash()] = $newsletterAttachment->getTitle();
+                $attachments[$this->resourceManager->getPublicPersistentResourceUri($newsletterAttachment->getResource())] = $newsletterAttachment->getTitle();
 			}
 
 			$values = array('newsletter' => $newsletter);
