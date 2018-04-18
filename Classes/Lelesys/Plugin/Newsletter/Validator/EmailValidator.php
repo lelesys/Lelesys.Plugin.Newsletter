@@ -9,20 +9,20 @@ namespace Lelesys\Plugin\Newsletter\Validator;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Validator for validating multiple emails
  *
  * @api
  */
-class EmailValidator extends \TYPO3\Flow\Validation\Validator\AbstractValidator {
+class EmailValidator extends \Neos\Flow\Validation\Validator\AbstractValidator {
 
 	/**
 	 * Inject translator
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\I18n\Translator
+	 * @var \Neos\Flow\I18n\Translator
 	 */
 	protected $translator;
 

@@ -9,14 +9,14 @@ namespace Lelesys\Plugin\Newsletter\Controller\Module;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Newsletter controller for the Lelesys.Plugin.Newsletter package
  *
  * @Flow\Scope("singleton")
  */
-class NewsletterManagementController extends \TYPO3\Neos\Controller\Module\AbstractModuleController {
+class NewsletterManagementController extends \Neos\Neos\Controller\Module\AbstractModuleController {
 
 }
 ?>

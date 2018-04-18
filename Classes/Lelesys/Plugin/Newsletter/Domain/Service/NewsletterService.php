@@ -9,13 +9,13 @@ namespace Lelesys\Plugin\Newsletter\Domain\Service;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\Newsletter;
-use TYPO3\TYPO3CR\Domain\Model\NodeTemplate;
-use TYPO3\TYPO3CR\Domain\Model\PersistentNodeInterface;
-use TYPO3\Fluid\View\StandaloneView;
-use TYPO3\TYPO3CR\Domain\Model\Node;
-use TYPO3\Flow\Http\Request as Request;
+use Neos\ContentRepository\Domain\Model\NodeTemplate;
+use Neos\ContentRepository\Domain\Model\PersistentNodeInterface;
+use Neos\FluidAdaptor\View\StandaloneView;
+use Neos\ContentRepository\Domain\Model\Node;
+use Neos\Flow\Http\Request as Request;
 
 /**
  * Newsletter Service
@@ -52,7 +52,7 @@ class NewsletterService {
 	 * NodeData Repository
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\TYPO3CR\Domain\Repository\NodeDataRepository
+	 * @var \Neos\ContentRepository\Domain\Repository\NodeDataRepository
 	 */
 	protected $nodeDataRepository;
 
@@ -76,7 +76,7 @@ class NewsletterService {
 	 * ResourceManager
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Resource\ResourceManager
+	 * @var \Neos\Flow\ResourceManagement\ResourceManager
 	 */
 	protected $resourceManager;
 
@@ -84,7 +84,7 @@ class NewsletterService {
 	 * Inject PersistenceManagerInterface
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+	 * @var \Neos\Flow\Persistence\PersistenceManagerInterface
 	 */
 	protected $persistenceManager;
 
@@ -92,7 +92,7 @@ class NewsletterService {
 	 * Injection for property mapper
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Property\PropertyMapper
+	 * @var \Neos\Flow\Property\PropertyMapper
 	 */
 	protected $propertyMapper;
 
@@ -100,7 +100,7 @@ class NewsletterService {
 	 * Asset repository
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Media\Domain\Repository\AssetRepository
+	 * @var \Neos\Media\Domain\Repository\AssetRepository
 	 */
 	protected $assetRepository;
 
@@ -115,7 +115,7 @@ class NewsletterService {
 	 * Contextfactory
 	 *
 	 * @Flow\Inject
-	 * @var TYPO3\TYPO3CR\Domain\Service\ContextFactoryInterface
+	 * @var Neos\ContentRepository\Domain\Service\ContextFactoryInterface
 	 */
 	protected $contextFactory;
 
@@ -123,7 +123,7 @@ class NewsletterService {
 	 * Inject ConfigurationManager
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
+	 * @var \Neos\Flow\Configuration\ConfigurationManager
 	 */
 	protected $configurationManager;
 
@@ -131,7 +131,7 @@ class NewsletterService {
 	 * Inject RouterInterface
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Mvc\Routing\RouterInterface
+	 * @var \Neos\Flow\Mvc\Routing\RouterInterface
 	 */
 	protected $router;
 
@@ -139,14 +139,14 @@ class NewsletterService {
 	 * Inject dispatcher
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Mvc\Dispatcher
+	 * @var \Neos\Flow\Mvc\Dispatcher
 	 */
 	protected $dispatcher;
 
 	/**
 	 * The security conntext
 	 *
-	 * @var \TYPO3\Flow\Security\Context
+	 * @var \Neos\Flow\Security\Context
 	 * @Flow\Inject
 	 */
 	protected $securityContext;
@@ -154,7 +154,7 @@ class NewsletterService {
 	/**
 	 * Inject ObjectManagerInterface
 	 *
-	 * @var \TYPO3\Flow\Object\ObjectManagerInterface
+	 * @var \Neos\Flow\ObjectManagement\ObjectManagerInterface
 	 * @Flow\Inject
 	 */
 	protected $objectManager;
@@ -200,7 +200,7 @@ class NewsletterService {
 				$receipientsByGroupParty[] = array($group->getTitle(), $group->getRecipients());
 			} else {
 				$recipientList = array();
-				$staticList = \TYPO3\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients());
+				$staticList = \Neos\Utility\Arrays::trimExplode(',', $group->getRecipients());
 				foreach ($staticList as $recipient) {
 					$recipientList[] = $recipient;
 				}
@@ -261,7 +261,7 @@ class NewsletterService {
 					$allArrays['list'] = $personListArray['list'];
 					$allArrays['personEmailList'] = $personListArray['personEmailList'];
 				} else {
-					$staticLists = array_merge($staticLists, \TYPO3\Flow\Utility\Arrays::trimExplode(',', $group->getRecipients()));
+					$staticLists = array_merge($staticLists, \Neos\Utility\Arrays::trimExplode(',', $group->getRecipients()));
 				}
 			}
 		}
@@ -347,7 +347,7 @@ class NewsletterService {
 	/**
 	 * Gets all newsletter childnodes
 	 *
-	 * @return \TYPO3\TYPO3CR\Domain\Model\NodeData $nodes
+	 * @return \Neos\ContentRepository\Domain\Model\NodeData $nodes
 	 */
 	public function getNewsletterChildNodes() {
 		$nodes = $this->nodeDataRepository->findByNodeType('Lelesys.Plugin.Newsletter:Newsletter')->toArray();
@@ -363,7 +363,7 @@ class NewsletterService {
 	/**
 	 * Get all newsletter childnodes
 	 *
-	 * @return \TYPO3\TYPO3CR\Domain\Model\NodeData $nodes
+	 * @return \Neos\ContentRepository\Domain\Model\NodeData $nodes
 	 */
 	public function getAllNewsletterChildNodes() {
 		$nodes = $this->nodeDataRepository->findByNodeType('Lelesys.Plugin.Newsletter:Newsletter')->toArray();
@@ -392,8 +392,8 @@ class NewsletterService {
 		if (empty($attachments) === FALSE) {
 			foreach ($attachments as $attachment) {
 				if (!empty($attachment['name'])) {
-					$resource = $this->propertyMapper->convert($attachment, 'TYPO3\Flow\Resource\Resource');
-					$file = new \TYPO3\Media\Domain\Model\Document($resource);
+					$resource = $this->propertyMapper->convert($attachment, 'Neos\Flow\ResourceManagement\PersistentResource');
+					$file = new \Neos\Media\Domain\Model\Document($resource);
 					$file->setTitle($attachment['name']);
 					$this->assetRepository->add($file);
 					$newNewsletter->addAttachment($file);
@@ -507,7 +507,7 @@ class NewsletterService {
 	 * Gets all content node
 	 *
 	 * @param string $contentNode Node identifier
-	 * @return \TYPO3\TYPO3CR\Domain\Model\NodeData $newsletterNode
+	 * @return \Neos\ContentRepository\Domain\Model\NodeData $newsletterNode
 	 */
 	public function getContentNode($contentNode = NULL) {
 		if ($contentNode !== NULL) {
@@ -520,10 +520,10 @@ class NewsletterService {
 	 * Delete attachments of the newsletter
 	 *
 	 * @param \Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter Newsletter object
-	 * @param \TYPO3\Media\Domain\Model\Document $attachment Attachment object
+	 * @param \Neos\Media\Domain\Model\Document $attachment Attachment object
 	 * @return void
 	 */
-	public function deleteAttachment(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, \TYPO3\Media\Domain\Model\Document $attachment) {
+	public function deleteAttachment(\Lelesys\Plugin\Newsletter\Domain\Model\Newsletter $newsletter, \Neos\Media\Domain\Model\Document $attachment) {
 		$newsletter->removeAttachment($attachment);
 		$this->update($newsletter);
 		$this->assetRepository->remove($attachment);

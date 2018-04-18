@@ -9,9 +9,9 @@ namespace Lelesys\Plugin\Newsletter\Service;
  * of the License, or (at your option) any later version.                     *
  *                                                                            */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Fluid\View\StandaloneView;
-use TYPO3\SwiftMailer\Message;
+use Neos\Flow\Annotations as Flow;
+use Neos\FluidAdaptor\View\StandaloneView;
+use Neos\SwiftMailer\Message;
 
 /**
  * Service to send Newsletter mails

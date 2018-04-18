@@ -9,7 +9,7 @@ namespace Lelesys\Plugin\Newsletter\Domain\Model\Recipient;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @Flow\Entity
  */
-class Person extends \TYPO3\Party\Domain\Model\Person {
+class Person extends \Neos\Party\Domain\Model\Person {
 
 	/**
 	 * Gender

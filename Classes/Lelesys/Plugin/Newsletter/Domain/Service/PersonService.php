@@ -10,9 +10,9 @@ namespace Lelesys\Plugin\Newsletter\Domain\Service;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person;
-use \TYPO3\Fluid\View\StandaloneView;
+use \Neos\FluidAdaptor\View\StandaloneView;
 
 /**
  * The Person Service
@@ -56,7 +56,7 @@ class PersonService {
 	/**
 	 * Bootstrap
 	 *
-	 * @var \TYPO3\Flow\Core\Bootstrap
+	 * @var \Neos\Flow\Core\Bootstrap
 	 * @Flow\Inject
 	 */
 	protected $bootstrap;
@@ -65,7 +65,7 @@ class PersonService {
 	 * Inject email service
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Persistence\Doctrine\PersistenceManager
+	 * @var \Neos\Flow\Persistence\Doctrine\PersistenceManager
 	 */
 	protected $persistenceManager;
 
@@ -221,7 +221,7 @@ class PersonService {
 	 * Get the user object from given identifier
 	 *
 	 * @param string $userIdentifier User identifier
-	 * @return \TYPO3\Party\Domain\Model\Person
+	 * @return \Neos\Party\Domain\Model\Person
 	 */
 	public function getUserFromIdentifier($userIdentifier) {
 		return $this->personRepository->findByIdentifier($userIdentifier);
@@ -240,7 +240,7 @@ class PersonService {
 	/**
 	 * Email approval by user
 	 *
-	 * @param \TYPO3\Party\Domain\Model\Person $user User
+	 * @param \Neos\Party\Domain\Model\Person $user User
 	 * @return void
 	 */
 	public function emailApprovalByUser($user) {
@@ -253,7 +253,7 @@ class PersonService {
 	 * Send Email
 	 *
 	 * @param string $url
-	 * @param \TYPO3\Party\Domain\Model\Person $user User
+	 * @param \Neos\Party\Domain\Model\Person $user User
 	 * @param string $template Template name
 	 * @param string $subject Email subject
 	 * @return void

@@ -10,7 +10,7 @@ namespace Lelesys\Plugin\Newsletter\Domain\Service;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party;
 
 /**
@@ -48,7 +48,7 @@ class PartyService {
 	 * Inject persistence manager
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+	 * @var \Neos\Flow\Persistence\PersistenceManagerInterface
 	 */
 	protected $persistenceManager;
 

@@ -9,7 +9,7 @@ namespace Lelesys\Plugin\Newsletter\Domain\Service;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Domain\Model\EmailLog;
 
 /**
@@ -29,7 +29,7 @@ class EmailLogService {
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+	 * @var \Neos\Flow\Persistence\PersistenceManagerInterface
 	 */
 	protected $persistenceManager;
 
@@ -48,7 +48,7 @@ class EmailLogService {
 	 *
 	 * @param integer $limit Limit of emails
 	 * @param integer $offset Offset of emails
-	 * @return TYPO3\Flow\Persistence\QueryResultInterface The query result
+	 * @return Neos\Flow\Persistence\QueryResultInterface The query result
 	 */
 	public function listAllUndeliveredMailsLogs($limit, $offset) {
 		return $this->emailLogRepository->findAllUndeliveredMailsLogs($limit, $offset);

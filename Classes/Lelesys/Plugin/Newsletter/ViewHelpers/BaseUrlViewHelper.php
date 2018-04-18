@@ -1,14 +1,14 @@
 <?php
 namespace Lelesys\Plugin\Newsletter\ViewHelpers;
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * A view helper to display Base Url
  *
  * @Flow\scope("prototype")
  */
-class BaseUrlViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class BaseUrlViewHelper extends \Neos\FluidAdaptor\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Settings

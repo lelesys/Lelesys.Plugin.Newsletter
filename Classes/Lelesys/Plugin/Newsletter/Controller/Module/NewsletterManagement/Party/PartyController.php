@@ -9,7 +9,7 @@ namespace Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagement\Party
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 use Lelesys\Plugin\Newsletter\Controller\Module\NewsletterManagementController;
 use Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Group\Party;
 
@@ -91,11 +91,11 @@ class PartyController extends NewsletterManagementController {
 			$this->partyService->create($newParty);
 			$header = 'Created a new group.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.add.group');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Cannot create group at this time!!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.addGroup');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
 	}
@@ -129,11 +129,11 @@ class PartyController extends NewsletterManagementController {
 			$this->partyService->update($party);
 			$header = 'Updated group.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.update.group');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Cannot update group at this time!!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.updateGroup');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
 	}
@@ -149,11 +149,11 @@ class PartyController extends NewsletterManagementController {
 			$this->partyService->delete($party);
 			$header = 'Deleted the group.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.delete.group');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Cannot delete group at this time!!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.deleteGroup');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 		}
 		$this->redirect('index');
 	}

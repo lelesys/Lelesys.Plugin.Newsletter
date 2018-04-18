@@ -9,8 +9,8 @@ namespace Lelesys\Plugin\Newsletter\Controller;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Mvc\Controller\ActionController;
 use Lelesys\Plugin\Newsletter\Domain\Model\Recipient\Person;
 
 /**
@@ -56,7 +56,7 @@ class PersonController extends ActionController {
 	 * The configuration content dimension preset source
 	 *
 	 * @Flow\Inject
-	 * @var \TYPO3\Neos\Domain\Service\ConfigurationContentDimensionPresetSource
+	 * @var \Neos\Neos\Domain\Service\ConfigurationContentDimensionPresetSource
 	 */
 	protected $configurationContentDimensionPresetSource;
 
@@ -89,19 +89,19 @@ class PersonController extends ActionController {
 			if (($isExistingUser !== NULL) && ($isExistingUser === TRUE)) {
 				$header = 'This email address has already subscribed!';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.emailExist');
-				$this->addFlashMessage($newPerson->getPrimaryElectronicAddress()->getIdentifier() . $message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+				$this->addFlashMessage($newPerson->getPrimaryElectronicAddress()->getIdentifier() . $message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 				$this->redirect("new");
 			} else {
 				$this->personService->create($newPerson, $currentLocale['identifier']);
 				$header = 'Thank you for subscribing to our newsletter.';
 				$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.subscribed');
-				$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+				$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 				$this->redirect("new");
 			}
 		} catch (Lelesys\Plugin\Newsletter\Domain\Service\Exception $exception) {
 			$header = 'Can not subscribe to newsletter at this time!!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.cannot.subscribe');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 			$this->redirect("new");
 		}
 		$this->redirectToUri($baseUri);
@@ -139,15 +139,15 @@ class PersonController extends ActionController {
 		if ($isConfirmed === 1) {
 			$header = 'The user is approved!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.user.approved');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 		} elseif ($isConfirmed === 0) {
 			$header = 'Link not valid!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.linkNotValid');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 		} elseif ($isConfirmed === 2) {
 			$header = 'Already confirmed user!.';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.user.confirmed');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 		}
 	}
 
@@ -164,11 +164,11 @@ class PersonController extends ActionController {
 		if ($unSubscribed === 1) {
 			$header = 'You are now unsubscribed!';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.user.unsubscribed');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_OK);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_OK);
 		} elseif ($unSubscribed === 0) {
 			$header = 'Link not valid!';
 			$message = $this->centralService->translate('lelesys.plugin.newsletter.linkNotValid');
-			$this->addFlashMessage($message, $header, \TYPO3\Flow\Error\Message::SEVERITY_ERROR);
+			$this->addFlashMessage($message, $header, \Neos\Error\Messages\Message::SEVERITY_ERROR);
 		}
 		$this->redirectToUri($baseUri);
 	}

@@ -5,14 +5,14 @@ namespace Lelesys\Plugin\Newsletter\ViewHelpers;
  * This script belongs to the Flow package "Lelesys.Plugin.Newsletter".   *
  *                                                                        *
  *                                                                        */
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * A view helper to show news's category and its related newsletter
  *
  * @Flow\scope("prototype")
  */
-class RecipientEmailViewHelper extends \TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper {
+class RecipientEmailViewHelper extends \Neos\FluidAdaptor\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * EmailLog Service

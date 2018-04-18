@@ -9,8 +9,8 @@ namespace Lelesys\Plugin\Newsletter\Domain\Repository;
  * of the License, or (at your option) any later version.                  *
  *                                                                         */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Repository;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\Repository;
 
 /**
  * Newsletter Category Repository
