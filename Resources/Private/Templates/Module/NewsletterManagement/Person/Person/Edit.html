@@ -26,14 +26,14 @@
 			</div>
 			<div class="neos-control-group">
 				<label for="gender"><f:translate id="lelesys.plugin.newsletter.gender"></f:translate></label>
-				<f:if condition="{person.gender} === 1">
+				<f:if condition="{person.gender} == 'f'">
 					<f:then>
-						<f:form.radio property="gender" value="1" checked="TRUE"/> <f:translate id="lelesys.plugin.newsletter.female"></f:translate>
-						<f:form.radio property="gender" value="0" /> <f:translate id="lelesys.plugin.newsletter.male"></f:translate>
+						<f:form.radio property="gender" value="f" checked="TRUE"/> <f:translate id="lelesys.plugin.newsletter.female"></f:translate>
+						<f:form.radio property="gender" value="m" /> <f:translate id="lelesys.plugin.newsletter.male"></f:translate>
 					</f:then>
 					<f:else>
-						<f:form.radio property="gender" value="1"/> <f:translate id="lelesys.plugin.newsletter.female"></f:translate>
-						<f:form.radio property="gender" value="0"  checked="TRUE"/> <f:translate id="lelesys.plugin.newsletter.male"></f:translate>
+						<f:form.radio property="gender" value="f"/> <f:translate id="lelesys.plugin.newsletter.female"></f:translate>
+						<f:form.radio property="gender" value="m"  checked="TRUE"/> <f:translate id="lelesys.plugin.newsletter.male"></f:translate>
 					</f:else>
 				</f:if>
 			</div>

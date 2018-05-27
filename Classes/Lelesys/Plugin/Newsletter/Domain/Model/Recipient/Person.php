@@ -22,8 +22,9 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	/**
 	 * Gender
 	 *
-	 * @var boolean
-	 * @Flow\Validate(type="NotEmpty")
+	 * @var string
+	 * @ORM\Column(length=1, options={"default":""})
+	 * @Flow\Validate(type="StringLength", options={ "minimum"=0, "maximum"=1 })
 	 */
 	protected $gender;
 
@@ -74,7 +75,7 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	/**
 	 * Gets gender
 	 *
-	 * @return boolean
+	 * @return string
 	 */
 	public function getGender() {
 		return $this->gender;
@@ -83,7 +84,7 @@ class Person extends \TYPO3\Party\Domain\Model\Person {
 	/**
 	 * Sets gender
 	 *
-	 * @param boolean $gender
+	 * @param string $gender
 	 * @return void
 	 */
 	public function setGender($gender) {
